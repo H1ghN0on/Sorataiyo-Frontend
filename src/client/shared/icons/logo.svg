@@ -1,0 +1,35 @@
+<svg id="Группа_1" data-name="Группа 1" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" width="293.16" height="300" viewBox="0 0 300 307">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+      font-size: 175px;
+      }
+
+      .cls-1 {
+      font-family: "UD Digi Kyokasho N-R";
+      }
+
+      .cls-2 {
+      font-family: "UD Digi Kyokasho NP-B";
+      font-weight: 700;
+      }
+
+      .cls-3 {
+      fill: #fff;
+      stroke: #000;
+      stroke-width: 10px;
+      }
+
+      .cls-4 {
+      font-size: 36px;
+      font-family: Calibri;
+      }
+    </style>
+  </defs>
+  <text id="_" data-name="{" class="cls-1" x="-14.399" y="231.066">{</text>
+  <text id="空" class="cls-2" x="63.985" y="231.234">空</text>
+  <text id="_2" data-name="｝" class="cls-1" x="226.487" y="230.956">｝</text>
+  <circle id="Эллипс_1" data-name="Эллипс 1" class="cls-3" cx="149.5" cy="43.5" r="30.5" />
+  <text id="SORATAIYO" class="cls-4" x="68.406" y="290.206">SORATAIYO</text>
+</svg>

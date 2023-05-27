@@ -1,0 +1,45 @@
+@import './client/shared/styles/normalize.scss';
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("./client/shared/fonts/FuturaStd/FuturaStdBook.woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("./client/shared/fonts/FuturaStd/FuturaStdMedium.woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("./client/shared/fonts/FuturaStd/FuturaStdHeavy.woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("./client/shared/fonts/FuturaStd/FuturaStdBold.woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("./client/shared/fonts/FuturaStd/FuturaStdExtraBold.woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+* {
+  font-family: "FuturaStd";
+  font-weight: 300;
+}
+
+body {
+  font-size: 16px;
+}

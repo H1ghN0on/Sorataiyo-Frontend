@@ -1,0 +1,42 @@
+@import "../../../shared/styles/variables.scss";
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.button {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background: $primary-light;
+    color: $primary-dark;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 10px;
+
+    .loading-icon {
+        fill: $primary-dark;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s infinite linear;
+    }
+}
+
+.button-inverse {
+    background: $primary-dark;
+    color: $primary-light;
+    .loading-icon {
+        fill: $primary-light;
+        animation: spin 1s infinite linear;
+    }
+}
+
