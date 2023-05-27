@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="container">
       <Button
+        disabled
         className="button1"
         useLoader
         onClick={async () => {
@@ -23,6 +24,7 @@ function App() {
       </Button>
       <Button
         inverse
+        disabled
         onClick={() => {
           alert("Hi!");
         }}

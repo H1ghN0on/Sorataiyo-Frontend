@@ -33,6 +33,11 @@
         height: 20px;
         animation: spin 1s infinite linear;
     }
+
+    &.button-disabled {
+        background: $secondary-light;
+        color: $font-main;
+    }
 }
 
 .button-inverse {
@@ -43,4 +48,5 @@
         animation: spin 1s infinite linear;
     }
 }
+
 

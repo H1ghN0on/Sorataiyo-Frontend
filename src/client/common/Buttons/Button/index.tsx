@@ -47,6 +47,7 @@ const Button: React.FC<IButtonProps> = ({
       className={clsx(className === undefined ? "" : className, "button", {
         "button-loading": isLoading,
         "button-inverse": inverse,
+        "button-disabled": disabled,
       })}
       disabled={isDisabled}
       type={type}
