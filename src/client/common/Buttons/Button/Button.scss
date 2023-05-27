@@ -22,6 +22,10 @@
     font-size: 1.2em;
     cursor: pointer;
     border-radius: 10px;
+    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     .loading-icon {
         fill: $primary-dark;

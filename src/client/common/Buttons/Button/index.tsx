@@ -5,9 +5,9 @@ import { ReactComponent as WaitSpin } from "../../../shared/icons/wait-spin.svg"
 
 import "./Button.scss";
 
-interface IButtonProps {
-  title: string;
+export interface IButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  children: React.ReactNode;
   useLoader?: boolean;
   className?: string;
   type?: "button" | "submit";
@@ -16,12 +16,12 @@ interface IButtonProps {
 }
 
 const Button: React.FC<IButtonProps> = ({
-  title,
   onClick,
   className,
   disabled,
   useLoader,
   inverse,
+  children,
   type = "button",
 }) => {
   const [isLoading, setLoading] = React.useState(false);
@@ -33,11 +33,9 @@ const Button: React.FC<IButtonProps> = ({
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (useLoader) {
-      console.log("hi");
       setLoading(true);
       await onClick(e);
       setLoading(false);
-      console.log("hi2");
       return;
     }
 
@@ -54,7 +52,7 @@ const Button: React.FC<IButtonProps> = ({
       type={type}
       onClick={handleClick}
     >
-      {isLoading ? <WaitSpin className="loading-icon" /> : title}
+      {isLoading ? <WaitSpin className="loading-icon" /> : children}
     </button>
   );
 };
