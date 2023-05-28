@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "client/common/Buttons/Button";
 import IconButton from "client/common/Buttons/IconButton";
+import IconInput from "client/common/Inputs/IconInput";
 import Input from "client/common/Inputs/Input";
 
 import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
@@ -17,11 +18,13 @@ function App() {
 
   return (
     <div className="container">
-      <Input
+      <IconInput
+        className={"hi"}
+        icon={WaitSpin}
         onChange={handleChange}
         value={value}
-        name="nigger"
-        label="Nigger"
+        name="InYouth"
+        label="InYouth"
         maxLength={25}
         withLengthHint={true}
       />

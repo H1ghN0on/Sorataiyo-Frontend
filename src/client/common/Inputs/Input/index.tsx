@@ -1,9 +1,9 @@
-import clsx from "clsx";
 import React from "react";
+import clsx from "clsx";
 
 import "./Input.scss";
 
-interface IInputProps {
+export interface IInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
