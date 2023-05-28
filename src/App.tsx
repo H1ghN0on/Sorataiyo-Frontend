@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Select, Button, IconButton, IconInput, Input } from "client/common";
+import {
+  Select,
+  Button,
+  IconButton,
+  IconInput,
+  Input,
+  TextWithHint,
+} from "client/common";
 
 import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
 
@@ -37,14 +44,13 @@ function App() {
 
   return (
     <div className="container">
-      <Select
-        options={options}
-        onChange={handleSelectChange}
-        active={activeOption}
-        className={"hi"}
-        name="example"
-        label="Example"
-      />
+      Lorem ipsum dolor sit amet consectetur,
+      <TextWithHint hint="Let's dance boys">TextToHint</TextWithHint> elit. Quae
+      obcaecati, libero officia similique facere tempora possimus vero veniam
+      iusto ducimus quaerat quod atque nam recusandae error nobis dicta odio
+      explicabo placeat iste voluptates voluptatem saepe vitae ipsum! Possimus,
+      unde architecto officiis, nisi consequuntur vel sunt animi blanditiis,
+      quasi ea officia.
     </div>
   );
 }

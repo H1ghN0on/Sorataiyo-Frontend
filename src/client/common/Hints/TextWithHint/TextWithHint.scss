@@ -1,0 +1,27 @@
+@import "../../../shared/styles/variables.scss";
+
+.text-with-hint {
+    position: relative;
+
+    .text {
+        border-bottom: 2px dashed $primary-dark;
+        cursor: pointer;
+    }
+    .text-hint {
+        max-width: 150px;
+        width: max-content;
+        position: absolute;
+        padding:10px;
+        top: calc(100% + 3px);
+        left: 0;
+        background: $primary-light;
+        color: $primary-dark;
+        border: 1px solid $font-main;
+        border-radius: 3px;
+        opacity: 1;
+        transition: opacity 0.3s;
+        &.text-hint-hidden {
+            opacity: 0;
+        }
+    }
+}
