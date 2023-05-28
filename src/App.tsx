@@ -4,6 +4,7 @@ import Button from "client/common/Buttons/Button";
 import IconButton from "client/common/Buttons/IconButton";
 import IconInput from "client/common/Inputs/IconInput";
 import Input from "client/common/Inputs/Input";
+import Select from "client/common/Inputs/Select";
 
 import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
 
@@ -16,17 +17,37 @@ function App() {
     setValue(e.target.value);
   };
 
+  const [options, setOptions] = React.useState([
+    {
+      name: "Option 1",
+      value: "option1",
+    },
+    {
+      name: "Option 2",
+      value: "option2",
+    },
+    {
+      name: "Option 3",
+      value: "option3",
+    },
+  ]);
+
+  const [activeOption, setActiveOption] = React.useState(options[0]);
+
+  const handleSelectChange = (option: { name: string; value: string }) => {
+    console.log(option.value + " was chosen");
+    setActiveOption(option);
+  };
+
   return (
     <div className="container">
-      <IconInput
+      <Select
+        options={options}
+        onChange={handleSelectChange}
+        active={activeOption}
         className={"hi"}
-        icon={WaitSpin}
-        onChange={handleChange}
-        value={value}
-        name="InYouth"
-        label="InYouth"
-        maxLength={25}
-        withLengthHint={true}
+        name="example"
+        label="Example"
       />
     </div>
   );
