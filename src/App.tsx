@@ -1,10 +1,6 @@
 import React from "react";
 
-import Button from "client/common/Buttons/Button";
-import IconButton from "client/common/Buttons/IconButton";
-import IconInput from "client/common/Inputs/IconInput";
-import Input from "client/common/Inputs/Input";
-import Select from "client/common/Inputs/Select";
+import { Select, Button, IconButton, IconInput, Input } from "client/common";
 
 import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
 
