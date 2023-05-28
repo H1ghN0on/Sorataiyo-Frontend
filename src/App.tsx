@@ -1,11 +1,15 @@
 import React from "react";
 
-import { LoginPage } from "client/pages";
+import {
+  LoginPage,
+  IntroductionRegisterPage,
+  EmailConfirmationRegisterPage,
+} from "client/pages";
 
 import "./App.scss";
 
 function App() {
-  return <LoginPage />;
+  return <EmailConfirmationRegisterPage />;
 }
 
 export default App;

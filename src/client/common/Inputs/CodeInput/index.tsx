@@ -6,10 +6,10 @@ import "./CodeInput.scss";
 interface ICodeInputProps {
   length: number;
   values: number[];
-  onChange: (value: number, position: number) => void;
+  onChange: (value: number, position: number) => number[];
   className?: string;
   label?: string;
-  onSubmit?: () => boolean;
+  onSubmit?: (actualValue: number[]) => boolean;
   onClear?: () => void;
 }
 
@@ -36,18 +36,18 @@ const CodeInput: React.FC<ICodeInputProps> = ({
     const value = e.target.value[e.target.value.length - 1];
     if (!value || !value.match(re)) return;
 
-    onChange(+value, pos);
+    const actualValue = onChange(+value, pos);
 
     const emptyField = checkInputsFilled(pos);
     if (emptyField !== -1) {
       itemsRef.current[emptyField]?.focus();
       return;
     }
-    handleSubmitInput();
+    handleSubmitInput(actualValue);
   };
 
-  const handleSubmitInput = () => {
-    if (onSubmit && !onSubmit()) {
+  const handleSubmitInput = (actualValue: number[]) => {
+    if (onSubmit && !onSubmit(actualValue)) {
       onClear && onClear();
       itemsRef.current[0]?.focus();
     }

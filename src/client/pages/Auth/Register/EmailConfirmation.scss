@@ -1,0 +1,85 @@
+.email-confirm-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 35px;
+
+    .email-confirm-input-box {
+        width: 100%;
+        position: relative;
+        .icon-input-container {
+            .icon-input {
+                left: 10px;
+                padding-right: 10px;
+                top: 54%;
+            }
+            .input-label {
+                font-size: 1em;
+            }
+            .input-base {
+                width: calc(100% - 55px - 22%);
+                padding-left: calc(35px + 20px);
+                font-size: 1em;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-right: 22%;
+                
+            }
+        }
+        .email-confirm-send-btn {
+            position: absolute;
+            text-align: center;
+            width: 20%;
+            font-size: 0.8em;
+            height: 30px;
+            right: 0;
+            top: 47%;
+            padding: 0 5px;
+        }
+    }
+
+    .email-confirm-code-input {
+        margin-top: 15px;
+        width: 50%;
+        transform: scaleY(1);
+        transform-origin:top;
+        opacity: 1;
+        transition: 0.3s;
+        max-height: max-content;
+        &.hidden {
+            max-height: 0;
+            transform: scaleY(0);
+            opacity: 0;
+        }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .email-confirm-form {
+         .email-confirm-input-box {
+            .icon-input-container {
+                .icon-input {
+                    left: 5px;
+                    padding-right: 5px;
+                    top: 54%;
+                }
+                .input-base {
+                    width: calc(100% - 40px);
+                    padding-left: calc(25px + 10px);
+                    padding-right: 5px;
+                }
+            }
+            .email-confirm-send-btn {
+                top: 105%;
+                left: 0;
+                width: 100%;
+            }
+        }
+        .email-confirm-code-input {
+            margin-top: 50px;
+            width: 80%;
+        }
+    }
+        
+}

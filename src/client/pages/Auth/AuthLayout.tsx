@@ -16,21 +16,21 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({
   isRegister,
 }) => {
   return (
-    <div className="login-page">
-      <div className="login-logo">
+    <div className="auth-page">
+      <div className="auth-logo">
         <Logo className="logo" />
       </div>
-      <div className="login-container">
-        <h3 className="login-title">{title}</h3>
+      <div className="auth-container">
+        <h3 className="auth-title">{title}</h3>
         {children}
-        <div className="login-footer">
+        <div className="auth-footer">
           <span>
             {isRegister
               ? "Already explored with Sorataiyo?"
               : "New to Sorataiyo?"}
           </span>
 
-          <a className="login-footer-link" href="google.com">
+          <a className="auth-footer-link" href="google.com">
             {isRegister ? "Sign in" : "Sign up"}
           </a>
         </div>

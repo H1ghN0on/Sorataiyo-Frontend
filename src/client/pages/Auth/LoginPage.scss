@@ -1,86 +1,35 @@
 @import "../../shared/styles/variables.scss";
 
-.login-page {
+.login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    .login-logo {
-        .logo {
-            width: 150px;
+    margin-top: 15px;
+    .icon-input-container {
+        .icon-input {
+            left: 10px;
+            padding-right: 10px;
+        }
+        .input-label {
+            font-size: 1em;
+        }
+        .input-base {
+            width: calc(100% - 55px);
+            padding-left: calc(35px + 20px);
+            font-size: 1.2em;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
         }
     }
-
-    .login-container {
+    .login-submit-btn {
+        width: 50%;
         margin-top: 30px;
-        width: 50vw;
-        background: white;
-        padding: 50px 100px;
-
-        .login-title {
-            text-align: center;
-            font-size: 1.8em;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 15px;
-            .icon-input-container {
-                .icon-input {
-                    left: 10px;
-                    padding-right: 10px;
-                }
-                .input-label {
-                    font-size: 1em;
-                }
-                .input-base {
-                    width: calc(100% - 55px);
-                    padding-left: calc(35px + 20px);
-                    font-size: 1.2em;
-                    padding-top: 10px;
-                    padding-bottom: 10px;
-
-                }
-            }
-            .login-submit-btn {
-                width: 50%;
-                margin-top: 30px;
-            }
-            > div, button { 
-                margin-top: 15px;
-            }
-            & :first-child {
-                margin-top: 0px;
-            }
-        }
-        .login-footer {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-            .login-footer-link {
-                margin-left: 20px;
-                color: $primary-dark;
-            }
-        }
-
     }
-}
-
-
-@media screen and (max-width: 768px) {
-    .login-page {
-        .login-container {
-            padding: 25px 50px;
-            .login-footer {
-                font-size: 0.8em;
-                .login-footer-link {
-                    margin-left: 10px;
-                }
-            }
-        }
-
-       
+    > div, button { 
+        margin-top: 15px;
+    }
+    & :first-child {
+        margin-top: 0px;
     }
 }

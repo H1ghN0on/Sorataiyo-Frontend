@@ -1,0 +1,36 @@
+.introduction-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 35px;
+    .introduction-inputs {
+        width: 100%;
+        display: flex;
+        .input-container {
+
+            .input-label {
+                font-size: 1em;
+            }
+            .input-base {
+                font-size: 1.2em;
+                padding-top: 10px;
+                padding-bottom: 10px;
+    
+            }
+        }
+        > div {
+            margin-left: 15px;
+        }
+        
+        & :first-child {
+            margin-left: 0px;
+        }
+        
+    }
+
+    .introduction-submit-btn {
+        width: 50%;
+        margin-top: 30px;
+    }
+
+}
