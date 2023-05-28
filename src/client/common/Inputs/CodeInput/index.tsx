@@ -34,7 +34,9 @@ const CodeInput: React.FC<ICodeInputProps> = ({
   ) => {
     const re = /[0-9]/;
     const value = e.target.value[e.target.value.length - 1];
-    if (value && value.match(re)) onChange(+value, pos);
+    if (!value || !value.match(re)) return;
+
+    onChange(+value, pos);
 
     const emptyField = checkInputsFilled(pos);
     if (emptyField !== -1) {
