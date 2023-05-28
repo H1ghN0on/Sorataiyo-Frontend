@@ -1,0 +1,14 @@
+@import "client/shared/styles/variables.scss";
+
+.page-container {
+    min-height: 100vh;
+    position: relative;
+
+    .page-content {
+        padding-top: calc($header-height + 20px);
+        padding-bottom: $footer-height;
+        padding-left: $page-padding-side;
+        padding-right: $page-padding-side;
+    }
+}
+

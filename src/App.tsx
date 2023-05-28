@@ -8,16 +8,55 @@ import {
   FinishRegisterPage,
 } from "client/pages";
 
-import { Navbar, Footer } from "client/common";
+import { Navbar, Footer, BaseLayout } from "client/common";
 
 import "./App.scss";
 
 function App() {
   return (
-    <div className="page-container">
-      <Navbar isAuthed={true} />
-      <Footer />
-    </div>
+    <BaseLayout>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>v v <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+      <div style={{ color: "white" }}>Hi</div>
+    </BaseLayout>
   );
 }
 
