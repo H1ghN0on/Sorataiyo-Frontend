@@ -8,15 +8,16 @@ import {
   FinishRegisterPage,
 } from "client/pages";
 
-import { Navbar } from "client/common";
+import { Navbar, Footer } from "client/common";
 
 import "./App.scss";
 
 function App() {
   return (
-    <>
+    <div className="page-container">
       <Navbar isAuthed={true} />
-    </>
+      <Footer />
+    </div>
   );
 }
 

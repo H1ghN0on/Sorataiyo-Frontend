@@ -3,6 +3,8 @@
 .navbar {
     position: fixed;
     width: 100vw;
+    z-index: 1000;
+    top: 0;
     .navbar-container {
         display: flex;
         justify-content: space-between;
@@ -10,7 +12,6 @@
         border-bottom: 1px solid $font-secondary;
         height: 55px;
         padding: 10px 5%;
-        z-index: 100;
         background: $primary-dark;
 
         .logo {

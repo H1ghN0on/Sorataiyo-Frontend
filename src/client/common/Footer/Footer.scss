@@ -1,0 +1,16 @@
+@import "client/shared/styles/variables.scss";
+
+.footer {
+    background: $primary-light;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .footer-title {
+        color: $font-main;
+        font-size: 0.9em;
+    }
+}
