@@ -4,12 +4,13 @@ import {
   LoginPage,
   IntroductionRegisterPage,
   EmailConfirmationRegisterPage,
+  PasswordRegisterPage,
 } from "client/pages";
 
 import "./App.scss";
 
 function App() {
-  return <EmailConfirmationRegisterPage />;
+  return <PasswordRegisterPage />;
 }
 
 export default App;
