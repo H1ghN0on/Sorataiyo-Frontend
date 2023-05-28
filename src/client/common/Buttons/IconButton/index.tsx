@@ -10,37 +10,23 @@ interface IIconButtonProps extends IButtonProps {
   icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const IconButton: React.FC<IIconButtonProps> = ({
-  icon,
-  onClick,
-  className,
-  disabled,
-  useLoader,
-  inverse,
-  children,
-  type = "button",
-}) => {
-  const [Icon, setIcon] =
-    React.useState<React.FunctionComponent<React.SVGProps<SVGSVGElement>>>(
-      icon
-    );
+const IconButton: React.FC<IIconButtonProps> = (props) => {
+  const [Icon, setIcon] = React.useState<
+    React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  >(props.icon);
 
   React.useEffect(() => {
-    setIcon(icon);
-  }, [icon]);
+    setIcon(props.icon);
+  }, [props.icon]);
 
   return (
     <Button
-      onClick={onClick}
-      className={"icon-button " + (className ? className : "")}
-      disabled={disabled}
-      useLoader={useLoader}
-      inverse={inverse}
-      type={type}
+      className={"icon-button " + (props.className ? props.className : "")}
+      {...props}
     >
       <div className="icon-button-container">
         <Icon className="icon" />
-        <span>{children}</span>
+        <span>{props.children}</span>
       </div>
     </Button>
   );

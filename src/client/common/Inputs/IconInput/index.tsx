@@ -4,46 +4,25 @@ import Input from "../Input";
 import { IInputProps } from "../Input";
 
 import "./IconInput.scss";
+import clsx from "clsx";
 
 interface IIconInputProps extends IInputProps {
   icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const IconInput: React.FC<IIconInputProps> = ({
-  value,
-  onChange,
-  name,
-  className,
-  label,
-  disabled,
-  minLength,
-  maxLength,
-  withLengthHint,
-  icon,
-}) => {
-  const [Icon, setIcon] =
-    React.useState<React.FunctionComponent<React.SVGProps<SVGSVGElement>>>(
-      icon
-    );
+const IconInput: React.FC<IIconInputProps> = (props) => {
+  const [Icon, setIcon] = React.useState<
+    React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  >(props.icon);
 
   React.useEffect(() => {
-    setIcon(icon);
-  }, [icon]);
+    setIcon(props.icon);
+  }, [props.icon]);
 
   return (
-    <div className="icon-input-container">
+    <div className={clsx("icon-input-container", props.className)}>
       <Icon className="icon-input" />
-      <Input
-        value={value}
-        onChange={onChange}
-        name={name}
-        className={className}
-        label={label}
-        disabled={disabled}
-        minLength={minLength}
-        maxLength={maxLength}
-        withLengthHint={withLengthHint}
-      />
+      <Input {...props} />
     </div>
   );
 };

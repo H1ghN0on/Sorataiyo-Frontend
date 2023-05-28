@@ -27,6 +27,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 
+    transition: 0.1s;
     .loading-icon {
         fill: $primary-dark;
         width: 20px;
