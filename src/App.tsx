@@ -5,12 +5,13 @@ import {
   IntroductionRegisterPage,
   EmailConfirmationRegisterPage,
   PasswordRegisterPage,
+  FinishRegisterPage,
 } from "client/pages";
 
 import "./App.scss";
 
 function App() {
-  return <PasswordRegisterPage />;
+  return <FinishRegisterPage />;
 }
 
 export default App;

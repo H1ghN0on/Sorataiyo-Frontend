@@ -8,13 +8,10 @@ interface IAuthLayoutProps {
   children: React.ReactNode;
   title: string;
   isRegister: boolean;
+  isFinish?: boolean;
 }
 
-const AuthLayout: React.FC<IAuthLayoutProps> = ({
-  children,
-  title,
-  isRegister,
-}) => {
+const AuthLayout: React.FC<IAuthLayoutProps> = ({ children, title, isRegister, isFinish }) => {
   return (
     <div className="auth-page">
       <div className="auth-logo">
@@ -23,17 +20,15 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({
       <div className="auth-container">
         <h3 className="auth-title">{title}</h3>
         {children}
-        <div className="auth-footer">
-          <span>
-            {isRegister
-              ? "Already explored with Sorataiyo?"
-              : "New to Sorataiyo?"}
-          </span>
+        {!isFinish && (
+          <div className="auth-footer">
+            <span>{isRegister ? "Already explored with Sorataiyo?" : "New to Sorataiyo?"}</span>
 
-          <a className="auth-footer-link" href="google.com">
-            {isRegister ? "Sign in" : "Sign up"}
-          </a>
-        </div>
+            <a className="auth-footer-link" href="google.com">
+              {isRegister ? "Sign in" : "Sign up"}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
