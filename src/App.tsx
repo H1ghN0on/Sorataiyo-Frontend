@@ -8,10 +8,16 @@ import {
   FinishRegisterPage,
 } from "client/pages";
 
+import { Navbar } from "client/common";
+
 import "./App.scss";
 
 function App() {
-  return <FinishRegisterPage />;
+  return (
+    <>
+      <Navbar isAuthed={true} />
+    </>
+  );
 }
 
 export default App;

@@ -5,3 +5,4 @@ export { default as IconInput } from "./Inputs/IconInput";
 export { default as Select } from "./Inputs/Select";
 export { default as TextWithHint } from "./Hints/TextWithHint";
 export { default as CodeInput } from "./Inputs/CodeInput";
+export { default as Navbar } from "./Navbar";

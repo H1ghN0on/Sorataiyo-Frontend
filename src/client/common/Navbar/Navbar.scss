@@ -1,0 +1,54 @@
+@import "client/shared/styles/variables.scss";
+
+.navbar {
+    position: fixed;
+    width: 100vw;
+    .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $font-secondary;
+        height: 55px;
+        padding: 10px 5%;
+        z-index: 100;
+        background: $primary-dark;
+
+        .logo {
+            height: 100%;
+            svg {
+                height: 100%;
+            }
+        }
+        .navigation {
+            display: flex;
+            .navigation-item {
+                color: $font-main;
+                font-size: 0.9em;
+                text-decoration: none;
+            }
+
+            > .navigation-item {
+                margin-left: 30px ;
+            }
+            & :first-child {
+                margin-left: 0px;
+            }
+        }
+        .tools {
+            display: flex;
+            .button {
+                width: max-content;
+                padding: 10px 25px;
+                font-size: 0.9em;
+
+                &.navbar-login-btn {
+                    color: $font-main;
+                }
+
+                &.navbar-settings-btn {
+                    position: relative;
+                }
+            }
+        }
+    }
+}
