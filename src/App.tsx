@@ -11,6 +11,7 @@ import {
 } from "client/common";
 
 import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
+import { ReactComponent as Logo } from "client/shared/icons/sorataiyo-double-cross.svg";
 
 import "./App.scss";
 
@@ -65,14 +66,7 @@ function App() {
 
   return (
     <div className="container">
-      <CodeInput
-        label="Code input"
-        onChange={handleCodeInputChange}
-        values={value}
-        length={length}
-        onSubmit={handleCodeInputSubmit}
-        onClear={handleCodeInputClear}
-      />
+      <Logo className="logo" />
     </div>
   );
 }
