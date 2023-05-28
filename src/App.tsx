@@ -7,6 +7,7 @@ import {
   IconInput,
   Input,
   TextWithHint,
+  CodeInput,
 } from "client/common";
 
 import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
@@ -14,10 +15,30 @@ import { ReactComponent as WaitSpin } from "client/shared/icons/wait-spin.svg";
 import "./App.scss";
 
 function App() {
-  const [value, setValue] = React.useState("");
-
+  const [value, setValue] = React.useState<number[]>([]);
+  const length = 6;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    //setValue(e.target.value);
+  };
+
+  const handleCodeInputChange = (val: number, position: number) => {
+    let newValue = [];
+    for (let i = 0; i < length; i++) {
+      if (i === position) {
+        newValue[i] = val;
+        continue;
+      }
+      newValue[i] = value[i];
+    }
+    setValue(newValue);
+  };
+
+  const handleCodeInputSubmit = () => {
+    return false;
+  };
+
+  const handleCodeInputClear = () => {
+    setValue([]);
   };
 
   const [options, setOptions] = React.useState([
@@ -44,13 +65,14 @@ function App() {
 
   return (
     <div className="container">
-      Lorem ipsum dolor sit amet consectetur,
-      <TextWithHint hint="Let's dance boys">TextToHint</TextWithHint> elit. Quae
-      obcaecati, libero officia similique facere tempora possimus vero veniam
-      iusto ducimus quaerat quod atque nam recusandae error nobis dicta odio
-      explicabo placeat iste voluptates voluptatem saepe vitae ipsum! Possimus,
-      unde architecto officiis, nisi consequuntur vel sunt animi blanditiis,
-      quasi ea officia.
+      <CodeInput
+        label="Code input"
+        onChange={handleCodeInputChange}
+        values={value}
+        length={length}
+        onSubmit={handleCodeInputSubmit}
+        onClear={handleCodeInputClear}
+      />
     </div>
   );
 }
