@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, IconInput, ProfileLayout, IconButton } from "client/common";
+import { Button, IconInput, ProfileLayout, IconButton, Card } from "client/common";
 
 import { ReactComponent as FiltersIcon } from "client/shared/icons/filter.svg";
 import { ReactComponent as AddIcon } from "client/shared/icons/plus-icon.svg";
@@ -49,6 +49,16 @@ const ApplicationsPage = () => {
               <FiltersIcon className="catalogs-filter-icon" />
             </div>
           </div>
+        </div>
+        <div className="catalogs-catalog">
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
+          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
         </div>
       </div>
     </ProfileLayout>

@@ -25,7 +25,7 @@ const TextWithHint: React.FC<ITextWithHintProps> = ({ children, hint }) => {
       onMouseLeave={handleMouseLeave}
       className="text-with-hint"
     >
-      <span className="text">{children}</span>
+      {children}
       <div
         className={clsx("text-hint", {
           "text-hint-hidden": !isHintActive,

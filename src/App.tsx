@@ -9,7 +9,7 @@ import {
   CatalogsPage,
 } from "client/pages";
 
-import { Navbar, Footer, BaseLayout, Select, ProfileLayout } from "client/common";
+import { Navbar, Footer, BaseLayout, Select, ProfileLayout, Card } from "client/common";
 
 import "./App.scss";
 

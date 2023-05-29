@@ -6,6 +6,7 @@
     padding-top: 10px;
     padding-left: 40px;
     padding-right: 40px;
+    padding-bottom: 30px;
     color: $primary-dark;
     .catalogs-header {
         display: flex;
@@ -25,7 +26,7 @@
         }
         .catalogs-list {
             position: relative;
-            left: 45px;
+            left: 26px;
             display: flex;
             margin: 0 auto;
             & :first-child {
@@ -64,6 +65,31 @@
                     margin-left: 8px;
                 }
             }
+        }
+    }
+
+    .catalogs-catalog {
+
+        margin-top: 30px;
+
+        display: grid;
+        gap: 50px;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .catalogs {
+        .catalogs-catalog {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .catalogs {
+        .catalogs-catalog {
+            grid-template-columns: 1fr;
         }
     }
 }

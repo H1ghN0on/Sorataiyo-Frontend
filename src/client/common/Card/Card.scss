@@ -1,0 +1,40 @@
+@import "client/shared/styles/variables.scss";
+
+.card {
+    background: $primary-light;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: inset $standard-shadow;
+
+    .card-title {
+        font-size: 2em;
+        font-weight: 400;
+    }
+
+    .card-tools {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        .card-info {
+            letter-spacing: 0.05em;
+
+            .card-info-status {
+                display: flex;
+                align-items: center; 
+             }
+
+            .card-status-icon {
+                width: 15px;
+                margin-left: 5px;
+            }
+        }
+
+        .card-check-details-btn {
+            padding: 0;
+            height: 60%;
+            font-size: 0.9em;
+            align-self: flex-end;
+        }
+    }
+}
