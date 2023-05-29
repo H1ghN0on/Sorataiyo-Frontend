@@ -8,55 +8,15 @@ import {
   FinishRegisterPage,
 } from "client/pages";
 
-import { Navbar, Footer, BaseLayout } from "client/common";
+import { Navbar, Footer, BaseLayout, Select, ProfileLayout } from "client/common";
 
 import "./App.scss";
 
 function App() {
   return (
-    <BaseLayout>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>v v <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-      <div style={{ color: "white" }}>Hi</div>
-    </BaseLayout>
+    <ProfileLayout>
+      <div>Hello, world!</div>
+    </ProfileLayout>
   );
 }
 

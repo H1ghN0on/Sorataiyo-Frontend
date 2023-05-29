@@ -60,9 +60,7 @@ const Input: React.FC<IInputProps> = ({
       {withLengthHint && (
         <label
           className={clsx("input-label-hint", {
-            hidden: !Boolean(
-              withLengthHint && maxLength && value.length > maxLength - 5
-            ),
+            hidden: !Boolean(withLengthHint && maxLength && value.length > maxLength - 5),
           })}
           htmlFor={name}
         >

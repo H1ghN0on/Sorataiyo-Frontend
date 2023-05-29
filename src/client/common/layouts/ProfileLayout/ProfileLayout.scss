@@ -1,0 +1,10 @@
+@import "client/shared/styles/variables.scss";
+
+.content-container {
+    background: $secondary-light;
+    margin-top: 20px;
+    min-height: calc(100vh - $header-height - $footer-height - 70px - 20px);
+    margin-bottom: calc($footer-height + 20px);
+    border-radius: 3px;
+    box-shadow: $content-shining-shadow;
+}
