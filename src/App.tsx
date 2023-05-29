@@ -6,6 +6,7 @@ import {
   EmailConfirmationRegisterPage,
   PasswordRegisterPage,
   FinishRegisterPage,
+  CatalogsPage,
 } from "client/pages";
 
 import { Navbar, Footer, BaseLayout, Select, ProfileLayout } from "client/common";
@@ -13,11 +14,7 @@ import { Navbar, Footer, BaseLayout, Select, ProfileLayout } from "client/common
 import "./App.scss";
 
 function App() {
-  return (
-    <ProfileLayout>
-      <div>Hello, world!</div>
-    </ProfileLayout>
-  );
+  return <CatalogsPage />;
 }
 
 export default App;

@@ -9,3 +9,4 @@ export { default as Navbar } from "./Navbar";
 export { default as Footer } from "./Footer";
 export { default as BaseLayout } from "./layouts/BaseLayout";
 export { default as ProfileLayout } from "./layouts/ProfileLayout";
+export { default as Filters } from "./Filters";
