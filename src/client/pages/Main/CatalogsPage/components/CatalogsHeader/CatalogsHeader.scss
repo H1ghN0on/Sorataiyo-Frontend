@@ -1,0 +1,59 @@
+.catalogs-header {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    border-bottom: 1px solid $font-main;
+    padding-bottom: 15px;
+
+    .catalogs-add-application-btn {
+        width: 150px;
+        padding: 10px;
+        font-size: 0.7em;
+        font-weight: bold;
+        .icon {
+            width: 15px;
+        }
+    }
+    .catalogs-list {
+        position: relative;
+        left: 26px;
+        display: flex;
+        margin: 0 auto;
+        & :first-child {
+            margin-left: 0;
+        }
+        > .catalogs-list-item {
+            padding: 15px;
+            font-size: 0.9em;
+            height: max-content;
+            width: 150px;
+            margin-left: 30px;
+            box-shadow: $standard-shadow;
+        }
+    }
+    .catalogs-tools {
+        display: flex;
+        justify-content: flex-end;
+
+        .catalogs-search {
+            .catalogs-search-input {
+                width: 150px;
+                .icon-input {
+                    top: 20%;
+                }
+            }
+        }
+
+        .catalogs-filter {
+            display: flex;
+            align-items: center;
+            .catalogs-filter-text {
+                font-size: 1.2em;
+            }
+            .catalogs-filter-icon {
+                width: 20px;
+                margin-left: 8px;
+            }
+        }
+    }
+}
