@@ -26,7 +26,7 @@ function App() {
     {
       label: "Hi Patrick1",
       value: "sorting",
-      checked: false,
+      checked: true,
     },
     {
       label: "Hi Patrick2",
@@ -40,7 +40,7 @@ function App() {
     },
   ]);
 
-  const handleChange = (value: string, checked: boolean) => {
+  const handleCheckboxChange = (value: string, checked: boolean) => {
     const id = data.findIndex((obj) => obj.value === value);
     if (id !== -1) {
       const copyData = data.slice(0);
@@ -49,7 +49,24 @@ function App() {
     }
   };
 
-  return <CheckboxList values={data} onChange={handleChange} column />;
+  const handleRadioChange = (value: string, checked: boolean) => {
+    setData(
+      data.map((item) => {
+        item.checked = item.value === value;
+        return item;
+      })
+    );
+    const id = data.findIndex((obj) => obj.value === value);
+    if (id !== -1) {
+      const copyData = data.slice(0);
+      copyData[id].checked = checked;
+      setData(copyData);
+    }
+  };
+
+  console.log(data);
+
+  return <CheckboxList values={data} onChange={handleRadioChange} column />;
   // return <CatalogsPage />;
 }
 

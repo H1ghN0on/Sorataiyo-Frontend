@@ -1,24 +1,24 @@
 @import "client/shared/styles/variables.scss";
 
-.checkbox-container {
+.radio-container {
     margin-left: 3px;
     position: relative;
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    .checkbox-input {
+    .radio-input {
         position: absolute;
         opacity: 0;
         height: 0;
         width: 0;
         &:hover {
-            ~.checkbox-span {
+            ~.radio-span {
                 background-color: #ccc;
             }
         }
         &:checked {
-            ~.checkbox-span {
+            ~.radio-span {
                 background-color: $primary-dark;
                 &:after {
                     opacity: 1;
@@ -27,32 +27,18 @@
         }
     }
 
-    .checkbox-span {
+    .radio-span {
         position: absolute;
-        top: 2.5px;
+        top: 3px;
         left: 0;
-        border-radius: 3px;
+        border-radius: 50%;
         height: 15px;
         width: 15px;
         background-color: #eee;
         transition: 0.1s;
-        &:after {
-            content: "";
-            position: absolute;
-            opacity: 0;
-            left: 5px;
-            top: 2px;
-            width: 4px;
-            height: 7px;
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-        }
     }
 
-    .checkbox-label {
+    .radio-label {
         margin-left: 25px;
     }
 }

@@ -12,4 +12,5 @@ export { default as ProfileLayout } from "./layouts/ProfileLayout";
 export { default as Filters } from "./Filters";
 export { default as Card } from "./Card";
 export { default as Checkbox } from "./Inputs/Checkbox";
+export { default as Radio } from "./Inputs/Radio";
 export { default as CheckboxList } from "./Inputs/CheckboxList";

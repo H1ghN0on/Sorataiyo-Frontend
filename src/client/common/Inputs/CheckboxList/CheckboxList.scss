@@ -1,8 +1,6 @@
 .checkbox-list {
     display: flex;
-    background: white;
-    padding: 10px;
-    > .checkbox-container {
+    > .radio-container, .checkbox-container {
         margin-left: 10px;
     }
 
@@ -12,7 +10,7 @@
 
     &.checkbox-list-column {
         flex-direction: column;
-        > .checkbox-container {
+        > .radio-container, .checkbox-container {
             margin-left: 0;
             margin-top: 10px;
         }

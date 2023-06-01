@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import { Checkbox } from "client/common";
+import { Checkbox, Radio } from "client/common";
 
 import "./CheckboxList.scss";
 
@@ -16,9 +16,16 @@ interface ICheckboxListProps {
   onChange: (value: string, checked: boolean) => void;
   column?: boolean;
   className?: string;
+  radio?: boolean;
 }
 
-const CheckboxList: React.FC<ICheckboxListProps> = ({ values, onChange, column, className }) => {
+const CheckboxList: React.FC<ICheckboxListProps> = ({
+  values,
+  onChange,
+  column,
+  className,
+  radio,
+}) => {
   return (
     <div
       className={clsx("checkbox-list", className, {
@@ -26,15 +33,25 @@ const CheckboxList: React.FC<ICheckboxListProps> = ({ values, onChange, column, 
       })}
     >
       {values &&
-        values.map((item, index) => (
-          <Checkbox
-            key={index}
-            label={item.label}
-            checked={item.checked}
-            value={item.value}
-            onChange={onChange}
-          />
-        ))}
+        values.map((item, index) =>
+          radio ? (
+            <Radio
+              key={index}
+              label={item.label}
+              checked={item.checked}
+              value={item.value}
+              onChange={onChange}
+            />
+          ) : (
+            <Checkbox
+              key={index}
+              label={item.label}
+              checked={item.checked}
+              value={item.value}
+              onChange={onChange}
+            />
+          )
+        )}
     </div>
   );
 };
