@@ -32,7 +32,6 @@
                 box-shadow: $standard-shadow;
             }
 
-            
             & :first-child {
                 margin-left: 0 !important;
             }
@@ -77,9 +76,7 @@
         background: white;
         box-shadow: $standard-shadow;
         border-radius: 5px;
-        padding: 0;
-        margin-top: 0;
-        max-height: 200px;
+        max-height: 0px;
         overflow: hidden;
         transition: 0.3s;
 
@@ -134,6 +131,8 @@
         .catalogs-header-mobile {
             padding: 10px;
             margin-top: 10px;
+            max-height: 200px;
+            overflow: hidden;
         }
     }
 }

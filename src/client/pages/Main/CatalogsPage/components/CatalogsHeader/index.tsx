@@ -13,12 +13,16 @@ interface ICatalogsHeaderProps {
   onAddButtonClick: () => void;
   onSearchValueChange: (val: string) => void;
   searchValue: string;
+  isApplications: boolean;
+  onCatalogTypeChange: (val: boolean) => void;
 }
 
 const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   onAddButtonClick,
   onSearchValueChange,
   searchValue,
+  isApplications,
+  onCatalogTypeChange,
 }) => {
   const [isMobileHeaderActive, setMobileHeaderActive] = React.useState(false);
 
@@ -39,10 +43,18 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
         </IconButton>
 
         <div className="catalogs-list">
-          <Button inverse onClick={() => {}} className="catalogs-list-item">
+          <Button
+            onClick={onCatalogTypeChange.bind(this, true)}
+            className="catalogs-list-item"
+            inverse={isApplications}
+          >
             Applicatons
           </Button>
-          <Button onClick={() => {}} className="catalogs-list-item">
+          <Button
+            onClick={onCatalogTypeChange.bind(this, false)}
+            className="catalogs-list-item"
+            inverse={!isApplications}
+          >
             Results
           </Button>
         </div>
