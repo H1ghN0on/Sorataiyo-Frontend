@@ -9,12 +9,48 @@ import {
   CatalogsPage,
 } from "client/pages";
 
-import { Navbar, Footer, BaseLayout, Select, ProfileLayout, Card } from "client/common";
+import {
+  Navbar,
+  Footer,
+  BaseLayout,
+  Select,
+  ProfileLayout,
+  Card,
+  CheckboxList,
+} from "client/common";
 
 import "./App.scss";
 
 function App() {
-  return <CatalogsPage />;
+  const [data, setData] = React.useState([
+    {
+      label: "Hi Patrick1",
+      value: "sorting",
+      checked: false,
+    },
+    {
+      label: "Hi Patrick2",
+      value: "sorting2",
+      checked: false,
+    },
+    {
+      label: "Hi Patrick3",
+      value: "sorting3",
+      checked: false,
+    },
+  ]);
+
+  const handleChange = (value: string, checked: boolean) => {
+    const id = data.findIndex((obj) => obj.value === value);
+    if (id !== -1) {
+      const copyData = data.slice(0);
+      copyData[id].checked = checked;
+      setData(copyData);
+    }
+  };
+
+  return <CheckboxList values={data} onChange={handleChange} column />;
+  // return <CatalogsPage />;
 }
 
 export default App;

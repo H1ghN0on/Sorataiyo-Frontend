@@ -1,0 +1,24 @@
+.checkbox-list {
+    display: flex;
+    background: white;
+    padding: 10px;
+    > .checkbox-container {
+        margin-left: 10px;
+    }
+
+    & :first-child {
+        margin-left: 0;
+    }
+
+    &.checkbox-list-column {
+        flex-direction: column;
+        > .checkbox-container {
+            margin-left: 0;
+            margin-top: 10px;
+        }
+    
+        & :first-child {
+            margin-top: 0;
+        }
+    }
+}

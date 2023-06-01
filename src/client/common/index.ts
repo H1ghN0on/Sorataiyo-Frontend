@@ -11,3 +11,5 @@ export { default as BaseLayout } from "./layouts/BaseLayout";
 export { default as ProfileLayout } from "./layouts/ProfileLayout";
 export { default as Filters } from "./Filters";
 export { default as Card } from "./Card";
+export { default as Checkbox } from "./Inputs/Checkbox";
+export { default as CheckboxList } from "./Inputs/CheckboxList";

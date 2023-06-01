@@ -1,0 +1,58 @@
+@import "client/shared/styles/variables.scss";
+
+.checkbox-container {
+    margin-left: 3px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .checkbox-input {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 0;
+        &:hover {
+            ~.checkbox-span {
+                background-color: #ccc;
+            }
+        }
+        &:checked {
+            ~.checkbox-span {
+                background-color: $primary-dark;
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .checkbox-span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 3px;
+        height: 20px;
+        width: 20px;
+        background-color: #eee;
+        transition: 0.1s;
+        &:after {
+            content: "";
+            position: absolute;
+            opacity: 0;
+            left: 7px;
+            top: 4px;
+            width: 4px;
+            height: 7px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+
+    .checkbox-label {
+        margin-left: 25px;
+    }
+}
