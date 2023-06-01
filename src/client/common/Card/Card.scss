@@ -14,7 +14,7 @@
     .card-tools {
         margin-top: 15px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         align-items: center;
         .card-info {
             letter-spacing: 0.05em;
@@ -35,6 +35,21 @@
             height: 60%;
             font-size: 0.9em;
             align-self: flex-end;
+        }
+    }
+}
+
+@media screen and (max-width: 524px) {
+    .card {
+        .card-tools {
+            grid-template-columns: 1fr;
+            .card-info {
+                margin-bottom: 15px;
+            }
+            .card-check-details-btn {
+                height: 100%;
+                margin-top: 15px;
+            }
         }
     }
 }
