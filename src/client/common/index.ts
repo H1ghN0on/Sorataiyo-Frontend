@@ -14,3 +14,4 @@ export { default as Card } from "./Card";
 export { default as Checkbox } from "./Inputs/Checkbox";
 export { default as Radio } from "./Inputs/Radio";
 export { default as CheckboxList } from "./Inputs/CheckboxList";
+export { default as Modal } from "./Modal";
