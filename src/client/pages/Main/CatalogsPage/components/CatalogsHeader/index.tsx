@@ -1,15 +1,14 @@
 import React from "react";
 import clsx from "clsx";
 
-import { Button, IconInput, IconButton } from "client/common";
-
-import Filters from "../Filters";
+import { Button, IconInput, IconButton, FiltersButton } from "client/common";
 
 import { ReactComponent as FiltersIcon } from "client/shared/icons/filter.svg";
 import { ReactComponent as AddIcon } from "client/shared/icons/plus-icon.svg";
 import { ReactComponent as BurgerIcon } from "client/shared/icons/burger.svg";
 
 import "./CatalogsHeader.scss";
+import Filters from "../Filters";
 
 interface ICatalogsHeaderProps {
   onAddButtonClick: () => void;
@@ -76,14 +75,12 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
               name="search"
             />
           </div>
-          <div className="catalogs-filter" onClick={setFiltersModalActive.bind(this, true)}>
-            <div className="catalogs-filter-text">Filters</div>
-            <FiltersIcon className="catalogs-filter-icon" />
-          </div>
-          <Filters
-            isOpened={isFiltersModalActive}
-            onClose={setFiltersModalActive.bind(this, false)}
-          />
+          <FiltersButton onOpen={setFiltersModalActive.bind(this, true)}>
+            <Filters
+              isOpened={isFiltersModalActive}
+              onClose={setFiltersModalActive.bind(this, false)}
+            />
+          </FiltersButton>
         </div>
         <div className="burger-menu-btn">
           <IconButton

@@ -8,6 +8,7 @@ import {
   FinishRegisterPage,
   CatalogsPage,
   ApplicationDetailsPage,
+  ResultsDetailsPage,
 } from "client/pages";
 
 import {
@@ -68,7 +69,7 @@ function App() {
   // console.log(data);
 
   // return <CheckboxList values={data} onChange={handleRadioChange} column />;
-  return <ApplicationDetailsPage />;
+  return <CatalogsPage />;
 }
 
 export default App;

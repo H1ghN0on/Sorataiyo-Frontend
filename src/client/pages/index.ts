@@ -5,3 +5,4 @@ export { default as PasswordRegisterPage } from "./Auth/Register/PasswordConfirm
 export { default as FinishRegisterPage } from "./Auth/Register/Finish";
 export { default as CatalogsPage } from "./Main/CatalogsPage";
 export { default as ApplicationDetailsPage } from "./Main/DetailsPage/ApplicationDetailsPage";
+export { default as ResultsDetailsPage } from "./Main/DetailsPage/ResultsDetailsPage";
