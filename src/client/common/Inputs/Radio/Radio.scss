@@ -14,7 +14,7 @@
         width: 0;
         &:hover {
             ~.radio-span {
-                background-color: #ccc;
+                background-color: $font-main;
             }
         }
         &:checked {
@@ -34,7 +34,7 @@
         border-radius: 50%;
         height: 15px;
         width: 15px;
-        background-color: #eee;
+        background-color: $font-light;
         transition: 0.1s;
     }
 

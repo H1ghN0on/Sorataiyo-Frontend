@@ -3,6 +3,8 @@ import clsx from "clsx";
 
 import { Button, IconInput, IconButton } from "client/common";
 
+import Filters from "../Filters";
+
 import { ReactComponent as FiltersIcon } from "client/shared/icons/filter.svg";
 import { ReactComponent as AddIcon } from "client/shared/icons/plus-icon.svg";
 import { ReactComponent as BurgerIcon } from "client/shared/icons/burger.svg";
@@ -26,8 +28,14 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
 }) => {
   const [isMobileHeaderActive, setMobileHeaderActive] = React.useState(false);
 
+  const [isFiltersModalActive, setFiltersModalActive] = React.useState(false);
+
   const handleBurgerClick = () => {
     setMobileHeaderActive(!isMobileHeaderActive);
+  };
+
+  const handleFiltersClick = () => {
+    setFiltersModalActive(!isFiltersModalActive);
   };
 
   return (
@@ -68,10 +76,14 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
               name="search"
             />
           </div>
-          <div className="catalogs-filter">
+          <div className="catalogs-filter" onClick={setFiltersModalActive.bind(this, true)}>
             <div className="catalogs-filter-text">Filters</div>
             <FiltersIcon className="catalogs-filter-icon" />
           </div>
+          <Filters
+            isOpened={isFiltersModalActive}
+            onClose={setFiltersModalActive.bind(this, false)}
+          />
         </div>
         <div className="burger-menu-btn">
           <IconButton
@@ -90,7 +102,12 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
           "catalogs-header-mobile-hidden": isMobileHeaderActive,
         })}
       >
-        <div className="catalogs-header-mobile-item">Filters</div>
+        <div
+          className="catalogs-header-mobile-item"
+          onClick={setFiltersModalActive.bind(this, true)}
+        >
+          Filters
+        </div>
         <div className="catalogs-header-mobile-item">Add new application</div>
       </div>
     </div>

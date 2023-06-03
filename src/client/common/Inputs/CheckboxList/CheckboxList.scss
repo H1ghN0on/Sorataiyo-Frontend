@@ -1,22 +1,37 @@
-.checkbox-list {
+@import "client/shared/styles/variables.scss";
+
+.checkbox-list-container {
     display: flex;
-    > .radio-container, .checkbox-container {
-        margin-left: 10px;
+    flex-direction: column;
+    align-items: start;
+
+    .checkbox-list-label {
+
+        letter-spacing: 0.05em;
+        margin-bottom: 5px;
+        border-bottom: 1px solid $font-main;
+ 
     }
 
-    & :first-child {
-        margin-left: 0;
-    }
-
-    &.checkbox-list-column {
-        flex-direction: column;
+    .checkbox-list {
+        display: flex;
         > .radio-container, .checkbox-container {
-            margin-left: 0;
-            margin-top: 10px;
+            margin-left: 10px;
         }
-    
+
         & :first-child {
-            margin-top: 0;
+            margin-left: 0;
+        }
+        &.checkbox-list-column {
+            flex-direction: column;
+            > .radio-container, .checkbox-container {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        
+            & :first-child {
+                margin-top: 0;
+            }
         }
     }
 }

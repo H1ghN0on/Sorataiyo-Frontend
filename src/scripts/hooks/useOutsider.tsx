@@ -25,11 +25,7 @@ const Outsider: React.FC<IOutsiderProps> = ({ children, onOutsideClick }) => {
   const wrapperRef = React.useRef(null);
   useOutsideAlerter(wrapperRef, onOutsideClick);
 
-  return (
-    <div style={{ width: "100%", height: "100%" }} ref={wrapperRef}>
-      {children}
-    </div>
-  );
+  return <div ref={wrapperRef}>{children}</div>;
 };
 
 export default Outsider;

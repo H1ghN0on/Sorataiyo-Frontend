@@ -1,0 +1,32 @@
+.filters-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > div, button {
+        margin-top: 20px;
+    }
+
+    & :first-child {
+        margin-top: 0;
+    }
+
+    .filters-modal-sort-by {
+        height: fit-content;
+        max-height: fit-content;
+        .select-container {
+            .select-label {
+                font-size: 1em;
+            }
+        }
+    }
+
+    .filters-modal-submit-btn {
+        font-size: 1em;
+        width: 200px;
+        height: 50px;
+        align-self: center;
+    }
+   
+}

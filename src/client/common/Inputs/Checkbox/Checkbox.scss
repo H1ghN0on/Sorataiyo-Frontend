@@ -14,7 +14,7 @@
         width: 0;
         &:hover {
             ~.checkbox-span {
-                background-color: #ccc;
+                background-color: $font-main;
             }
         }
         &:checked {
@@ -34,16 +34,16 @@
         border-radius: 3px;
         height: 15px;
         width: 15px;
-        background-color: #eee;
+        background-color: $font-light;
         transition: 0.1s;
         &:after {
             content: "";
             position: absolute;
             opacity: 0;
             left: 5px;
-            top: 2px;
-            width: 4px;
-            height: 7px;
+            top: 3px;
+            width: 3px;
+            height: 5px;
             border: solid white;
             border-width: 0 3px 3px 0;
             -webkit-transform: rotate(45deg);

@@ -7,8 +7,8 @@ import { ReactComponent as ArrowDown } from "../../../shared/icons/arrow-down.sv
 
 import "./Select.scss";
 
-interface IOptionProps {
-  name: string;
+export interface IOptionProps {
+  label: string;
   value: string;
 }
 
@@ -21,14 +21,7 @@ interface ISelectProps {
   name?: string;
 }
 
-const Select: React.FC<ISelectProps> = ({
-  options,
-  className,
-  label,
-  name,
-  onChange,
-  active,
-}) => {
+const Select: React.FC<ISelectProps> = ({ options, className, label, name, onChange, active }) => {
   const [isSelectActive, setSelectActive] = React.useState<boolean>(false);
 
   const selectRef = React.useRef(null);
@@ -56,7 +49,7 @@ const Select: React.FC<ISelectProps> = ({
         )}
         <div ref={selectRef} className="select-base">
           <div onClick={handleSelectClick} className="select-active-container">
-            <div className="select-active-text">{active.name}</div>
+            <div className="select-active-text">{active.label}</div>
             <ArrowDown
               className={clsx("select-active-icon", {
                 "select-active-icon-active": isSelectActive,
@@ -78,7 +71,7 @@ const Select: React.FC<ISelectProps> = ({
                     "option-base-active": option === active,
                   })}
                 >
-                  {option.name}
+                  {option.label}
                 </div>
               ))}
           </div>
