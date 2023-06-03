@@ -1,0 +1,106 @@
+@import "client/shared/styles/variables.scss";
+
+.content-container {
+    padding: 30px;
+    position: relative;
+    .details-header {  
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $font-light;
+        padding-bottom: 10px;
+        .details-back-btn {
+            width: 20px;
+            position: absolute;
+        }
+
+        .details-header-name {
+            margin-left: 50px;
+            font-size: 2em;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .details-header-tools {
+            display: flex;
+            .button {
+                width: 150px;
+                padding: 0;
+                height: 40px;
+                font-size: 1em;
+                margin-left: 15px;
+            }
+
+            &:first-child {
+                margin-left: 0;
+            }
+            
+        }
+    }
+
+    .details-content {
+        margin-top: 20px;
+        .details-inspection {
+            margin-bottom: 20px;
+            background: $primary-light;
+            padding: 5px 10px;
+            border: 1px solid $font-light;
+            border-radius: 3px;
+            .details-inspection-label {
+                font-weight: 500;
+                font-size: 1.3em;
+                border-bottom: 1px solid $font-light;
+                padding-bottom: 3px;
+            }
+            .details-inspection-content {
+                margin-top: 3px;
+            }
+        }
+
+        .details-info {
+            font-size: 1.2em;
+            .details-info-item {
+                .details-info-item-bold {
+                    font-weight: 500;
+                }  
+            }
+            > .details-info-item {
+                margin-top: 5px;
+            }
+            & :first-child {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .content-container {
+        padding-top: 5px;
+        .details-header-tools {
+            flex-direction: column;
+            .button {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .content-container {
+        .details-header-tools {
+            .button {
+                width: 100px !important;
+                font-size: 0.9em !important;
+            }
+        }
+    }
+}

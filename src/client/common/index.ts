@@ -16,3 +16,4 @@ export { default as Modal } from "./Modal";
 export { default as CardLayout } from "./layouts/CardLayout";
 export { default as ApplicationCard } from "./Card/ApplicationCard";
 export { default as ResultCard } from "./Card/ResultCard";
+export { default as DetailsLayout } from "./layouts/DetailsLayout";
