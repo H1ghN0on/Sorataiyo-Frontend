@@ -1,0 +1,19 @@
+.catalogs-empty-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .catalogs-empty-list-kanji {
+        font-size: 5em;
+        font-weight: 500;
+        display: flex;
+    }
+
+    .catalogs-empty-list-reason {
+        position: relative;
+        bottom: 25px;
+        font-size: 1.5em;
+        font-weight: 500;
+    }
+}

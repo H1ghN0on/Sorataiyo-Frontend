@@ -9,18 +9,23 @@
     padding-bottom: 30px;
     color: $primary-dark;
 
-    .catalogs-catalog {
-
+    .catalogs-content {
         margin-top: 30px;
         display: grid;
         gap: 50px;
         grid-template-columns: 1fr 1fr;
     }
+
+    .catalogs-empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 @media screen and (max-width: 1200px) {
     .catalogs {
-        .catalogs-catalog {
+        .catalogs-content {
             grid-template-columns: 1fr 1fr;
         }
     }
@@ -28,7 +33,7 @@
 
 @media screen and (max-width: 768px) {
     .catalogs {
-        .catalogs-catalog {
+        .catalogs-content {
             grid-template-columns: 1fr;
         }
     }
