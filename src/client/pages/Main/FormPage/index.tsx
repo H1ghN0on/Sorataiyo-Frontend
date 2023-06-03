@@ -1,14 +1,13 @@
 import React from "react";
-import clsx from "clsx";
 
-import { Input, Select, Button, ProfileLayout, IconButton } from "client/common";
+import { Input, Select, ProfileLayout, IconButton } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
+import ExploringForm from "./ExploringForm";
 
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as SendIcon } from "client/shared/icons/send.svg";
 
 import "./FormPage.scss";
-import useWindowDimensions from "scripts/hooks/useWindowDimensions";
 
 enum ApplicationType {
   ExploringType = "exploring-type",
@@ -19,18 +18,18 @@ enum InstrumentType {
 }
 
 const FormPage = () => {
-  const windowDimensions = useWindowDimensions();
-
   const [inputValues, setInputValue] = React.useState({
     name: "",
     type: "exploring_point",
-    x: 50,
-    y: 50,
-    radius: 5,
+    x: "50",
+    y: "50",
+    radius: "5",
     instrument: "bfg-700",
   });
 
-  const handleInputValue = (type: string, val: string) => {};
+  const handleInputValue = (type: string, val: string) => {
+    setInputValue({ ...inputValues, [type]: val });
+  };
 
   const [applicationTypes, setApplicationTypes] = React.useState<IOptionProps[]>([
     {
@@ -64,60 +63,6 @@ const FormPage = () => {
 
   const handleSubmitButton = () => {};
 
-  const ApplicationForm = () => {
-    switch (activeApplicationType.value) {
-      case "exploring-type": {
-        return (
-          <>
-            <div
-              className={clsx("input-container", {
-                "col-2": windowDimensions.width <= 600,
-                "col-4": windowDimensions.width > 600,
-              })}
-            >
-              <Input
-                className="form-page-input"
-                label="X"
-                name="x"
-                value={inputValues.name}
-                onChange={(val: string) => {
-                  handleInputValue("x", val);
-                }}
-              />
-              <Input
-                className="form-page-input"
-                label="Y"
-                name="y"
-                value={inputValues.name}
-                onChange={(val: string) => {
-                  handleInputValue("y", val);
-                }}
-              />
-              <Input
-                className="form-page-input"
-                label="Radius"
-                name="radius"
-                value={inputValues.name}
-                onChange={(val: string) => {
-                  handleInputValue("radius", val);
-                }}
-              />
-              <Select
-                className="form-page-input"
-                label="Instrument Type"
-                name="instrument-type"
-                options={instrumentTypes}
-                active={activeInstrumentType}
-                onChange={handleInstrumentTypeChange}
-              />
-            </div>
-          </>
-        );
-      }
-    }
-    return <></>;
-  };
-
   return (
     <ProfileLayout>
       <div className="form-page-header">
@@ -148,7 +93,19 @@ const FormPage = () => {
               onChange={handleApplicationTypeChange}
             />
           </div>
-          <ApplicationForm />
+          {activeApplicationType.value === ApplicationType.ExploringType && (
+            <ExploringForm
+              inputValues={{
+                x: inputValues.x,
+                y: inputValues.y,
+                radius: inputValues.radius,
+              }}
+              activeInstrumentType={activeInstrumentType}
+              instrumentTypes={instrumentTypes}
+              onInstrumentChange={handleInstrumentTypeChange}
+              onValueChange={handleInputValue}
+            />
+          )}
           <IconButton
             icon={SendIcon}
             className="form-page-submit-btn"
