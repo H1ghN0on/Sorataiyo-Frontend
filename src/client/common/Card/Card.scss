@@ -39,12 +39,36 @@
     }
 }
 
+
+@media screen and (max-width: 800px) {
+    .card {
+        .card-title {
+            font-size: 1.8em;
+        }
+        .card-tools {
+            .card-info {
+                font-size: 0.8em;
+                .card-status-icon {
+                    width: 10px;
+                }
+            }   
+        }
+    }
+}
+
 @media screen and (max-width: 524px) {
     .card {
+        .card-title {
+            font-size: 1.5em;
+        }
         .card-tools {
             grid-template-columns: 1fr;
             .card-info {
+                font-size: 0.7em;
                 margin-bottom: 15px;
+                .card-status-icon {
+                    width: 8px;
+                }
             }
             .card-check-details-btn {
                 height: 100%;
