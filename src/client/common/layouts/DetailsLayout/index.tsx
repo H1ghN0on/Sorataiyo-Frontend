@@ -10,7 +10,7 @@ import "./DetailsLayout.scss";
 
 interface IDetailsProps {
   type: string;
-  value: string;
+  value: React.ReactNode;
 }
 
 interface IDetailsLayoutProps {
@@ -69,7 +69,7 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
           {details &&
             details.map((detail) => (
               <div className="details-info-item">
-                <span className="details-info-item-bold">{detail.type}</span> {detail.value}
+                <span className="details-info-item-bold">{detail.type}:</span> {detail.value}
               </div>
             ))}
         </div>

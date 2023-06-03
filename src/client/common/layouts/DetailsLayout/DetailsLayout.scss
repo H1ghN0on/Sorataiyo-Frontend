@@ -62,9 +62,14 @@
 
         .details-info {
             font-size: 1.2em;
+            margin-left: 10px;
+            margin-bottom: 15px;
             .details-info-item {
+                display: flex;
+                align-items: center;
                 .details-info-item-bold {
                     font-weight: 500;
+                    margin-right: 5px;
                 }  
             }
             > .details-info-item {
@@ -102,5 +107,13 @@
                 font-size: 0.9em !important;
             }
         }
+        .details-content {
+            .details-info {
+                .details-info-item {
+                    font-size: 0.9em;
+                }
+            }
+        }
+       
     }
 }

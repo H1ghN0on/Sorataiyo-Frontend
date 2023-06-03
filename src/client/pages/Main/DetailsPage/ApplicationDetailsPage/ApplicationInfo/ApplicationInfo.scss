@@ -1,0 +1,41 @@
+@import "client/shared/styles/variables.scss";
+
+.details-application-info {
+    margin-bottom: 20px;
+    background: $primary-light;
+    padding: 5px 10px;
+    border: 1px solid $font-light;
+    border-radius: 3px;
+    .details-application-info-label {
+        font-weight: 500;
+        font-size: 1.3em;
+        border-bottom: 1px solid $font-light;
+        padding-bottom: 3px;
+    }
+    .details-application-info-content {
+        margin-top: 3px;
+        
+        > .details-application-info-content-item {
+            margin-top: 10px;
+            
+            .details-application-info-content-item-bold {
+                font-weight: 500;
+            }
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .details-application-info {
+        .details-application-info-label {
+            font-size: 1em;
+        }
+        > .details-application-info-content-item {
+            font-size: 1em;
+        }
+    }
+}

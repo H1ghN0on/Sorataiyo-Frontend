@@ -2,6 +2,11 @@ import React from "react";
 
 import { DetailsLayout } from "client/common";
 
+import { Status } from "client/common/Card/ApplicationCard";
+import ApplicationInfo from "./ApplicationInfo";
+
+import "./ApplicationDetailsPage.scss";
+
 const details = [
   {
     type: "Application Id",
@@ -9,7 +14,7 @@ const details = [
   },
   {
     type: "Status",
-    value: "Accepted",
+    value: <Status className="details-status-icon" status="accepted" />,
   },
   {
     type: "Created",
@@ -28,7 +33,7 @@ const details = [
 const ApplicationDetailsPage = () => {
   return (
     <DetailsLayout inspection={"Wow"} details={details} name="Fly me to the moon" isEditable>
-      Jesus
+      <ApplicationInfo details={details} />
     </DetailsLayout>
   );
 };
