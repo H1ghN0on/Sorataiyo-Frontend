@@ -69,7 +69,7 @@ function App() {
   // console.log(data);
 
   // return <CheckboxList values={data} onChange={handleRadioChange} column />;
-  return <CatalogsPage />;
+  return <ResultsDetailsPage />;
 }
 
 export default App;

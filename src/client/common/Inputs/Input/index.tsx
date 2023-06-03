@@ -14,6 +14,7 @@ export interface IInputProps {
   maxLength?: number;
   withLengthHint?: boolean;
   type?: "text" | "password";
+  placeholder?: string;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -26,6 +27,7 @@ const Input: React.FC<IInputProps> = ({
   minLength,
   maxLength,
   withLengthHint,
+  placeholder,
   type = "text",
 }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -44,7 +46,7 @@ const Input: React.FC<IInputProps> = ({
       <input
         ref={inputRef}
         name={name}
-        placeholder={label}
+        placeholder={label || placeholder}
         className={clsx("input-base", {
           "input-base-with-hint": Boolean(
             withLengthHint && maxLength && value.length > maxLength - 5

@@ -67,8 +67,8 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
         )}
         <div className="details-info">
           {details &&
-            details.map((detail) => (
-              <div className="details-info-item">
+            details.map((detail, index) => (
+              <div key={index} className="details-info-item">
                 <span className="details-info-item-bold">{detail.type}:</span> {detail.value}
               </div>
             ))}
