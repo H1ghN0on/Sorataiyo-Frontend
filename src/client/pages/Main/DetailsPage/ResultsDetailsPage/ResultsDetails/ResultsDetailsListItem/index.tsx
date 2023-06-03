@@ -6,6 +6,8 @@ import { IconButton } from "client/common";
 import { ReactComponent as PrintIcon } from "client/shared/icons/print.svg";
 import { ReactComponent as FlipIcon } from "client/shared/icons/arrow-down.svg";
 
+import "./ResultsDetailsListItem.scss";
+
 export interface IResultDetails {
   timestamp: string;
   id: number;

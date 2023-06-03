@@ -25,3 +25,13 @@
         }
     }
 }
+
+@media screen and (max-width: 600px) {
+    .results-details-header {
+        .results-tools {
+            .results-search {
+                display: none;
+            }
+        }
+    }
+}

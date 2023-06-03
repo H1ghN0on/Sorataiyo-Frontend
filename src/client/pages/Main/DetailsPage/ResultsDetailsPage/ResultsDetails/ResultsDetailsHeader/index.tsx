@@ -4,6 +4,8 @@ import { FiltersButton, Input } from "client/common";
 
 import ResultsFilters from "../ResultsFilters";
 
+import "./ResultsDetailsHeader.scss";
+
 interface IResultDetailsHeaderProps {
   searchValues: { x: string; y: string };
   onSearchChange: (type: "x" | "y", val: string) => void;

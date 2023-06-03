@@ -1,7 +1,9 @@
+@import "client/shared/styles/variables.scss";
+
 .results-details-list-item {
     cursor: pointer;
     display: grid;
-    grid-template-columns: 1fr 7fr 1fr;
+    grid-template-columns: 0.5fr 7fr 1fr;
     align-items: center;
     padding: 5px 10px;
     border-radius: 10px;
@@ -73,7 +75,4 @@
         max-height: 0;
         opacity: 0;
     }
-}
-& :first-child {
-    margin-top: 0;
 }
