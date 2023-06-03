@@ -1,0 +1,27 @@
+.results-details-header {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin-left: 10px;
+    .results-title {
+        font-size: 1.5em;
+        font-weight: 500;
+    }
+    .results-tools {
+        display: flex;
+        .results-search {
+            width: 100px;
+            height: 25px;
+            .input-base {
+                border-radius: 10px;
+            }
+        }
+
+        .results-tool {
+            margin-left: 15px;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
