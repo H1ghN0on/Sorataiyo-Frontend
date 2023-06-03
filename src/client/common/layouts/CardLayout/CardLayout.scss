@@ -8,7 +8,7 @@
 
     .card-title {
         font-size: 2em;
-        font-weight: 400;
+        font-weight: 500;
     }
 
     .card-tools {
@@ -31,10 +31,10 @@
         }
 
         .card-check-details-btn {
-            padding: 0;
-            height: 60%;
+            height: fit-content;
             font-size: 0.9em;
             align-self: flex-end;
+            padding: 10px;
         }
     }
 }

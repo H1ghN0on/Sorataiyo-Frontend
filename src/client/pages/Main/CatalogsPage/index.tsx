@@ -1,5 +1,5 @@
 import React from "react";
-import { ProfileLayout, Card } from "client/common";
+import { ProfileLayout, ApplicationCard, ResultCard } from "client/common";
 
 import "./CatalogsPage.scss";
 import CatalogsHeader from "./components/CatalogsHeader";
@@ -27,20 +27,65 @@ const ApplicationsPage = () => {
           isApplications={isApplicationsActive}
           onCatalogTypeChange={handleApplicationsClick}
         />
-        {/* <div className="catalogs-content">
-         
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-          <Card date="21/01/14" status="rejected" title="Fly me to the moon" id={1488228} />
-  </div>*/}
-        <div className="catalogs-empty">
-          <EmptyList title="Time to create new application!" />
+        <div className="catalogs-content">
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ApplicationCard
+            date="21/01/14"
+            status="rejected"
+            title="Fly me to the moon"
+            id={1488228}
+          />
+          <ResultCard date="21/01/14" title="Fly me to the moon" id={1488228} />
+          <ResultCard date="21/01/14" title="Fly me to the moon" id={1488228} />
+          <ResultCard date="21/01/14" title="Fly me to the moon" id={1488228} />
+          <ResultCard date="21/01/14" title="Fly me to the moon" id={1488228} />
+          <ResultCard date="21/01/14" title="Fly me to the moon" id={1488228} />
+          <ResultCard date="21/01/14" title="Fly me to the moon" id={1488228} />
         </div>
+        {/* <div className="catalogs-empty">
+          <EmptyList title="Time to create new application!" />
+        </div> */}
       </div>
     </ProfileLayout>
   );

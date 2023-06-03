@@ -1,7 +1,6 @@
 import React from "react";
 
-import "./Card.scss";
-import { Button } from "client/common";
+import { CardLayout } from "client/common";
 
 import { ReactComponent as PendingIcon } from "client/shared/icons/time.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
@@ -53,21 +52,13 @@ const Card: React.FC<ICardProps> = ({ title, id, status, date }) => {
   };
 
   return (
-    <div className="card">
-      <h2 className="card-title">{title}</h2>
-      <div className="card-tools">
-        <div className="card-info">
-          <div className="card-info-item">Record application: #{id}</div>
-          <div className="card-info-item card-info-status">
-            Status: <Status />
-          </div>
-          <div className="card-info-item">Created: {date}</div>
-        </div>
-        <Button inverse className="card-check-details-btn" onClick={() => {}}>
-          Check details
-        </Button>
+    <CardLayout title={title} id={id}>
+      <div className="card-info-item">Record application: #{id}</div>
+      <div className="card-info-item card-info-status">
+        Status: <Status />
       </div>
-    </div>
+      <div className="card-info-item">Created: {date}</div>
+    </CardLayout>
   );
 };
 

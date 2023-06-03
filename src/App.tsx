@@ -15,7 +15,6 @@ import {
   BaseLayout,
   Select,
   ProfileLayout,
-  Card,
   CheckboxList,
   Modal,
 } from "client/common";
