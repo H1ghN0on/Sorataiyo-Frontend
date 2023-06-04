@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import { Input, ProfileLayout, IconButton } from "client/common";
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
@@ -9,6 +9,7 @@ import { ReactComponent as RejectIcon } from "client/shared/icons/cross.svg";
 import "./FormPage.scss";
 
 const AdminFormPage = () => {
+  const { t } = useTranslation("form");
   const [commentary, setCommentary] = React.useState("");
 
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const AdminFormPage = () => {
           <div className="input-container col-1">
             <Input
               className="form-page-input"
-              label="Name"
+              label={t("name")!}
               name="name"
               value="Something, I don't know"
               onChange={(val: string) => {}}
@@ -46,7 +47,7 @@ const AdminFormPage = () => {
           <div className="input-container col-1">
             <Input
               className="form-page-input"
-              label="Name"
+              label={t("name")!}
               name="name"
               value="Something, I don't know"
               onChange={(val: string) => {}}
@@ -56,7 +57,7 @@ const AdminFormPage = () => {
           <div className="input-container col-1">
             <Input
               className="form-page-input"
-              label="Name"
+              label={t("name")!}
               name="name"
               value="Something, I don't know"
               onChange={(val: string) => {}}
@@ -64,7 +65,7 @@ const AdminFormPage = () => {
             />
           </div>
           <div className="input-container form-page-review col-1">
-            <div className="form-page-review-label">Commentary</div>
+            <div className="form-page-review-label">{t("commentary")}</div>
             <textarea
               className="form-page-review-input"
               onChange={handleCommentaryChange}
@@ -79,7 +80,7 @@ const AdminFormPage = () => {
               onClick={handleAcceptClick}
               disabled={!commentary}
             >
-              Accept
+              {t("accept")}
             </IconButton>
             <IconButton
               icon={RejectIcon}
@@ -88,7 +89,7 @@ const AdminFormPage = () => {
               onClick={handleRejectClick}
               disabled={!commentary}
             >
-              Reject
+              {t("reject")}
             </IconButton>
           </div>
         </form>

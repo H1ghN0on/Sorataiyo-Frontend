@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import { Input, Select, ProfileLayout, IconButton } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
 import ExploringForm from "./ExploringForm";
@@ -19,6 +19,8 @@ enum InstrumentType {
 }
 
 const FormPage = () => {
+  const { t } = useTranslation(["form", "details"]);
+
   const navigate = useNavigate();
 
   const [inputValues, setInputValue] = React.useState({
@@ -38,7 +40,7 @@ const FormPage = () => {
 
   const [applicationTypes, setApplicationTypes] = React.useState<IOptionProps[]>([
     {
-      label: "Exploring type",
+      label: t("exploring-location", { ns: "details" }),
       value: ApplicationType.ExploringType,
     },
   ]);
@@ -87,7 +89,7 @@ const FormPage = () => {
     <ProfileLayout>
       <div className="form-page-header">
         <BackIcon className="form-page-back-btn" onClick={handleBackButtonClick} />
-        <div className="form-page-title">Application Form</div>
+        <div className="form-page-title">{t("form")}</div>
       </div>
 
       <div className="form-page-content">
@@ -95,7 +97,7 @@ const FormPage = () => {
           <div className="input-container col-1">
             <Input
               className="form-page-input"
-              label="Name"
+              label={t("name")!}
               name="name"
               value={inputValues.name}
               onChange={(val: string) => {
@@ -106,7 +108,7 @@ const FormPage = () => {
           <div className="input-container col-1">
             <Select
               className="form-page-input"
-              label="Application Type"
+              label={t("type")!}
               name="application-type"
               options={applicationTypes}
               active={activeApplicationType}
@@ -133,7 +135,7 @@ const FormPage = () => {
             onClick={handleSubmitButton}
             disabled={!isFilled}
           >
-            Submit
+            {t("submit")}
           </IconButton>
         </form>
       </div>

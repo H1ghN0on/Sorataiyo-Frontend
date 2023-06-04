@@ -1,0 +1,13 @@
+{
+    "form": "Application Form",
+    "name": "Name",
+    "type": "Application Type",
+    "x": "X",
+    "y": "Y",
+    "radius": "Radius",
+    "instrument": "Instrument",
+    "commentary": "Commentary",
+    "accept": "Accept",
+    "reject": "Reject",
+    "submit": "Submit"
+}
