@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import { Button, IconInput, IconButton, FiltersButton } from "client/common";
 
 import { ReactComponent as FiltersIcon } from "client/shared/icons/filter.svg";
@@ -29,6 +29,7 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   onCatalogTypeChange,
   onFiltersChange,
 }) => {
+  const { t } = useTranslation("catalogs");
   const [isMobileHeaderActive, setMobileHeaderActive] = React.useState(false);
 
   const [isFiltersModalActive, setFiltersModalActive] = React.useState(false);
@@ -51,7 +52,7 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
             link="/form"
             className="catalogs-add-application-btn"
           >
-            Add application
+            {t("add-new")}
           </IconButton>
         )}
 
@@ -62,14 +63,14 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
               className="catalogs-list-item"
               inverse={isApplications}
             >
-              Applicatons
+              {t("applications")}
             </Button>
             <Button
               onClick={onCatalogTypeChange.bind(this, false)}
               className="catalogs-list-item"
               inverse={!isApplications}
             >
-              Results
+              {t("results")}
             </Button>
           </div>
         )}

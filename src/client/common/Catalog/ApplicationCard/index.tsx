@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-
+import { useTranslation } from "react-i18next";
 import { CardLayout } from "client/common";
 
 import { ReactComponent as PendingIcon } from "client/shared/icons/time.svg";
@@ -23,11 +23,13 @@ interface ICardProps {
 }
 
 export const Status: React.FC<IStatusProps> = ({ status, className }) => {
+  const { t } = useTranslation("catalogs");
   switch (status) {
     case "pending": {
       return (
         <>
-          Pending <PendingIcon className={clsx(className, "card-status-icon")} />
+          {t("applications-ns.pending")}{" "}
+          <PendingIcon className={clsx(className, "card-status-icon")} />
         </>
       );
     }
@@ -35,7 +37,8 @@ export const Status: React.FC<IStatusProps> = ({ status, className }) => {
     case "completed": {
       return (
         <>
-          Completed <ConfirmIcon className={clsx(className, "card-status-icon")} />
+          {t("applications-ns.completed")}{" "}
+          <ConfirmIcon className={clsx(className, "card-status-icon")} />
         </>
       );
     }
@@ -43,7 +46,8 @@ export const Status: React.FC<IStatusProps> = ({ status, className }) => {
     case "accepted": {
       return (
         <>
-          Accepted <AcceptedIcon className={clsx(className, "card-status-icon")} />
+          {t("applications-ns.accepted")}{" "}
+          <AcceptedIcon className={clsx(className, "card-status-icon")} />
         </>
       );
     }
@@ -51,7 +55,8 @@ export const Status: React.FC<IStatusProps> = ({ status, className }) => {
     case "rejected": {
       return (
         <>
-          Rejected <RejectedIcon className={clsx(className, "card-status-icon")} />
+          {t("applications-ns.rejected")}{" "}
+          <RejectedIcon className={clsx(className, "card-status-icon")} />
         </>
       );
     }
@@ -59,13 +64,18 @@ export const Status: React.FC<IStatusProps> = ({ status, className }) => {
 };
 
 const Card: React.FC<ICardProps> = ({ admin, title, id, status, date }) => {
+  const { t } = useTranslation("catalogs");
   return (
     <CardLayout type="application" admin={admin} title={title} id={id}>
-      <div className="card-info-item">Record application: #{id}</div>
-      <div className="card-info-item card-info-status">
-        Status: <Status status={status} />
+      <div className="card-info-item">
+        {t("applications-ns.id")}: #{id}
       </div>
-      <div className="card-info-item">Created: {date}</div>
+      <div className="card-info-item card-info-status">
+        {t("applications-ns.status")}: <Status status={status} />
+      </div>
+      <div className="card-info-item">
+        {t("applications-ns.created")}: {date}
+      </div>
     </CardLayout>
   );
 };

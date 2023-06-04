@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { CheckboxList, Modal, Select } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
@@ -39,25 +40,26 @@ enum CardSortBy {
 }
 
 const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, onChange }) => {
+  const { t } = useTranslation(["filters", "catalogs"]);
   const windowDimensions = useWindowDimensions();
   const [statusFilters, setStatusFilters] = React.useState([
     {
-      label: "Accepeted",
+      label: t("applications-ns.accepted", { ns: "catalogs" }),
       value: CardFilterByStatus.Accepted,
       checked: false,
     },
     {
-      label: "Rejected",
+      label: t("applications-ns.rejected", { ns: "catalogs" }),
       value: CardFilterByStatus.Rejected,
       checked: false,
     },
     {
-      label: "Pending",
+      label: t("applications-ns.pending", { ns: "catalogs" }),
       value: CardFilterByStatus.Pending,
       checked: false,
     },
     {
-      label: "Completed",
+      label: t("applications-ns.completed", { ns: "catalogs" }),
       value: CardFilterByStatus.Completed,
       checked: false,
     },
@@ -65,12 +67,12 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, onChange }) => {
 
   const [sortFrom, setSortFrom] = React.useState([
     {
-      label: "Ascending",
+      label: t("ascending"),
       value: CardSortFrom.Ascending,
       checked: true,
     },
     {
-      label: "Descending",
+      label: t("descending"),
       value: CardSortFrom.Descending,
       checked: false,
     },
@@ -78,15 +80,15 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, onChange }) => {
 
   const [sortBy, setSortBy] = React.useState<IOptionProps[]>([
     {
-      label: "Date",
+      label: t("date"),
       value: CardSortBy.Date,
     },
     {
-      label: "Application Id",
+      label: t("id"),
       value: CardSortBy.Id,
     },
     {
-      label: "Name",
+      label: t("name"),
       value: CardSortBy.Name,
     },
   ]);
@@ -125,10 +127,10 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, onChange }) => {
   };
 
   return (
-    <Modal className="filters-modal" title="Filters" opened={isOpened} onClose={onClose}>
+    <Modal className="filters-modal" title={t("filters")} opened={isOpened} onClose={onClose}>
       <Select
         className="filters-modal-item filters-modal-sort-by"
-        label="Sort by"
+        label={t("sort-by")!}
         active={activeSortBy}
         options={sortBy}
         onChange={handleSortByChange}
@@ -136,14 +138,14 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, onChange }) => {
       <CheckboxList
         className="filters-modal-item"
         radio
-        label="Sort from"
+        label={t("sort-from")!}
         values={sortFrom}
         onChange={handleSortFromChange}
         column={windowDimensions.width <= 600}
       />
       <CheckboxList
         className="filters-modal-item"
-        label="Status filter"
+        label={t("status-filter")}
         values={statusFilters}
         onChange={handleStatusFiltersChange}
         column={windowDimensions.width <= 600}

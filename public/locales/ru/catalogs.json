@@ -1,0 +1,27 @@
+{
+    "applications": "Заявки",
+    "results": "Результаты",
+    "settings": "Настройки",
+    "check-details": "Проверить",
+    "review": "Рассмотреть",
+    "add-new": "Новая заявка",
+    "filters": "Фильтры",
+    "applications-ns": {
+        "id": "Заявка",
+        "status": "Статус",
+        "accepted": "Принята",
+        "rejected": "Отклонена",
+        "completed": "Завершена",
+        "pending": "В рассмотрении",
+        "created": "Создана",
+        "empty-list": {
+            "bad-filters": "По заданным фильтрам ничего не нашлось",
+            "empty": "Пора создать новую заявку!"
+        }
+    },
+    "results-ns": {
+        "id": "Результат",
+        "received": "Получен"
+    }
+
+}

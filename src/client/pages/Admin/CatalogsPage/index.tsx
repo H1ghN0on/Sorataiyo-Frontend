@@ -1,5 +1,5 @@
 import { ApplicationCard, ProfileLayout, CatalogsHeader, EmptyList } from "client/common";
-
+import { useTranslation } from "react-i18next";
 import { StatusType } from "client/common/Catalog/ApplicationCard";
 import { ICatalogsFilter } from "client/pages/Main/CatalogsPage/components/Filters";
 import React from "react";
@@ -63,6 +63,8 @@ const applications = [
 ];
 
 const AdminCatalogsPage = () => {
+  const { t } = useTranslation("catalogs");
+
   const [searchValue, setSearchValue] = React.useState("");
 
   const [filteredCards, setFilteredCards] = React.useState(applications);
@@ -110,7 +112,7 @@ const AdminCatalogsPage = () => {
 
   React.useEffect(() => {
     filterCards(filteredCards, searchValue);
-  }, [filters]);
+  }, [filters, searchValue]);
 
   return (
     <ProfileLayout>
@@ -139,11 +141,11 @@ const AdminCatalogsPage = () => {
         {filteredCards.length === 0 &&
           (applications.length === 0 ? (
             <div className="catalogs-empty">
-              <EmptyList title="Time to rest! No applications" />
+              <EmptyList title={t("applications-ns.empty-list.empty")} />
             </div>
           ) : (
             <div className="catalogs-empty">
-              <EmptyList title="Bad filters" />
+              <EmptyList title={t("applications-ns.empty-list.bad-filters")} />
             </div>
           ))}
       </div>

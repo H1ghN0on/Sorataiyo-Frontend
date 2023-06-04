@@ -1,0 +1,28 @@
+{
+    "applications": "Applications",
+    "results": "Results",
+    "settings": "Settings",
+    "check-details": "Check details",
+    "review": "review",
+    "add-new": "Add new application",
+    "filters": "Filters",
+    "applications-ns": {
+        "id": "Record application",
+        "status": "Status",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "completed": "Completed",
+        "pending": "Pending",
+        "created": "Created",
+        "empty-list": {
+            "bad-filters": "Bad filters",
+            "empty": "Time to create new application"
+        }
+    },
+    "results-ns": {
+        "id": "Results ID",
+        "received": "Received"
+    }
+    
+
+}

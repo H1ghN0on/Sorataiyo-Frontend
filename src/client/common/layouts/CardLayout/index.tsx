@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "client/common";
 
 import "./CardLayout.scss";
+import { useTranslation } from "react-i18next";
 
 interface ICardLayoutProps {
   title: string;
@@ -13,6 +14,7 @@ interface ICardLayoutProps {
 }
 
 const CardLayout: React.FC<ICardLayoutProps> = ({ admin, title, id, children, type }) => {
+  const { t } = useTranslation("catalogs");
   const getLink = () => {
     if (admin) return `/admin/review/${id}`;
 
@@ -30,7 +32,7 @@ const CardLayout: React.FC<ICardLayoutProps> = ({ admin, title, id, children, ty
       <div className="card-tools">
         <div className="card-info">{children}</div>
         <Button link={getLink()} inverse className="card-check-details-btn" onClick={() => {}}>
-          {admin ? "Review" : "Check details"}
+          {admin ? t("review") : t("check-details")}
         </Button>
       </div>
     </div>

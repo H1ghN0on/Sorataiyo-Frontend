@@ -6,7 +6,7 @@ import {
   CatalogsHeader,
   EmptyList,
 } from "client/common";
-
+import { useTranslation } from "react-i18next";
 import "./CatalogsPage.scss";
 import { StatusType } from "client/common/Catalog/ApplicationCard";
 import { ICatalogsFilter } from "./components/Filters";
@@ -119,6 +119,8 @@ const results: ResultsType[] = [
 ];
 
 const ApplicationsPage = () => {
+  const { t } = useTranslation("catalogs");
+
   const [searchValue, setSearchValue] = React.useState("");
   const [isApplicationsActive, setApplicationsActive] = React.useState(true);
 
@@ -141,7 +143,6 @@ const ApplicationsPage = () => {
   };
 
   const filterCards = (cards: any[], value: string) => {
-    console.log("lol");
     let filtered = isApplicationsActive ? applications : results;
     filtered = filtered.filter((card) => {
       if (value && !card.id.toString().includes(value)) return false;
@@ -211,11 +212,11 @@ const ApplicationsPage = () => {
         {filteredCards.length === 0 &&
           (applications.length === 0 ? (
             <div className="catalogs-empty">
-              <EmptyList title="Time to create new application!" />
+              <EmptyList title={t("applications-ns.empty-list.empty")} />
             </div>
           ) : (
             <div className="catalogs-empty">
-              <EmptyList title="Bad filters" />
+              <EmptyList title={t("applications-ns.empty-list.bad-filters")} />
             </div>
           ))}
       </div>
