@@ -48,7 +48,7 @@ const ResultsDetailsListItem: React.FC<IResultDetailsListItemProps> = ({ details
           </IconButton>
           <FlipIcon
             className={clsx("results-details-list-item-btn", {
-              rotated: false,
+              rotated: isActive,
             })}
           />
         </div>
