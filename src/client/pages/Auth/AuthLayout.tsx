@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { ReactComponent as Logo } from "../../shared/icons/sorataiyo-logo.svg";
 
@@ -13,6 +14,7 @@ interface IAuthLayoutProps {
 }
 
 const AuthLayout: React.FC<IAuthLayoutProps> = ({ children, title, isRegister, isFinish }) => {
+  const { t } = useTranslation("auth");
   return (
     <div className="auth-page">
       <div className="auth-logo">
@@ -23,15 +25,15 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children, title, isRegister, i
         {children}
         {!isFinish && (
           <div className="auth-footer">
-            <span>{isRegister ? "Already explored with Sorataiyo?" : "New to Sorataiyo?"}</span>
+            <span>{isRegister ? t("register.already-explored") : t("login.new-to-sorataiyo")}</span>
 
             {isRegister ? (
               <Link className="auth-footer-link" to="/login">
-                Sign in
+                {t("register.sign-in")}
               </Link>
             ) : (
               <Link className="auth-footer-link" to="/register">
-                Sign up
+                {t("login.sign-up")}
               </Link>
             )}
           </div>

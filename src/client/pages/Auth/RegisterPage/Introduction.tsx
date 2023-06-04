@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import AuthLayout from "../AuthLayout";
 import { Button, Input } from "client/common";
@@ -9,6 +10,8 @@ import { RegisterContext } from "scripts/contexts/RegisterContext";
 type LoginField = "firstName" | "lastName";
 
 const IntroductionRegisterPage = () => {
+  const { t } = useTranslation("auth");
+
   const contextData = React.useContext(RegisterContext);
 
   const [form, setForm] = React.useState({
@@ -31,20 +34,20 @@ const IntroductionRegisterPage = () => {
   };
 
   return (
-    <AuthLayout title="Who are you?" isRegister>
+    <AuthLayout title={t("register.introduction")} isRegister>
       <form className="introduction-form">
         <div className="introduction-inputs">
           <Input
             className="introduction-firstname-input"
             name="firstname"
-            label="First Name"
+            label={t("firstname")!}
             value={form.firstName}
             onChange={(value) => handleFormChange("firstName", value)}
           />
           <Input
             className="introduction-lastname-input"
             name="lastname"
-            label="Last Name"
+            label={t("lastname")!}
             value={form.lastName}
             onChange={(value) => handleFormChange("lastName", value)}
           />
@@ -55,7 +58,7 @@ const IntroductionRegisterPage = () => {
           onClick={handleSubmit}
           inverse
         >
-          Next
+          {t("register.next")}
         </Button>
       </form>
     </AuthLayout>

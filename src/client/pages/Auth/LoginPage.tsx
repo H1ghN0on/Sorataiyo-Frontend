@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { ReactComponent as EmailIcon } from "../../shared/icons/person.svg";
 import { ReactComponent as PasswordIcon } from "../../shared/icons/lock.svg";
@@ -23,16 +24,18 @@ const LoginPage = () => {
     });
   };
 
+  const { t } = useTranslation("auth");
+  // i18n.changeLanguage("ru");
   const handleSubmit = () => {};
 
   return (
-    <AuthLayout title="Log in to your account" isRegister={false}>
+    <AuthLayout title={t("login.title")!} isRegister={false}>
       <form className="login-form">
         <IconInput
           className="login-email-input"
           icon={EmailIcon}
           name="email"
-          label="Email Address"
+          label={t("email")!}
           value={loginForm.email}
           onChange={(value) => handleLoginChange("email", value)}
         />
@@ -40,7 +43,7 @@ const LoginPage = () => {
           className="login-password-input"
           icon={PasswordIcon}
           name="password"
-          label="Password"
+          label={t("password")!}
           value={loginForm.password}
           type="password"
           onChange={(value) => handleLoginChange("password", value)}
@@ -51,7 +54,7 @@ const LoginPage = () => {
           onClick={handleSubmit}
           inverse
         >
-          Log In
+          {t("login.log-in")!}
         </Button>
       </form>
     </AuthLayout>

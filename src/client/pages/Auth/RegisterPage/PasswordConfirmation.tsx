@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import AuthLayout from "../AuthLayout";
 import { Button, IconInput, TextWithHint } from "client/common";
@@ -33,6 +34,8 @@ const PasswordChecker: React.FC<IPasswordChecker> = ({ children, criteria }) => 
 const PasswordRegisterPage = () => {
   const contextData = React.useContext(RegisterContext);
 
+  const { t } = useTranslation("auth");
+
   const [form, setForm] = React.useState({
     password: "",
     confirmPassword: "",
@@ -56,13 +59,13 @@ const PasswordRegisterPage = () => {
   const criteriaTwo = ["@", ".", "!", "?", "/"].some((value) => form.password.includes(value));
 
   return (
-    <AuthLayout title="Privatise your research" isRegister>
+    <AuthLayout title={t("register.password-confirmation")} isRegister>
       <form className="password-confirm-form">
         <IconInput
           className="password-confirm-password-input"
           icon={PasswordIcon}
           name="password"
-          label="Password"
+          label={t("password")!}
           value={form.password}
           type="password"
           onChange={(value) => handleFormChange("password", value)}
@@ -71,15 +74,17 @@ const PasswordRegisterPage = () => {
           className="password-confirm-password-confirm-input"
           icon={PasswordIcon}
           name="confirm-password"
-          label="Confirm Password"
+          label={t("confirm-password")!}
           value={form.confirmPassword}
           type="password"
           onChange={(value) => handleFormChange("confirmPassword", value)}
         />
         <div className="password-confirm-checkers">
-          <PasswordChecker criteria={criteriaOne}>More than 8 symbols</PasswordChecker>
+          <PasswordChecker criteria={criteriaOne}>
+            {t("register.password-criteria-1")}
+          </PasswordChecker>
           <PasswordChecker criteria={criteriaTwo}>
-            At least one&nbsp;<TextWithHint hint="@ _ ! ? . /">special</TextWithHint>&nbsp;symbol
+            {t("register.password-criteria-2")}
           </PasswordChecker>
         </div>
         <Button
@@ -88,7 +93,7 @@ const PasswordRegisterPage = () => {
           onClick={handleSubmit}
           inverse
         >
-          Next
+          {t("register.next")}
         </Button>
       </form>
     </AuthLayout>

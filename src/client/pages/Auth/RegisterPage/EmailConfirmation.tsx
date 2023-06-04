@@ -7,6 +7,7 @@ import { ReactComponent as MailIcon } from "client/shared/icons/mail.svg";
 
 import "./EmailConfirmation.scss";
 import { RegisterContext } from "scripts/contexts/RegisterContext";
+import { useTranslation } from "react-i18next";
 
 const CODE_LENGTH = 6;
 const SECONDS_TO_WAIT = 10;
@@ -15,6 +16,8 @@ const re =
 
 const EmailConfirmationRegisterPage = () => {
   const contextData = React.useContext(RegisterContext);
+
+  const { t } = useTranslation("auth");
 
   const [email, setEmail] = React.useState("");
   const [code, setCode] = React.useState<number[]>([]);
@@ -70,14 +73,14 @@ const EmailConfirmationRegisterPage = () => {
   };
 
   return (
-    <AuthLayout title="Connect your Email" isRegister>
+    <AuthLayout title={t("register.email-confirmation")} isRegister>
       <form className="email-confirm-form">
         <div className="email-confirm-input-box">
           <IconInput
             className="email-confirm-email-input"
             icon={MailIcon}
             name="email"
-            label="Email"
+            label={t("email")!}
             value={email}
             onChange={handleEmailChange}
           />
@@ -87,7 +90,7 @@ const EmailConfirmationRegisterPage = () => {
             onClick={handleSendMessage}
             inverse
           >
-            {timer <= 0 ? "Send confirmation" : timer}
+            {timer <= 0 ? t("register.send-confirmation") : timer}
           </Button>
         </div>
         <CodeInput
@@ -96,7 +99,7 @@ const EmailConfirmationRegisterPage = () => {
           })}
           values={code}
           length={CODE_LENGTH}
-          label="Confirmation Code"
+          label={t("confirmation-code")!}
           onChange={handleCodeChange}
           onSubmit={handleCodeSubmit}
           onClear={handleCodeClear}
