@@ -16,9 +16,11 @@ interface ICatalogsHeaderProps {
   searchValue: string;
   isApplications: boolean;
   onCatalogTypeChange: (val: boolean) => void;
+  admin?: boolean;
 }
 
 const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
+  admin,
   onAddButtonClick,
   onSearchValueChange,
   searchValue,
@@ -38,33 +40,41 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   };
 
   return (
-    <div className="catalogs-header">
+    <div
+      className={clsx("catalogs-header", {
+        admin: admin,
+      })}
+    >
       <div className="catalogs-header-main">
-        <IconButton
-          icon={AddIcon}
-          inverse
-          onClick={onAddButtonClick}
-          className="catalogs-add-application-btn"
-        >
-          Add application
-        </IconButton>
+        {!admin && (
+          <IconButton
+            icon={AddIcon}
+            inverse
+            onClick={onAddButtonClick}
+            className="catalogs-add-application-btn"
+          >
+            Add application
+          </IconButton>
+        )}
 
-        <div className="catalogs-list">
-          <Button
-            onClick={onCatalogTypeChange.bind(this, true)}
-            className="catalogs-list-item"
-            inverse={isApplications}
-          >
-            Applicatons
-          </Button>
-          <Button
-            onClick={onCatalogTypeChange.bind(this, false)}
-            className="catalogs-list-item"
-            inverse={!isApplications}
-          >
-            Results
-          </Button>
-        </div>
+        {!admin && (
+          <div className="catalogs-list">
+            <Button
+              onClick={onCatalogTypeChange.bind(this, true)}
+              className="catalogs-list-item"
+              inverse={isApplications}
+            >
+              Applicatons
+            </Button>
+            <Button
+              onClick={onCatalogTypeChange.bind(this, false)}
+              className="catalogs-list-item"
+              inverse={!isApplications}
+            >
+              Results
+            </Button>
+          </div>
+        )}
         <div className="catalogs-tools">
           <div className="catalogs-search">
             <IconInput
@@ -94,19 +104,21 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
         </div>
       </div>
 
-      <div
-        className={clsx("catalogs-header-mobile", {
-          "catalogs-header-mobile-hidden": isMobileHeaderActive,
-        })}
-      >
+      {!admin && (
         <div
-          className="catalogs-header-mobile-item"
-          onClick={setFiltersModalActive.bind(this, true)}
+          className={clsx("catalogs-header-mobile", {
+            "catalogs-header-mobile-hidden": isMobileHeaderActive,
+          })}
         >
-          Filters
+          <div
+            className="catalogs-header-mobile-item"
+            onClick={setFiltersModalActive.bind(this, true)}
+          >
+            Filters
+          </div>
+          <div className="catalogs-header-mobile-item">Add new application</div>
         </div>
-        <div className="catalogs-header-mobile-item">Add new application</div>
-      </div>
+      )}
     </div>
   );
 };

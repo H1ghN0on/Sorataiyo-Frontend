@@ -19,6 +19,7 @@ interface ICardProps {
   id: number;
   status: StatusType;
   date: string;
+  admin?: boolean;
 }
 
 export const Status: React.FC<IStatusProps> = ({ status, className }) => {
@@ -57,9 +58,9 @@ export const Status: React.FC<IStatusProps> = ({ status, className }) => {
   }
 };
 
-const Card: React.FC<ICardProps> = ({ title, id, status, date }) => {
+const Card: React.FC<ICardProps> = ({ admin, title, id, status, date }) => {
   return (
-    <CardLayout title={title} id={id}>
+    <CardLayout admin={admin} title={title} id={id}>
       <div className="card-info-item">Record application: #{id}</div>
       <div className="card-info-item card-info-status">
         Status: <Status status={status} />

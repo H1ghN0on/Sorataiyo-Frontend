@@ -1,0 +1,75 @@
+@import "client/shared/styles/variables.scss";
+
+.form-page-content {
+    .form-page-form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+
+        > div {
+            margin-top: 10px;
+        }
+
+        & :first-child {
+            margin-top: 0;
+        }
+
+        .input-container {
+
+            .input-label {
+                font-size: 1em;
+            }
+            
+            &.col-1 {
+                display: grid;
+                
+                grid-template-columns: 1fr;
+            }
+            &.col-2 {
+                display: grid;
+                gap: 50px;
+                row-gap: 20px;
+                grid-template-columns: 1fr 1fr;
+            }
+            &.col-3 {
+                display: grid;
+                gap: 50px;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            &.col-4 {
+                display: grid;
+                gap: 50px;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+        .form-page-review {
+            .form-page-review-input {
+                margin-top: 5px;
+                outline: none;
+                padding: 5px;
+                border-radius: 3px;
+                border: none;
+                outline: 1px solid $font-main;
+            }
+        }
+
+        .form-page-buttons {
+            display: flex;
+            justify-content: center;
+            .form-page-submit-btn {
+                width: 20%;
+                height: 40px;
+                padding: 0;
+                align-self: center;
+                margin-top: 40px;
+                margin-left: 50px;
+            }
+
+            & :first-child {
+                margin-left: 0;
+            }
+        }
+
+        
+    }
+}

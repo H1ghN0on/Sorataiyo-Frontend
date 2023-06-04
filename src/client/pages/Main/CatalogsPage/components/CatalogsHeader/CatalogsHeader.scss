@@ -4,6 +4,7 @@
     
     border-bottom: 1px solid $font-main;
     padding-bottom: 15px;
+
     .catalogs-header-main {
         display: flex;
         justify-content:space-between;
@@ -49,13 +50,9 @@
                 }
             }
         }
-        
-
         .burger-menu-btn {
             display: none;
         }
-        
-       
     }
 
     .catalogs-header-mobile {
@@ -86,6 +83,12 @@
             margin-top: 0;
         }
     }
+
+    &.admin {
+        .catalogs-header-main {
+            justify-content: flex-end;
+        }
+    }
 }
 
 
@@ -114,6 +117,7 @@
             .catalogs-tools {
                 display: none;
             }
+
         }
         
         .catalogs-header-mobile {
@@ -121,6 +125,19 @@
             margin-top: 10px;
             max-height: 200px;
             overflow: hidden;
+        }
+
+        &.admin {
+            .catalogs-header-main {
+                .catalogs-tools {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .burger-menu-btn {
+                    display: none;
+                }
+            }
+
         }
     }
 }

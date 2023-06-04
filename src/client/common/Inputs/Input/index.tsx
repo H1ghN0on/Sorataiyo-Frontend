@@ -9,7 +9,7 @@ export interface IInputProps {
   name: string;
   className?: string;
   label?: string;
-  disabled?: string;
+  disabled?: boolean;
   minLength?: number;
   maxLength?: number;
   withLengthHint?: boolean;
