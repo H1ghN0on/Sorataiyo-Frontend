@@ -1,7 +1,9 @@
 import React from "react";
-
 import clsx from "clsx";
+import { Link } from "react-router-dom";
+
 import { ReactComponent as WaitSpin } from "../../../shared/icons/wait-spin.svg";
+import { ConditionalWrapper } from "client/common";
 
 import "./Button.scss";
 
@@ -13,6 +15,7 @@ export interface IButtonProps {
   type?: "button" | "submit";
   disabled?: boolean;
   inverse?: boolean;
+  link?: string;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -22,6 +25,7 @@ const Button: React.FC<IButtonProps> = ({
   useLoader,
   inverse,
   children,
+  link,
   type = "button",
 }) => {
   const [isLoading, setLoading] = React.useState(false);
@@ -43,18 +47,20 @@ const Button: React.FC<IButtonProps> = ({
   };
 
   return (
-    <button
-      className={clsx(className === undefined ? "" : className, "button", {
-        "button-loading": isLoading,
-        "button-inverse": inverse,
-        "button-disabled": disabled,
-      })}
-      disabled={isDisabled}
-      type={type}
-      onClick={handleClick}
-    >
-      {isLoading ? <WaitSpin className="loading-icon" /> : children}
-    </button>
+    <ConditionalWrapper if={link !== undefined} with={(ch) => <Link to={link!}>{ch}</Link>}>
+      <button
+        className={clsx(className === undefined ? "" : className, "button", {
+          "button-loading": isLoading,
+          "button-inverse": inverse,
+          "button-disabled": disabled,
+        })}
+        disabled={isDisabled}
+        type={type}
+        onClick={handleClick}
+      >
+        {isLoading ? <WaitSpin className="loading-icon" /> : children}
+      </button>
+    </ConditionalWrapper>
   );
 };
 

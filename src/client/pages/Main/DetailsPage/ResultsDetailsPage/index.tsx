@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { DetailsLayout } from "client/common";
-
-import "./ResultsDetailsPage.scss";
 import ResultsDetails from "./ResultsDetails";
 
+import "./ResultsDetailsPage.scss";
 const details = [
   {
     type: "Result Id",
@@ -16,7 +16,7 @@ const details = [
   },
   {
     type: "Application source",
-    value: "Link",
+    value: <Link to="/application/228">Link</Link>,
   },
 ];
 
@@ -129,7 +129,12 @@ const resultsDetails = [
 
 const ResultsDetailsPage = () => {
   return (
-    <DetailsLayout inspection={"Wow"} details={details} name="Fly me to the moon" isEditable>
+    <DetailsLayout
+      inspection={"Wow, that's absolutely incredible"}
+      details={details}
+      name="Fly me to the moon"
+      isEditable
+    >
       <ResultsDetails details={resultsDetails} />
     </DetailsLayout>
   );

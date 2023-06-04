@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { DetailsLayout } from "client/common";
-
 import { Status } from "client/common/Catalog/ApplicationCard";
 import ApplicationInfo from "./ApplicationInfo";
 
@@ -26,7 +26,7 @@ const details = [
   },
   {
     type: "Results",
-    value: "Link",
+    value: <Link to="/results/228">Link</Link>,
   },
 ];
 

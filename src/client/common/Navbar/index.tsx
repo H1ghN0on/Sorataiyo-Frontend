@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "client/common";
-import NavbarSettings from "./NavbarSettings";
 import { ReactComponent as Logo } from "client/shared/icons/sorataiyo-logo.svg";
+import NavbarSettings from "./NavbarSettings";
 
 import "./Navbar.scss";
 
@@ -24,9 +25,9 @@ const NavbarAuthed = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a className="logo" href="#">
+        <Link className="logo" to="/">
           <Logo />
-        </a>
+        </Link>
 
         <div className="tools">
           <Button className="navbar-settings-btn" onClick={handleSettingsClick}>
@@ -45,27 +46,25 @@ const NavbarAuthed = () => {
 };
 
 const NavbarDefault = () => {
-  const handleButtonClick = () => {};
-
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a className="logo" href="#">
+        <Link className="logo" to="/">
           <Logo />
-        </a>
+        </Link>
         <div className="navigation">
-          <a className="navigation-item" href="#">
+          <Link className="navigation-item" to="#">
             About
-          </a>
-          <a className="navigation-item" href="#">
+          </Link>
+          <Link className="navigation-item" to="#">
             Pricing
-          </a>
+          </Link>
         </div>
         <div className="tools">
-          <Button className="navbar-login-btn" inverse onClick={handleButtonClick}>
+          <Button link="/login" className="navbar-login-btn" inverse onClick={() => {}}>
             Login
           </Button>
-          <Button className="navbar-register-btn" onClick={handleButtonClick}>
+          <Button link="/register" className="navbar-register-btn" onClick={() => {}}>
             Sign Up
           </Button>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../shared/icons/sorataiyo-logo.svg";
 
@@ -24,9 +25,15 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children, title, isRegister, i
           <div className="auth-footer">
             <span>{isRegister ? "Already explored with Sorataiyo?" : "New to Sorataiyo?"}</span>
 
-            <a className="auth-footer-link" href="google.com">
-              {isRegister ? "Sign in" : "Sign up"}
-            </a>
+            {isRegister ? (
+              <Link className="auth-footer-link" to="/login">
+                Sign in
+              </Link>
+            ) : (
+              <Link className="auth-footer-link" to="/register">
+                Sign up
+              </Link>
+            )}
           </div>
         )}
       </div>

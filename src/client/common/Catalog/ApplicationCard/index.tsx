@@ -60,7 +60,7 @@ export const Status: React.FC<IStatusProps> = ({ status, className }) => {
 
 const Card: React.FC<ICardProps> = ({ admin, title, id, status, date }) => {
   return (
-    <CardLayout admin={admin} title={title} id={id}>
+    <CardLayout type="application" admin={admin} title={title} id={id}>
       <div className="card-info-item">Record application: #{id}</div>
       <div className="card-info-item card-info-status">
         Status: <Status status={status} />

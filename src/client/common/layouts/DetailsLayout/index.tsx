@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ProfileLayout, IconButton } from "client/common";
 
@@ -28,21 +29,27 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
   inspection,
   children,
 }) => {
-  const handleEditButtonClick = () => {};
-
   const handlePrintButtonClick = () => {};
+
+  const handleBackButtonClick = () => {
+    navigate(-1);
+  };
+
+  const navigate = useNavigate();
 
   return (
     <ProfileLayout>
       <div className="details-header">
-        <BackIcon className="details-back-btn" />
+        <BackIcon onClick={handleBackButtonClick} className="details-back-btn" />
+
         <div className="details-header-name">{name}</div>
         <div className="details-header-tools">
           {isEditable && (
             <IconButton
+              link="/form"
               className="details-header-edit-btn"
               icon={PenIcon}
-              onClick={handleEditButtonClick}
+              onClick={() => {}}
               inverse
             >
               Edit

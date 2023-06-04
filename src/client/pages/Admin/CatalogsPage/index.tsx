@@ -24,7 +24,6 @@ const AdminCatalogsPage = () => {
       <div className="catalogs">
         <CatalogsHeader
           admin
-          onAddButtonClick={() => {}}
           searchValue={searchValue}
           onSearchValueChange={handleSearchChange}
           isApplications={isApplicationsActive}
@@ -32,48 +31,56 @@ const AdminCatalogsPage = () => {
         />
         <div className="catalogs-content">
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"
             id={1488228}
           />
           <ApplicationCard
+            admin
             date="21/01/14"
             status="rejected"
             title="Fly me to the moon"

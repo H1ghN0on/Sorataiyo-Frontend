@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 import { Button, IconInput, IconButton, FiltersButton } from "client/common";
 
@@ -7,11 +8,11 @@ import { ReactComponent as FiltersIcon } from "client/shared/icons/filter.svg";
 import { ReactComponent as AddIcon } from "client/shared/icons/plus-icon.svg";
 import { ReactComponent as BurgerIcon } from "client/shared/icons/burger.svg";
 
+import Filters from "client/pages/Main/CatalogsPage/components/Filters";
+
 import "./CatalogsHeader.scss";
-import Filters from "../../../pages/Main/CatalogsPage/components/Filters";
 
 interface ICatalogsHeaderProps {
-  onAddButtonClick: () => void;
   onSearchValueChange: (val: string) => void;
   searchValue: string;
   isApplications: boolean;
@@ -21,7 +22,6 @@ interface ICatalogsHeaderProps {
 
 const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   admin,
-  onAddButtonClick,
   onSearchValueChange,
   searchValue,
   isApplications,
@@ -50,7 +50,8 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
           <IconButton
             icon={AddIcon}
             inverse
-            onClick={onAddButtonClick}
+            onClick={() => {}}
+            link="/form"
             className="catalogs-add-application-btn"
           >
             Add application
@@ -116,7 +117,9 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
           >
             Filters
           </div>
-          <div className="catalogs-header-mobile-item">Add new application</div>
+          <div className="catalogs-header-mobile-item">
+            <Link to="/form">Add new application</Link>
+          </div>
         </div>
       )}
     </div>

@@ -25,7 +25,6 @@ const ApplicationsPage = () => {
     <ProfileLayout>
       <div className="catalogs">
         <CatalogsHeader
-          onAddButtonClick={() => {}}
           searchValue={searchValue}
           onSearchValueChange={handleSearchChange}
           isApplications={isApplicationsActive}

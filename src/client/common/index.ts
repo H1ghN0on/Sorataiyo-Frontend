@@ -20,3 +20,4 @@ export { default as DetailsLayout } from "./layouts/DetailsLayout";
 export { default as FiltersButton } from "./Buttons/FiltersButton";
 export { default as CatalogsHeader } from "./Catalog/CatalogsHeader";
 export { default as EmptyList } from "./Catalog/EmptyList";
+export { default as ConditionalWrapper } from "./ConditionalWrapper";
