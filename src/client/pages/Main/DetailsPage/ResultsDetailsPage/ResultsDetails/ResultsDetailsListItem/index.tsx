@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-
+import { useTranslation } from "react-i18next";
 import { IconButton } from "client/common";
 
 import { ReactComponent as PrintIcon } from "client/shared/icons/print.svg";
@@ -22,6 +22,7 @@ interface IResultDetailsListItemProps {
 }
 
 const ResultsDetailsListItem: React.FC<IResultDetailsListItemProps> = ({ details }) => {
+  const { t } = useTranslation("details");
   const [isActive, setActive] = React.useState(false);
 
   const handleItemClick = () => {
@@ -44,7 +45,7 @@ const ResultsDetailsListItem: React.FC<IResultDetailsListItemProps> = ({ details
             icon={PrintIcon}
             onClick={handlePrintClick}
           >
-            Print
+            {t("print")}
           </IconButton>
           <FlipIcon
             className={clsx("results-details-list-item-btn", {

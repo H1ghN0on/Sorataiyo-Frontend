@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useTranslation } from "react-i18next";
 import { FiltersButton, Input } from "client/common";
 
 import ResultsFilters from "../ResultsFilters";
@@ -17,11 +17,12 @@ const ResultsDetailsHeader: React.FC<IResultDetailsHeaderProps> = ({
   onSearchChange,
   onFiltersChange,
 }) => {
+  const { t } = useTranslation("details");
   const [isFiltersModalActive, setFiltersModalActive] = React.useState(false);
 
   return (
     <div className="results-details-header">
-      <div className="results-title">Results</div>
+      <div className="results-title">{t("results")}</div>
       <div className="results-tools">
         <Input
           className="results-search results-tool"

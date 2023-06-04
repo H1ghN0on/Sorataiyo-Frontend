@@ -8,6 +8,7 @@ import { ReactComponent as PenIcon } from "client/shared/icons/edit.svg";
 import { ReactComponent as PrintIcon } from "client/shared/icons/print.svg";
 
 import "./DetailsLayout.scss";
+import { useTranslation } from "react-i18next";
 
 interface IDetailsProps {
   type: string;
@@ -29,6 +30,8 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
   inspection,
   children,
 }) => {
+  const { t } = useTranslation("details");
+
   const handlePrintButtonClick = () => {};
 
   const handleBackButtonClick = () => {
@@ -52,7 +55,7 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
               onClick={() => {}}
               inverse
             >
-              Edit
+              {t("edit")}
             </IconButton>
           )}
           <IconButton
@@ -61,14 +64,14 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
             onClick={handlePrintButtonClick}
             inverse
           >
-            Print
+            {t("print")}
           </IconButton>
         </div>
       </div>
       <div className="details-content">
         {inspection && (
           <div className="details-inspection">
-            <div className="details-inspection-label">Inspection review</div>
+            <div className="details-inspection-label">{t("inspection-review")}</div>
             <div className="details-inspection-content">{inspection}</div>
           </div>
         )}
