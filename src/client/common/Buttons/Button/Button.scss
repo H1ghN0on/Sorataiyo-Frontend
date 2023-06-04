@@ -47,6 +47,12 @@
         fill: $primary-light;
         animation: spin 1s infinite linear;
     }
+
+    &.button-disabled {
+        .icon {
+            fill: $font-main !important;
+        }
+    }
 }
 
 

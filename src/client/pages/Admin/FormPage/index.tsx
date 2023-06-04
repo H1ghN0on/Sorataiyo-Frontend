@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Input, ProfileLayout, IconButton } from "client/common";
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
@@ -8,14 +9,25 @@ import { ReactComponent as RejectIcon } from "client/shared/icons/cross.svg";
 import "./FormPage.scss";
 
 const AdminFormPage = () => {
+  const [commentary, setCommentary] = React.useState("");
+
+  const navigate = useNavigate();
+
   const handleAcceptClick = () => {};
 
   const handleRejectClick = () => {};
 
+  const handleBackButtonClick = () => {
+    navigate(-1);
+  };
+  const handleCommentaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCommentary(e.target.value);
+  };
+
   return (
     <ProfileLayout>
       <div className="form-page-header">
-        <BackIcon className="form-page-back-btn" />
+        <BackIcon className="form-page-back-btn" onClick={handleBackButtonClick} />
         <div className="form-page-title">Application Form</div>
       </div>
 
@@ -53,7 +65,11 @@ const AdminFormPage = () => {
           </div>
           <div className="input-container form-page-review col-1">
             <div className="form-page-review-label">Commentary</div>
-            <textarea className="form-page-review-input" />
+            <textarea
+              className="form-page-review-input"
+              onChange={handleCommentaryChange}
+              value={commentary}
+            />
           </div>
           <div className="form-page-buttons">
             <IconButton
@@ -61,6 +77,7 @@ const AdminFormPage = () => {
               className="form-page-submit-btn"
               inverse
               onClick={handleAcceptClick}
+              disabled={!commentary}
             >
               Accept
             </IconButton>
@@ -69,6 +86,7 @@ const AdminFormPage = () => {
               className="form-page-submit-btn"
               inverse
               onClick={handleRejectClick}
+              disabled={!commentary}
             >
               Reject
             </IconButton>

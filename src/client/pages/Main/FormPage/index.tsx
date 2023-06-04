@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Input, Select, ProfileLayout, IconButton } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
@@ -18,17 +19,21 @@ enum InstrumentType {
 }
 
 const FormPage = () => {
+  const navigate = useNavigate();
+
   const [inputValues, setInputValue] = React.useState({
     name: "",
-    type: "exploring_point",
     x: "50",
     y: "50",
     radius: "5",
-    instrument: "bfg-700",
   });
 
+  const [isFilled, setFilled] = React.useState(false);
+
   const handleInputValue = (type: string, val: string) => {
-    setInputValue({ ...inputValues, [type]: val });
+    const values = { ...inputValues, [type]: val };
+    setInputValue(values);
+    checkInputsFilled(values);
   };
 
   const [applicationTypes, setApplicationTypes] = React.useState<IOptionProps[]>([
@@ -63,10 +68,25 @@ const FormPage = () => {
 
   const handleSubmitButton = () => {};
 
+  const handleBackButtonClick = () => {
+    navigate(-1);
+  };
+
+  const checkInputsFilled = (values: object) => {
+    for (let prop in values) {
+      if ((values as any)[prop] === "") return setFilled(false);
+    }
+    return setFilled(true);
+  };
+
+  React.useEffect(() => {
+    checkInputsFilled(inputValues);
+  }, []);
+
   return (
     <ProfileLayout>
       <div className="form-page-header">
-        <BackIcon className="form-page-back-btn" />
+        <BackIcon className="form-page-back-btn" onClick={handleBackButtonClick} />
         <div className="form-page-title">Application Form</div>
       </div>
 
@@ -111,6 +131,7 @@ const FormPage = () => {
             className="form-page-submit-btn"
             inverse
             onClick={handleSubmitButton}
+            disabled={!isFilled}
           >
             Submit
           </IconButton>
