@@ -18,7 +18,6 @@ interface ICatalogsHeaderProps {
   isApplications: boolean;
   onCatalogTypeChange: (val: boolean) => void;
   admin?: boolean;
-  filters: ICatalogsFilter;
   onFiltersChange: (type: string, val: boolean | string) => void;
 }
 
@@ -28,7 +27,6 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   searchValue,
   isApplications,
   onCatalogTypeChange,
-  filters,
   onFiltersChange,
 }) => {
   const [isMobileHeaderActive, setMobileHeaderActive] = React.useState(false);
@@ -87,8 +85,7 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
           </div>
           <FiltersButton onOpen={setFiltersModalActive.bind(this, true)}>
             <Filters
-              filters={filters!}
-              onChange={onFiltersChange!}
+              onChange={onFiltersChange}
               isOpened={isFiltersModalActive}
               onClose={setFiltersModalActive.bind(this, false)}
             />

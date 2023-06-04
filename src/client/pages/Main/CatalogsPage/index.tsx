@@ -189,7 +189,6 @@ const ApplicationsPage = () => {
           onSearchValueChange={handleSearchChange}
           isApplications={isApplicationsActive}
           onCatalogTypeChange={handleApplicationsClick}
-          filters={filters}
           onFiltersChange={handleFiltersUpdate}
         />
         <div className="catalogs-content">

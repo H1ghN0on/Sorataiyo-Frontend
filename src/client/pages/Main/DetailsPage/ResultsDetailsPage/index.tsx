@@ -23,7 +23,7 @@ const details = [
 const resultsDetails = [
   {
     id: 1,
-    timestamp: "14-05-2023",
+    date: "14-05-2023",
     data: [
       {
         type: "x",
@@ -49,7 +49,7 @@ const resultsDetails = [
   },
   {
     id: 2,
-    timestamp: "15-05-2023",
+    date: "15-05-2023",
     data: [
       {
         type: "x",
@@ -75,7 +75,7 @@ const resultsDetails = [
   },
   {
     id: 3,
-    timestamp: "16-05-2023",
+    date: "13-05-2023",
     data: [
       {
         type: "x",
@@ -101,7 +101,7 @@ const resultsDetails = [
   },
   {
     id: 4,
-    timestamp: "18-05-2023",
+    date: "11-05-2023",
     data: [
       {
         type: "x",

@@ -1,11 +1,10 @@
 import React from "react";
 
-import { Button, CheckboxList, Modal, Select } from "client/common";
+import { CheckboxList, Modal, Select } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
 import useWindowDimensions from "scripts/hooks/useWindowDimensions";
 
 import "./Filters.scss";
-import Outsider from "scripts/hooks/useOutsider";
 
 export interface ICatalogsFilter {
   accepted: boolean;
@@ -18,8 +17,7 @@ export interface ICatalogsFilter {
 interface IFiltersProps {
   isOpened: boolean;
   onClose: () => void;
-  filters: ICatalogsFilter;
-  onChange: (type: string, val: "data" | "id" | "name" | boolean) => void;
+  onChange: (type: string, val: "date" | "id" | "name" | boolean) => void;
 }
 
 enum CardFilterByStatus {
@@ -40,7 +38,7 @@ enum CardSortBy {
   Name = "name",
 }
 
-const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, filters, onChange }) => {
+const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, onChange }) => {
   const windowDimensions = useWindowDimensions();
   const [statusFilters, setStatusFilters] = React.useState([
     {
@@ -97,7 +95,7 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, filters, onChange
 
   const handleSortByChange = (option: IOptionProps) => {
     setActiveSortBy(option);
-    onChange("byField", option.value as "data" | "name" | "id");
+    onChange("byField", option.value as "date" | "name" | "id");
   };
 
   const handleStatusFiltersChange = (value: string, checked: boolean) => {

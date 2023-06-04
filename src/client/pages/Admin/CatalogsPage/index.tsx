@@ -121,7 +121,6 @@ const AdminCatalogsPage = () => {
           onSearchValueChange={handleSearchChange}
           isApplications={true}
           onCatalogTypeChange={() => {}}
-          filters={filters}
           onFiltersChange={handleFiltersUpdate}
         />
         <div className="catalogs-content">

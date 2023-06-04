@@ -1,11 +1,11 @@
 import React from "react";
-import useWindowDimensions from "scripts/hooks/useWindowDimensions";
 import { IOptionProps } from "client/common/Inputs/Select";
-import { Button, CheckboxList, Modal, Select } from "client/common";
+import { CheckboxList, Modal, Select } from "client/common";
 
 interface IResultsFilters {
   isOpened: boolean;
   onClose: () => void;
+  onChange: (type: string, val: "date" | "id" | boolean) => void;
 }
 
 enum CardSortFrom {
@@ -16,12 +16,9 @@ enum CardSortFrom {
 enum CardSortBy {
   Date = "date",
   Id = "id",
-  Name = "name",
 }
 
-const ResultsFilters: React.FC<IResultsFilters> = ({ isOpened, onClose }) => {
-  const windowDimensions = useWindowDimensions();
-
+const ResultsFilters: React.FC<IResultsFilters> = ({ isOpened, onClose, onChange }) => {
   const [sortFrom, setSortFrom] = React.useState([
     {
       label: "Ascending",
@@ -41,12 +38,8 @@ const ResultsFilters: React.FC<IResultsFilters> = ({ isOpened, onClose }) => {
       value: CardSortBy.Date,
     },
     {
-      label: "Application Id",
+      label: "Id",
       value: CardSortBy.Id,
-    },
-    {
-      label: "Name",
-      value: CardSortBy.Name,
     },
   ]);
 
@@ -54,6 +47,7 @@ const ResultsFilters: React.FC<IResultsFilters> = ({ isOpened, onClose }) => {
 
   const handleSortByChange = (option: IOptionProps) => {
     setActiveSortBy(option);
+    onChange("byField", option.value as "date" | "id");
   };
 
   const handleSortFromChange = (value: string, checked: boolean) => {
@@ -69,22 +63,12 @@ const ResultsFilters: React.FC<IResultsFilters> = ({ isOpened, onClose }) => {
       copySortFrom[id].checked = checked;
       setSortFrom(copySortFrom);
     }
-  };
 
-  const handleSubmitButtonClick = () => {
-    onClose();
+    onChange(CardSortFrom.Ascending, value === CardSortFrom.Ascending);
   };
 
   return (
     <Modal className="filters-modal" title="Filters" opened={isOpened} onClose={onClose}>
-      <CheckboxList
-        className="filters-modal-item"
-        radio
-        label="Sort from"
-        values={sortFrom}
-        onChange={handleSortFromChange}
-        column={windowDimensions.width <= 600}
-      />
       <Select
         className="filters-modal-item filters-modal-sort-by"
         label="Sort by"
@@ -92,13 +76,14 @@ const ResultsFilters: React.FC<IResultsFilters> = ({ isOpened, onClose }) => {
         options={sortBy}
         onChange={handleSortByChange}
       />
-      <Button
-        inverse
-        className="filters-modal-item filters-modal-submit-btn"
-        onClick={handleSubmitButtonClick}
-      >
-        Submit
-      </Button>
+      <CheckboxList
+        className="filters-modal-item"
+        radio
+        label="Sort from"
+        values={sortFrom}
+        onChange={handleSortFromChange}
+        column
+      />
     </Modal>
   );
 };

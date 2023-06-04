@@ -9,7 +9,7 @@ import { ReactComponent as FlipIcon } from "client/shared/icons/arrow-down.svg";
 import "./ResultsDetailsListItem.scss";
 
 export interface IResultDetails {
-  timestamp: string;
+  date: string;
   id: number;
   data: {
     type: string;
@@ -35,7 +35,7 @@ const ResultsDetailsListItem: React.FC<IResultDetailsListItemProps> = ({ details
       <div className="results-details-list-item" onClick={handleItemClick}>
         <div className="results-details-list-item-id">{details.id}</div>
         <div className="results-details-list-item-brief">
-          <div className="results-details-list-item-brief-item date">{details.timestamp}</div>
+          <div className="results-details-list-item-brief-item date">{details.date}</div>
         </div>
         <div className="results-details-list-item-tools">
           <IconButton
@@ -59,13 +59,13 @@ const ResultsDetailsListItem: React.FC<IResultDetailsListItemProps> = ({ details
         })}
       >
         {details.data &&
-          details.data.map((data) => (
-            <>
+          details.data.map((data, index) => (
+            <React.Fragment key={index}>
               <div className="results-details-list-item-advanced-item">
                 <span className="results-details-list-item-advanced-type-bold">{data.type}: </span>
                 {data.value}
               </div>
-            </>
+            </React.Fragment>
           ))}
       </div>
     </>

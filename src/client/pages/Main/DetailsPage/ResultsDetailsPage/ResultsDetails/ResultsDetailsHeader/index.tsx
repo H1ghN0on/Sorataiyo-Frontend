@@ -9,11 +9,13 @@ import "./ResultsDetailsHeader.scss";
 interface IResultDetailsHeaderProps {
   searchValues: { x: string; y: string };
   onSearchChange: (type: "x" | "y", val: string) => void;
+  onFiltersChange: (type: string, val: boolean | string) => void;
 }
 
 const ResultsDetailsHeader: React.FC<IResultDetailsHeaderProps> = ({
   searchValues,
   onSearchChange,
+  onFiltersChange,
 }) => {
   const [isFiltersModalActive, setFiltersModalActive] = React.useState(false);
 
@@ -37,6 +39,7 @@ const ResultsDetailsHeader: React.FC<IResultDetailsHeaderProps> = ({
         />
         <FiltersButton className="results-tool" onOpen={setFiltersModalActive.bind(this, true)}>
           <ResultsFilters
+            onChange={onFiltersChange}
             isOpened={isFiltersModalActive}
             onClose={setFiltersModalActive.bind(this, false)}
           />
