@@ -137,15 +137,16 @@ const AdminCatalogsPage = () => {
               />
             ))}
         </div>
-        {filteredCards.length === 0 && applications.length === 0 ? (
-          <div className="catalogs-empty">
-            <EmptyList title="Time to rest! No applications" />
-          </div>
-        ) : (
-          <div className="catalogs-empty">
-            <EmptyList title="Bad filters" />
-          </div>
-        )}
+        {filteredCards.length === 0 &&
+          (applications.length === 0 ? (
+            <div className="catalogs-empty">
+              <EmptyList title="Time to rest! No applications" />
+            </div>
+          ) : (
+            <div className="catalogs-empty">
+              <EmptyList title="Bad filters" />
+            </div>
+          ))}
       </div>
     </ProfileLayout>
   );

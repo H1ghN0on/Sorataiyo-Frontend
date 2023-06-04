@@ -209,15 +209,16 @@ const ApplicationsPage = () => {
                 <ResultCard key={result.id} date={result.date} title={result.name} id={result.id} />
               ))}
         </div>
-        {filteredCards.length === 0 && applications.length === 0 ? (
-          <div className="catalogs-empty">
-            <EmptyList title="Time to create new application!" />
-          </div>
-        ) : (
-          <div className="catalogs-empty">
-            <EmptyList title="Bad filters" />
-          </div>
-        )}
+        {filteredCards.length === 0 &&
+          (applications.length === 0 ? (
+            <div className="catalogs-empty">
+              <EmptyList title="Time to create new application!" />
+            </div>
+          ) : (
+            <div className="catalogs-empty">
+              <EmptyList title="Bad filters" />
+            </div>
+          ))}
       </div>
     </ProfileLayout>
   );
