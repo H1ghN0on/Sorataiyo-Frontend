@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as BritishFlagIcon } from "client/shared/icons/uk.svg";
@@ -14,6 +15,7 @@ interface INavbarSettingsProps {
 }
 
 const NavbarSettings: React.FC<INavbarSettingsProps> = ({ name, email, active }) => {
+  const { t } = useTranslation("navbar");
   const handleLogoutButtonClick = () => {};
 
   return (
@@ -28,24 +30,24 @@ const NavbarSettings: React.FC<INavbarSettingsProps> = ({ name, email, active })
       <div className="navbar-settings-tools">
         <div className="navbar-settings-language">
           <BritishFlagIcon />
-          <div className="navbar-settings-language-text">Click to change</div>
+          <div className="navbar-settings-language-text">{t("lang-change")}</div>
         </div>
         <div className="navbar-settings-list">
           <div className="navbar-settings-list-item">
-            <Link to="/catalogs">Dashboard</Link>
+            <Link to="/catalogs">{t("dashboard")}</Link>
           </div>
           <div className="navbar-settings-list-item">
-            <Link to="#">Profile settings</Link>
+            <Link to="#">{t("profile-settings")}</Link>
           </div>
           <div className="navbar-settings-list-item">
-            <Link to="#">Home page</Link>
+            <Link to="#">{t("home-page")}</Link>
           </div>
           <Button
             inverse
             className="navbar-settings-list-item navbar-settings-list-item-logout-btn"
             onClick={handleLogoutButtonClick}
           >
-            Logout
+            {t("logout")}
           </Button>
         </div>
       </div>

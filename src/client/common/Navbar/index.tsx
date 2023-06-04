@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { Button } from "client/common";
@@ -16,6 +17,7 @@ const Navbar: React.FC<INavbarProps> = ({ isAuthed }) => {
 };
 
 const NavbarAuthed = () => {
+  const { t } = useTranslation("navbar");
   const [isSettingsActive, setSettingsActive] = React.useState(false);
 
   const handleSettingsClick = () => {
@@ -31,7 +33,7 @@ const NavbarAuthed = () => {
 
         <div className="tools">
           <Button className="navbar-settings-btn" onClick={handleSettingsClick}>
-            Settings
+            {t("settings")}
           </Button>
 
           <NavbarSettings
@@ -46,6 +48,7 @@ const NavbarAuthed = () => {
 };
 
 const NavbarDefault = () => {
+  const { t } = useTranslation("navbar");
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -54,18 +57,18 @@ const NavbarDefault = () => {
         </Link>
         <div className="navigation">
           <Link className="navigation-item" to="#">
-            About
+            {t("about")}
           </Link>
           <Link className="navigation-item" to="#">
-            Pricing
+            {t("pricing")}
           </Link>
         </div>
         <div className="tools">
           <Button link="/login" className="navbar-login-btn" inverse onClick={() => {}}>
-            Login
+            {t("login")}
           </Button>
           <Button link="/register" className="navbar-register-btn" onClick={() => {}}>
-            Sign Up
+            {t("sign-up")}
           </Button>
         </div>
       </div>
