@@ -5,10 +5,21 @@ import { IOptionProps } from "client/common/Inputs/Select";
 import useWindowDimensions from "scripts/hooks/useWindowDimensions";
 
 import "./Filters.scss";
+import Outsider from "scripts/hooks/useOutsider";
 
+export interface ICatalogsFilter {
+  accepted: boolean;
+  rejected: boolean;
+  pending: boolean;
+  completed: boolean;
+  ascending: boolean;
+  byField: "date" | "id" | "name";
+}
 interface IFiltersProps {
   isOpened: boolean;
   onClose: () => void;
+  filters: ICatalogsFilter;
+  onChange: (type: string, val: "data" | "id" | "name" | boolean) => void;
 }
 
 enum CardFilterByStatus {
@@ -29,7 +40,7 @@ enum CardSortBy {
   Name = "name",
 }
 
-const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose }) => {
+const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose, filters, onChange }) => {
   const windowDimensions = useWindowDimensions();
   const [statusFilters, setStatusFilters] = React.useState([
     {
@@ -86,6 +97,7 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose }) => {
 
   const handleSortByChange = (option: IOptionProps) => {
     setActiveSortBy(option);
+    onChange("byField", option.value as "data" | "name" | "id");
   };
 
   const handleStatusFiltersChange = (value: string, checked: boolean) => {
@@ -95,6 +107,7 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose }) => {
       copyData[id].checked = checked;
       setStatusFilters(copyData);
     }
+    onChange(value, checked);
   };
 
   const handleSortFromChange = (value: string, checked: boolean) => {
@@ -110,20 +123,17 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose }) => {
       copySortFrom[id].checked = checked;
       setSortFrom(copySortFrom);
     }
-  };
-
-  const handleSubmitButtonClick = () => {
-    onClose();
+    onChange("ascending", value === "ascending");
   };
 
   return (
     <Modal className="filters-modal" title="Filters" opened={isOpened} onClose={onClose}>
-      <CheckboxList
-        className="filters-modal-item"
-        label="Status filter"
-        values={statusFilters}
-        onChange={handleStatusFiltersChange}
-        column={windowDimensions.width <= 600}
+      <Select
+        className="filters-modal-item filters-modal-sort-by"
+        label="Sort by"
+        active={activeSortBy}
+        options={sortBy}
+        onChange={handleSortByChange}
       />
       <CheckboxList
         className="filters-modal-item"
@@ -133,20 +143,13 @@ const Filters: React.FC<IFiltersProps> = ({ isOpened, onClose }) => {
         onChange={handleSortFromChange}
         column={windowDimensions.width <= 600}
       />
-      <Select
-        className="filters-modal-item filters-modal-sort-by"
-        label="Sort by"
-        active={activeSortBy}
-        options={sortBy}
-        onChange={handleSortByChange}
+      <CheckboxList
+        className="filters-modal-item"
+        label="Status filter"
+        values={statusFilters}
+        onChange={handleStatusFiltersChange}
+        column={windowDimensions.width <= 600}
       />
-      <Button
-        inverse
-        className="filters-modal-item filters-modal-submit-btn"
-        onClick={handleSubmitButtonClick}
-      >
-        Submit
-      </Button>
     </Modal>
   );
 };

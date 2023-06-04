@@ -9,98 +9,112 @@ import {
 
 import "./CatalogsPage.scss";
 import { StatusType } from "client/common/Catalog/ApplicationCard";
+import { ICatalogsFilter } from "./components/Filters";
 
-const applications = [
+type ApplicationType = {
+  id: number;
+  date: string;
+  status: StatusType;
+  name: string;
+};
+
+type ResultsType = {
+  id: number;
+  date: string;
+  name: string;
+};
+
+const applications: ApplicationType[] = [
   {
     id: 0,
-    timestamp: "21/01/14",
+    date: "21/01/14",
     status: "rejected",
-    title: "Fly me to the moon",
+    name: "Fly me to the moon",
   },
   {
     id: 1,
-    timestamp: "22/02/16",
+    date: "21/02/16",
     status: "accepted",
-    title: "And let me play among the stars",
+    name: "And let me play among the stars",
   },
   {
     id: 2,
-    timestamp: "21/01/14",
+    date: "21/01/14",
     status: "rejected",
-    title: "Fly me to the moon",
+    name: "Fly me to the moon",
   },
   {
     id: 3,
-    timestamp: "22/02/16",
+    date: "20/02/16",
     status: "accepted",
-    title: "And let me play among the stars",
+    name: "And let me play among the stars",
   },
   {
     id: 4,
-    timestamp: "21/01/14",
+    date: "21/01/14",
     status: "rejected",
-    title: "Fly me to the moon",
+    name: "Fly me to the moon",
   },
   {
     id: 5,
-    timestamp: "22/02/16",
+    date: "22/02/16",
     status: "accepted",
-    title: "And let me play among the stars",
+    name: "And let me play among the stars",
   },
   {
     id: 6,
-    timestamp: "21/01/14",
+    date: "21/01/14",
     status: "rejected",
-    title: "Fly me to the moon",
+    name: "Fly me to the moon",
   },
   {
     id: 7,
-    timestamp: "22/02/16",
+    date: "22/02/16",
     status: "accepted",
-    title: "And let me play among the stars",
+    name: "And let me play among the stars",
   },
 ];
 
-const results = [
+const results: ResultsType[] = [
   {
     id: 0,
-    timestamp: "21/01/14",
-    title: "Fly me to the moon",
+    date: "21/01/14",
+    name: "Fly me to the moon",
   },
   {
     id: 1,
-    timestamp: "22/02/16",
-    title: "And let me play among the stars",
+    date: "22/02/16",
+    name: "And let me play among the stars",
   },
   {
     id: 2,
-    timestamp: "21/01/14",
-    title: "Fly me to the moon",
+    date: "21/01/14",
+    name: "Fly me to the moon",
   },
   {
     id: 3,
-    timestamp: "22/02/16",
-    title: "And let me play among the stars",
+    date: "22/02/16",
+    name: "And let me play among the stars",
   },
   {
     id: 4,
-    timestamp: "21/01/14",
-    title: "Fly me to the moon",
+    date: "21/01/14",
+    name: "Fly me to the moon",
   },
   {
     id: 5,
-    timestamp: "22/02/16",
-    title: "And let me play among the stars",
+    date: "22/02/16",
+    name: "And let me play among the stars",
   },
   {
     id: 6,
-    timestamp: "21/01/14",
-    title: "Fly me to the moon",
+    date: "21/01/14",
+    name: "Fly me to the moon",
   },
   {
     id: 7,
-    timestamp: "22/02/16",
-    title: "And let me play among the stars",
+    date: "22/02/16",
+    name: "And let me play among the stars",
   },
 ];
 
@@ -108,13 +122,64 @@ const ApplicationsPage = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const [isApplicationsActive, setApplicationsActive] = React.useState(true);
 
+  const [filteredCards, setFilteredCards] = React.useState(
+    isApplicationsActive ? applications : results
+  );
+
+  const [filters, setFilters] = React.useState<ICatalogsFilter>({
+    accepted: false,
+    rejected: false,
+    pending: false,
+    completed: false,
+    ascending: true,
+    byField: "date",
+  });
+
   const handleSearchChange = (val: string) => {
     setSearchValue(val);
+    filterCards(filteredCards, val);
+  };
+
+  const filterCards = (cards: any[], value: string) => {
+    console.log("lol");
+    let filtered = isApplicationsActive ? applications : results;
+    filtered = filtered.filter((card) => {
+      if (value && !card.id.toString().includes(value)) return false;
+      if (isApplicationsActive) {
+        if (!filters.accepted && !filters.pending && !filters.completed && !filters.rejected)
+          return true;
+        if (filters.accepted && (card as ApplicationType).status === "accepted") return true;
+        if (filters.pending && (card as ApplicationType).status === "pending") return true;
+        if (filters.completed && (card as ApplicationType).status === "completed") return true;
+        if (filters.rejected && (card as ApplicationType).status === "rejected") return true;
+        return false;
+      }
+      return true;
+    });
+    filtered = sortCards(filtered, filters.byField, filters.ascending);
+    setFilteredCards(filtered);
+  };
+
+  const sortCards = (cards: any[], field: string, asc: boolean) => {
+    return cards.sort((a: any, b: any) => {
+      if (a[field] < b[field]) return asc ? -1 : 1;
+      if (a[field] > b[field]) return asc ? 1 : -1;
+      return 0;
+    });
   };
 
   const handleApplicationsClick = (val: boolean) => {
     setApplicationsActive(val);
+    filterCards(val ? applications : results, searchValue);
   };
+
+  const handleFiltersUpdate = (type: string, val: boolean | string) => {
+    setFilters({ ...filters, [type]: val });
+  };
+
+  React.useEffect(() => {
+    filterCards(filteredCards, searchValue);
+  }, [filters, isApplicationsActive]);
 
   return (
     <ProfileLayout>
@@ -124,31 +189,33 @@ const ApplicationsPage = () => {
           onSearchValueChange={handleSearchChange}
           isApplications={isApplicationsActive}
           onCatalogTypeChange={handleApplicationsClick}
+          filters={filters}
+          onFiltersChange={handleFiltersUpdate}
         />
         <div className="catalogs-content">
           {isApplicationsActive
             ? applications.length !== 0 &&
-              applications.map((application) => (
+              (filteredCards as ApplicationType[]).map((application) => (
                 <ApplicationCard
-                  date={application.timestamp}
+                  key={application.id}
+                  date={application.date}
                   status={application.status as StatusType}
-                  title={application.title}
+                  title={application.name}
                   id={application.id}
                 />
               ))
             : results.length !== 0 &&
-              results.map((result) => (
-                <ResultCard date={result.timestamp} title={result.title} id={result.id} />
+              (filteredCards as ResultsType[]).map((result) => (
+                <ResultCard key={result.id} date={result.date} title={result.name} id={result.id} />
               ))}
         </div>
-        {isApplicationsActive && applications.length === 0 && (
+        {filteredCards.length === 0 && applications.length === 0 ? (
           <div className="catalogs-empty">
             <EmptyList title="Time to create new application!" />
           </div>
-        )}
-        {!isApplicationsActive && results.length === 0 && (
+        ) : (
           <div className="catalogs-empty">
-            <EmptyList title="No results" />
+            <EmptyList title="Bad filters" />
           </div>
         )}
       </div>

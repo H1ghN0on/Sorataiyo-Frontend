@@ -8,7 +8,7 @@ import { ReactComponent as FiltersIcon } from "client/shared/icons/filter.svg";
 import { ReactComponent as AddIcon } from "client/shared/icons/plus-icon.svg";
 import { ReactComponent as BurgerIcon } from "client/shared/icons/burger.svg";
 
-import Filters from "client/pages/Main/CatalogsPage/components/Filters";
+import Filters, { ICatalogsFilter } from "client/pages/Main/CatalogsPage/components/Filters";
 
 import "./CatalogsHeader.scss";
 
@@ -18,6 +18,8 @@ interface ICatalogsHeaderProps {
   isApplications: boolean;
   onCatalogTypeChange: (val: boolean) => void;
   admin?: boolean;
+  filters: ICatalogsFilter;
+  onFiltersChange: (type: string, val: boolean | string) => void;
 }
 
 const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
@@ -26,6 +28,8 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   searchValue,
   isApplications,
   onCatalogTypeChange,
+  filters,
+  onFiltersChange,
 }) => {
   const [isMobileHeaderActive, setMobileHeaderActive] = React.useState(false);
 
@@ -34,11 +38,6 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
   const handleBurgerClick = () => {
     setMobileHeaderActive(!isMobileHeaderActive);
   };
-
-  const handleFiltersClick = () => {
-    setFiltersModalActive(!isFiltersModalActive);
-  };
-
   return (
     <div
       className={clsx("catalogs-header", {
@@ -88,6 +87,8 @@ const CatalogsHeader: React.FC<ICatalogsHeaderProps> = ({
           </div>
           <FiltersButton onOpen={setFiltersModalActive.bind(this, true)}>
             <Filters
+              filters={filters!}
+              onChange={onFiltersChange!}
               isOpened={isFiltersModalActive}
               onClose={setFiltersModalActive.bind(this, false)}
             />

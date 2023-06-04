@@ -15,18 +15,9 @@
     .filters-modal-sort-by {
         height: fit-content;
         max-height: fit-content;
-        .select-container {
-            .select-label {
-                font-size: 1em;
-            }
+        .select-label {
+            font-size: 1em;
         }
-    }
-
-    .filters-modal-submit-btn {
-        font-size: 1em;
-        width: 200px;
-        height: 50px;
-        align-self: center;
     }
    
 }
