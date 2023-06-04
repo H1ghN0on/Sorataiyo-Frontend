@@ -2,7 +2,7 @@ import React from "react";
 
 import { DetailsLayout } from "client/common";
 
-import { Status } from "client/common/Card/ApplicationCard";
+import { Status } from "client/common/Catalog/ApplicationCard";
 import ApplicationInfo from "./ApplicationInfo";
 
 import "./ApplicationDetailsPage.scss";

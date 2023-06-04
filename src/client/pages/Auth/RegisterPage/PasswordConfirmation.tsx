@@ -7,7 +7,8 @@ import { ReactComponent as PasswordIcon } from "client/shared/icons/lock.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as AbortIcon } from "client/shared/icons/cross.svg";
 
-import "./PasswordConfirm.scss";
+import "./PasswordConfirmation.scss";
+import { RegisterContext } from "scripts/contexts/RegisterContext";
 
 type ConfirmPasswordField = "password" | "confirmPassword";
 
@@ -30,6 +31,8 @@ const PasswordChecker: React.FC<IPasswordChecker> = ({ children, criteria }) => 
 };
 
 const PasswordRegisterPage = () => {
+  const contextData = React.useContext(RegisterContext);
+
   const [form, setForm] = React.useState({
     password: "",
     confirmPassword: "",
@@ -42,7 +45,12 @@ const PasswordRegisterPage = () => {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    contextData.setContext({
+      ...contextData,
+      currentFragment: contextData.currentFragment + 1,
+    });
+  };
 
   const criteriaOne = form.password.length >= 8;
   const criteriaTwo = ["@", ".", "!", "?", "/"].some((value) => form.password.includes(value));

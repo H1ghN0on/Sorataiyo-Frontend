@@ -6,6 +6,7 @@ import { Button, IconInput, CodeInput } from "client/common";
 import { ReactComponent as MailIcon } from "client/shared/icons/mail.svg";
 
 import "./EmailConfirmation.scss";
+import { RegisterContext } from "scripts/contexts/RegisterContext";
 
 const CODE_LENGTH = 6;
 const SECONDS_TO_WAIT = 10;
@@ -13,6 +14,8 @@ const re =
   /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
 const EmailConfirmationRegisterPage = () => {
+  const contextData = React.useContext(RegisterContext);
+
   const [email, setEmail] = React.useState("");
   const [code, setCode] = React.useState<number[]>([]);
   const [isCodeActive, setCodeActive] = React.useState(false);
@@ -45,7 +48,7 @@ const EmailConfirmationRegisterPage = () => {
     return updatedCode;
   };
 
-  let handleCodeSubmit = (actualValue: number[]) => {
+  const handleCodeSubmit = (actualValue: number[]) => {
     return +actualValue.join("") === 111111;
   };
 
@@ -57,6 +60,13 @@ const EmailConfirmationRegisterPage = () => {
     setCodeActive(true);
 
     setTimer(SECONDS_TO_WAIT);
+  };
+
+  const handleCodeSuccess = () => {
+    contextData.setContext({
+      ...contextData,
+      currentFragment: contextData.currentFragment + 1,
+    });
   };
 
   return (
@@ -90,6 +100,7 @@ const EmailConfirmationRegisterPage = () => {
           onChange={handleCodeChange}
           onSubmit={handleCodeSubmit}
           onClear={handleCodeClear}
+          onSuccess={handleCodeSuccess}
         />
       </form>
     </AuthLayout>

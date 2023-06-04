@@ -2,11 +2,8 @@
 
 .text-with-hint {
     position: relative;
-
-    .text {
-        border-bottom: 2px dashed $primary-dark;
-        cursor: pointer;
-    }
+    border-bottom: 2px dashed $primary-dark;
+    cursor: pointer;
     .text-hint {
         max-width: 150px;
         width: max-content;

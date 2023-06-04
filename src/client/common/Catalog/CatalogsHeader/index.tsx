@@ -8,7 +8,7 @@ import { ReactComponent as AddIcon } from "client/shared/icons/plus-icon.svg";
 import { ReactComponent as BurgerIcon } from "client/shared/icons/burger.svg";
 
 import "./CatalogsHeader.scss";
-import Filters from "../Filters";
+import Filters from "../../../pages/Main/CatalogsPage/components/Filters";
 
 interface ICatalogsHeaderProps {
   onAddButtonClick: () => void;

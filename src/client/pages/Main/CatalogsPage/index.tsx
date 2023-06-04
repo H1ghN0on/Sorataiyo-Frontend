@@ -1,9 +1,13 @@
 import React from "react";
-import { ProfileLayout, ApplicationCard, ResultCard } from "client/common";
+import {
+  ProfileLayout,
+  ApplicationCard,
+  ResultCard,
+  CatalogsHeader,
+  EmptyList,
+} from "client/common";
 
 import "./CatalogsPage.scss";
-import CatalogsHeader from "./components/CatalogsHeader";
-import EmptyList from "./components/EmptyList";
 
 const ApplicationsPage = () => {
   const [searchValue, setSearchValue] = React.useState("");

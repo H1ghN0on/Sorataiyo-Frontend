@@ -4,10 +4,13 @@ import AuthLayout from "../AuthLayout";
 import { Button, Input } from "client/common";
 
 import "./Introduction.scss";
+import { RegisterContext } from "scripts/contexts/RegisterContext";
 
 type LoginField = "firstName" | "lastName";
 
 const IntroductionRegisterPage = () => {
+  const contextData = React.useContext(RegisterContext);
+
   const [form, setForm] = React.useState({
     firstName: "",
     lastName: "",
@@ -20,7 +23,12 @@ const IntroductionRegisterPage = () => {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    contextData.setContext({
+      ...contextData,
+      currentFragment: contextData.currentFragment + 1,
+    });
+  };
 
   return (
     <AuthLayout title="Who are you?" isRegister>

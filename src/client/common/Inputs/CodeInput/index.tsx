@@ -11,6 +11,7 @@ interface ICodeInputProps {
   label?: string;
   onSubmit?: (actualValue: number[]) => boolean;
   onClear?: () => void;
+  onSuccess?: () => void;
 }
 
 const CodeInput: React.FC<ICodeInputProps> = ({
@@ -21,6 +22,7 @@ const CodeInput: React.FC<ICodeInputProps> = ({
   onChange,
   onSubmit,
   onClear,
+  onSuccess,
 }) => {
   const itemsRef = React.useRef<Array<HTMLInputElement | null>>([]);
 
@@ -28,10 +30,7 @@ const CodeInput: React.FC<ICodeInputProps> = ({
     itemsRef.current = itemsRef.current.slice(0, length);
   }, [length]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    pos: number
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, pos: number) => {
     const re = /[0-9]/;
     const value = e.target.value[e.target.value.length - 1];
     if (!value || !value.match(re)) return;
@@ -50,6 +49,8 @@ const CodeInput: React.FC<ICodeInputProps> = ({
     if (onSubmit && !onSubmit(actualValue)) {
       onClear && onClear();
       itemsRef.current[0]?.focus();
+    } else {
+      onSuccess && onSuccess();
     }
   };
 

@@ -1,5 +1,10 @@
-import { ApplicationCard, ProfileLayout, ResultCard } from "client/common";
-import CatalogsHeader from "client/pages/Main/CatalogsPage/components/CatalogsHeader";
+import {
+  ApplicationCard,
+  ProfileLayout,
+  ResultCard,
+  CatalogsHeader,
+  EmptyList,
+} from "client/common";
 import React from "react";
 
 const AdminCatalogsPage = () => {
