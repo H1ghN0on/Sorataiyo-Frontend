@@ -8,7 +8,7 @@ import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as AcceptedIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as RejectedIcon } from "client/shared/icons/cross.svg";
 
-type StatusType = "pending" | "completed" | "accepted" | "rejected";
+export type StatusType = "pending" | "completed" | "accepted" | "rejected";
 
 interface IStatusProps {
   status: StatusType;
