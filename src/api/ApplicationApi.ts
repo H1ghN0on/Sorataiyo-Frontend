@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import { User } from "store";
 
 export type ApplicationModelType = {
+  id: number;
   x: number;
   y: number;
   radius: number;
@@ -81,7 +82,7 @@ const ApplicationApi = (instance: AxiosInstance) => {
       }
     },
     createApplication: async (
-      params: Omit<ApplicationModelType, "user">
+      params: Omit<ApplicationModelType, "user" | "id">
     ): Promise<ICreateApplicationResult | null> => {
       try {
         const data = await instance.post("/applications/create", { ...params });
@@ -145,6 +146,22 @@ const ApplicationApi = (instance: AxiosInstance) => {
     ): Promise<IUpdateApplicationStatusResult | null> => {
       try {
         const data = await instance.post(`/applications/status/update`, { ...params });
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
+    updateApplication: async (
+      params: Omit<ApplicationModelType, "user">
+    ): Promise<ICreateApplicationResult | null> => {
+      try {
+        const data = await instance.post("/applications/update", { ...params });
         if (!data) return null;
         return data.data;
       } catch (error: any) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import useToast from "scripts/hooks/useToast";
@@ -7,7 +7,7 @@ import { Input, Select, ProfileLayout, IconButton } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
 import ExploringForm from "./ExploringForm";
 import { Api } from "api";
-import { ApplicationModelType } from "api/ApplicationApi";
+import { ApplicationModelType, ApplicationViewType } from "api/ApplicationApi";
 
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as SendIcon } from "client/shared/icons/send.svg";
@@ -19,6 +19,10 @@ enum ApplicationTypeEnum {
 }
 
 const FormPage = () => {
+  const params = useParams();
+  const id = params.id;
+  const isEditing = !!id;
+  const [application, setApplication] = React.useState<ApplicationViewType | null>();
   const { notify, ToastContainer } = useToast({
     content: "DB error occured. Try refresh the page",
     status: "danger",
@@ -73,7 +77,7 @@ const FormPage = () => {
   };
 
   const handleSubmitButton = async () => {
-    const result = await addApplication();
+    const result = isEditing ? await updateApplication() : await addApplication();
     if (!result || !result.status) {
       notify();
       return;
@@ -99,7 +103,7 @@ const FormPage = () => {
     if (!data || !data.status) {
       notify();
       setInstrumentTypes([]);
-      return;
+      return [];
     }
     const instrumentTypes = data.instruments.map((instrument) => ({
       label: instrument.name,
@@ -107,10 +111,11 @@ const FormPage = () => {
     }));
     setInstrumentTypes(instrumentTypes);
     if (instrumentTypes.length) setActiveInstrumentType(instrumentTypes[0]);
+    return instrumentTypes;
   };
 
   const addApplication = async () => {
-    const application: Omit<ApplicationModelType, "user"> = {
+    const application: Omit<ApplicationModelType, "user" | "id"> = {
       name: inputValues.name,
       x: +inputValues.x,
       y: +inputValues.y,
@@ -122,8 +127,48 @@ const FormPage = () => {
     return result;
   };
 
+  const updateApplication = async () => {
+    const application: Omit<ApplicationModelType, "user"> = {
+      id: +id!,
+      name: inputValues.name,
+      x: +inputValues.x,
+      y: +inputValues.y,
+      radius: +inputValues.radius,
+      instrument: +activeInstrumentType.value,
+      status: "pending",
+    };
+    const result = await Api().updateApplication(application);
+    return result;
+  };
+
+  const getApplicationById = async (instruments: IOptionProps[]) => {
+    const data = await Api().getApplicationById({ id: +params.id! });
+    console.log(data);
+    if (!data || !data.status) {
+      notify();
+      return navigate("/catalogs");
+    }
+    setApplication(data.application);
+    setInputValue({
+      name: data.application!.name,
+      x: data.application!.x.toString(),
+      y: data.application!.y.toString(),
+      radius: data.application!.radius.toString(),
+    });
+    const instrumentId = instruments.findIndex(
+      (instr) => +instr.value === data.application!.Instrument.id
+    );
+    console.log(instruments);
+    setActiveInstrumentType(instruments[instrumentId]);
+  };
+
+  const initForm = async () => {
+    const instrumentTypes = await getInstruments();
+    if (isEditing) await getApplicationById(instrumentTypes);
+  };
+
   React.useEffect(() => {
-    getInstruments();
+    initForm();
   }, []);
 
   return (

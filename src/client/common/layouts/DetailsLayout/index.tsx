@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ProfileLayout, IconButton } from "client/common";
 
@@ -30,6 +30,7 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
   inspection,
   children,
 }) => {
+  const params = useParams();
   const { t } = useTranslation("details");
 
   const handlePrintButtonClick = () => {};
@@ -49,7 +50,7 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
         <div className="details-header-tools">
           {isEditable && (
             <IconButton
-              link="/form"
+              link={`/form/${params.id}`}
               className="details-header-edit-btn"
               icon={PenIcon}
               onClick={() => {}}
