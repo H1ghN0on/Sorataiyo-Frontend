@@ -21,12 +21,17 @@ export type ApplicationViewType = {
   name: string;
   Instrument: InstrumentType;
   createdAt: string;
+  modifiedAt: string;
 };
 
 type InstrumentType = {
   name: string;
   id: number;
 };
+
+interface IGetApplicationByIdParams {
+  id: number;
+}
 
 interface IGetInstrumentsResult {
   status: boolean;
@@ -42,6 +47,11 @@ interface ICreateApplicationResult {
 interface IGetApplicationsResult {
   status: boolean;
   applications: ApplicationViewType[];
+}
+
+interface IGetApplicationByIdResult {
+  status: boolean;
+  application: ApplicationViewType | null;
 }
 
 const ApplicationApi = (instance: AxiosInstance) => {
@@ -79,6 +89,22 @@ const ApplicationApi = (instance: AxiosInstance) => {
     getApplications: async (): Promise<IGetApplicationsResult | null> => {
       try {
         const data = await instance.get("/applications/get");
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
+    getApplicationById: async (
+      params: IGetApplicationByIdParams
+    ): Promise<IGetApplicationByIdResult | null> => {
+      try {
+        const data = await instance.get(`/applications/get/${params.id}`);
         if (!data) return null;
         return data.data;
       } catch (error: any) {
