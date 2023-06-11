@@ -1,5 +1,6 @@
 import React from "react";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 import {
   LoginPage,
@@ -11,60 +12,31 @@ import {
   AdminCatalogsPage,
   AdminFormPage,
 } from "client/pages";
-
+import { User } from "store";
 import "./App.scss";
 
-const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <LoginPage />,
-    //loader,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
-  {
-    path: "/catalogs/",
-    element: <CatalogsPage />,
-  },
-  {
-    path: "application/:id",
-    element: <ApplicationDetailsPage />,
-  },
-  {
-    path: "results/:id",
-    element: <ResultsDetailsPage />,
-  },
-  {
-    path: "/form",
-    element: <FormPage />,
-  },
-  {
-    path: "/admin/",
-    children: [
-      {
-        path: "catalogs",
-        element: <AdminCatalogsPage />,
-      },
-      {
-        path: "review/:id",
-        element: <AdminFormPage />,
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <Navigate to="/login" replace />,
-  },
-]);
-
-function App() {
+const App = () => {
   return (
     <React.Suspense>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Routes>
+          {User.isAuth() ? (
+            <>
+              <Route path="/catalogs" element={<CatalogsPage />} />
+              <Route path="/application/:id" element={<ApplicationDetailsPage />} />
+              <Route path="/results/:id" element={<ResultsDetailsPage />} />
+              <Route path="/form" element={<FormPage />} />
+              <Route path="/admin/catalogs" element={<AdminCatalogsPage />} />
+              <Route path="/admin/review/:id" element={<AdminFormPage />} />
+            </>
+          ) : (
+            <Route element={<Navigate to="/login" />} />
+          )}
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
     </React.Suspense>
   );
-}
+};
 
-export default App;
+export default observer(App);

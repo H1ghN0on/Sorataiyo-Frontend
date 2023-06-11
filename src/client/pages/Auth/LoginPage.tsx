@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { ReactComponent as EmailIcon } from "../../shared/icons/person.svg";
@@ -6,6 +7,7 @@ import { ReactComponent as PasswordIcon } from "../../shared/icons/lock.svg";
 
 import AuthLayout from "./AuthLayout";
 import { Button, IconInput } from "client/common";
+import { User } from "store";
 
 import "./LoginPage.scss";
 import { Api } from "api";
@@ -15,6 +17,8 @@ import Cookies from "js-cookie";
 type LoginField = "email" | "password";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [loginForm, setLoginForm] = React.useState({
     email: "",
     password: "",
@@ -37,12 +41,13 @@ const LoginPage = () => {
   };
 
   const { t } = useTranslation("auth");
-  // i18n.changeLanguage("ru");
+
   const handleSubmit = async () => {
     const data = await Api().login(loginForm);
     if (!data || !data.status) return notify();
-    console.log(data);
-    Cookies.set("jwt", data.user.token);
+    Cookies.set("jwt", data.token);
+    User.auth(data.token);
+    navigate(User.user.status === "admin" ? "/admin/catalogs" : "/catalogs");
   };
 
   return (

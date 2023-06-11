@@ -1,11 +1,19 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AuthLayout from "../AuthLayout";
 
 import "./Finish.scss";
 
 const FinishPage = () => {
-  //здесь будет загрузка данных в базу данных
   const { t } = useTranslation("auth");
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      navigate("/login");
+    }, 3000);
+  }, []);
 
   return (
     <AuthLayout title={t("register.thank-you")} isRegister isFinish>

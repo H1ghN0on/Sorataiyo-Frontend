@@ -1,8 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 import AuthLayout from "../AuthLayout";
-import { Button, IconInput, TextWithHint } from "client/common";
+import { Button, IconInput } from "client/common";
+
+import { User } from "store";
 
 import { ReactComponent as PasswordIcon } from "client/shared/icons/lock.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
@@ -11,8 +14,6 @@ import { ReactComponent as AbortIcon } from "client/shared/icons/cross.svg";
 import "./PasswordConfirmation.scss";
 import { RegisterContext } from "scripts/contexts/RegisterContext";
 import { Api } from "api";
-
-type ConfirmPasswordField = "password" | "confirmPassword";
 
 interface IPasswordChecker {
   children: React.ReactNode;
@@ -50,6 +51,8 @@ const PasswordRegisterPage = () => {
     });
 
     if (!data || !data.status) return;
+    Cookies.set("jwt", data.token);
+    User.auth(data.token);
 
     contextData.setContext({
       ...contextData,
