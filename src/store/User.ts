@@ -36,6 +36,11 @@ class User {
     }
     return false;
   }
+
+  logout() {
+    this.user = { firstName: "", lastName: "", email: "", status: "" };
+    Cookies.remove("jwt");
+  }
 }
 
 const UserInstance = new User();

@@ -1,24 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
+import useToast from "scripts/hooks/useToast";
 import { Input, Select, ProfileLayout, IconButton } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
 import ExploringForm from "./ExploringForm";
+import { Api } from "api";
+import { ApplicationType } from "api/ApplicationApi";
 
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as SendIcon } from "client/shared/icons/send.svg";
 
 import "./FormPage.scss";
 
-enum ApplicationType {
+enum ApplicationTypeEnum {
   ExploringType = "exploring-type",
 }
 
-enum InstrumentType {
-  BFG = "bfg-700",
-}
-
 const FormPage = () => {
+  const { notify, ToastContainer } = useToast({
+    content: "DB error occured. Try refresh the page",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
   const { t } = useTranslation(["form", "details"]);
 
   const navigate = useNavigate();
@@ -41,24 +49,20 @@ const FormPage = () => {
   const [applicationTypes, setApplicationTypes] = React.useState<IOptionProps[]>([
     {
       label: t("exploring-location", { ns: "details" }),
-      value: ApplicationType.ExploringType,
+      value: ApplicationTypeEnum.ExploringType,
     },
   ]);
 
-  const [instrumentTypes, setInstrumentType] = React.useState<IOptionProps[]>([
-    {
-      label: "BFG-700",
-      value: InstrumentType.BFG,
-    },
-  ]);
+  const [instrumentTypes, setInstrumentTypes] = React.useState<IOptionProps[]>([]);
 
   const [activeApplicationType, setActiveApplicationType] = React.useState<IOptionProps>(
     applicationTypes[0]
   );
 
-  const [activeInstrumentType, setActiveInstrumentType] = React.useState<IOptionProps>(
-    instrumentTypes[0]
-  );
+  const [activeInstrumentType, setActiveInstrumentType] = React.useState<IOptionProps>({
+    label: "",
+    value: "",
+  });
 
   const handleApplicationTypeChange = (option: IOptionProps) => {
     setActiveApplicationType(option);
@@ -68,7 +72,14 @@ const FormPage = () => {
     setActiveInstrumentType(option);
   };
 
-  const handleSubmitButton = () => {};
+  const handleSubmitButton = async () => {
+    const result = await addApplication();
+    if (!result || !result.status) {
+      notify();
+      return;
+    }
+    navigate("/catalogs");
+  };
 
   const handleBackButtonClick = () => {
     navigate(-1);
@@ -81,8 +92,38 @@ const FormPage = () => {
     return setFilled(true);
   };
 
+  //Model
+
+  const getInstruments = async () => {
+    const data = await Api().getInstruments();
+    if (!data || !data.status) {
+      notify();
+      setInstrumentTypes([]);
+      return;
+    }
+    const instrumentTypes = data.instruments.map((instrument) => ({
+      label: instrument.name,
+      value: instrument.id.toString(),
+    }));
+    setInstrumentTypes(instrumentTypes);
+    if (instrumentTypes.length) setActiveInstrumentType(instrumentTypes[0]);
+  };
+
+  const addApplication = async () => {
+    const application: Omit<ApplicationType, "user"> = {
+      name: inputValues.name,
+      x: +inputValues.x,
+      y: +inputValues.y,
+      radius: +inputValues.radius,
+      instrument: +activeInstrumentType.value,
+      status: "pending",
+    };
+    const result = await Api().createApplication(application);
+    return result;
+  };
+
   React.useEffect(() => {
-    checkInputsFilled(inputValues);
+    getInstruments();
   }, []);
 
   return (
@@ -115,7 +156,7 @@ const FormPage = () => {
               onChange={handleApplicationTypeChange}
             />
           </div>
-          {activeApplicationType.value === ApplicationType.ExploringType && (
+          {activeApplicationType.value === ApplicationTypeEnum.ExploringType && (
             <ExploringForm
               inputValues={{
                 x: inputValues.x,
@@ -130,15 +171,17 @@ const FormPage = () => {
           )}
           <IconButton
             icon={SendIcon}
+            useLoader
             className="form-page-submit-btn"
             inverse
             onClick={handleSubmitButton}
-            disabled={!isFilled}
+            disabled={!isFilled || !activeInstrumentType.value}
           >
             {t("submit")}
           </IconButton>
         </form>
       </div>
+      <ToastContainer />
     </ProfileLayout>
   );
 };

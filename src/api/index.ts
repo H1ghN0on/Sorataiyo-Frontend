@@ -1,9 +1,9 @@
 import axios from "axios";
-import cookies from "js-cookie";
-import { UserApi } from "./apis";
+import Cookies from "js-cookie";
+import { UserApi, ApplicationApi } from "./apis";
 
 export const Api = () => {
-  let token = cookies.get("token");
+  let token = Cookies.get("jwt");
 
   const instance = axios.create({
     baseURL: "http://localhost:8000",
@@ -14,5 +14,6 @@ export const Api = () => {
 
   return {
     ...UserApi(instance),
+    ...ApplicationApi(instance),
   };
 };
