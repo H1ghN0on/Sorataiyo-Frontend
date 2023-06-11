@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import "./CatalogsPage.scss";
 import { StatusType } from "client/common/Catalog/ApplicationCard";
 import { ICatalogsFilter } from "./components/Filters";
+import { Api } from "api";
 
 type ApplicationType = {
   id: number;

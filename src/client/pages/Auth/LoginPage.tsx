@@ -8,6 +8,9 @@ import AuthLayout from "./AuthLayout";
 import { Button, IconInput } from "client/common";
 
 import "./LoginPage.scss";
+import { Api } from "api";
+import useToast from "scripts/hooks/useToast";
+import Cookies from "js-cookie";
 
 type LoginField = "email" | "password";
 
@@ -15,6 +18,15 @@ const LoginPage = () => {
   const [loginForm, setLoginForm] = React.useState({
     email: "",
     password: "",
+  });
+
+  const { notify, ToastContainer } = useToast({
+    content: "Credentials are wrong",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
   });
 
   const handleLoginChange = (key: LoginField, value: string) => {
@@ -26,7 +38,12 @@ const LoginPage = () => {
 
   const { t } = useTranslation("auth");
   // i18n.changeLanguage("ru");
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    const data = await Api().login(loginForm);
+    if (!data || !data.status) return notify();
+    console.log(data);
+    Cookies.set("jwt", data.user.token);
+  };
 
   return (
     <AuthLayout title={t("login.title")!} isRegister={false}>
@@ -49,6 +66,7 @@ const LoginPage = () => {
           onChange={(value) => handleLoginChange("password", value)}
         />
         <Button
+          useLoader
           className="login-submit-btn"
           disabled={!loginForm.email || !loginForm.password}
           onClick={handleSubmit}
@@ -57,6 +75,7 @@ const LoginPage = () => {
           {t("login.log-in")!}
         </Button>
       </form>
+      <ToastContainer />
     </AuthLayout>
   );
 };

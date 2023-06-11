@@ -10,6 +10,7 @@ import { ReactComponent as AbortIcon } from "client/shared/icons/cross.svg";
 
 import "./PasswordConfirmation.scss";
 import { RegisterContext } from "scripts/contexts/RegisterContext";
+import { Api } from "api";
 
 type ConfirmPasswordField = "password" | "confirmPassword";
 
@@ -36,27 +37,37 @@ const PasswordRegisterPage = () => {
 
   const { t } = useTranslation("auth");
 
-  const [form, setForm] = React.useState({
-    password: "",
-    confirmPassword: "",
-  });
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
-  const handleFormChange = (key: ConfirmPasswordField, value: string) => {
-    setForm({
-      ...form,
-      [key]: value,
+  const handleSubmit = async () => {
+    const { firstName, lastName, email, password } = contextData;
+
+    const data = await Api().register({
+      firstName,
+      lastName,
+      email,
+      password,
     });
-  };
 
-  const handleSubmit = () => {
+    if (!data || !data.status) return;
+
     contextData.setContext({
       ...contextData,
       currentFragment: contextData.currentFragment + 1,
     });
   };
 
-  const criteriaOne = form.password.length >= 8;
-  const criteriaTwo = ["@", ".", "!", "?", "/"].some((value) => form.password.includes(value));
+  const handlePasswordChange = (value: string) => {
+    contextData.setContext({
+      ...contextData,
+      password: value,
+    });
+  };
+
+  const criteriaOne = contextData.password.length >= 8;
+  const criteriaTwo = ["@", ".", "!", "?", "/"].some((value) =>
+    contextData.password.includes(value)
+  );
 
   return (
     <AuthLayout title={t("register.password-confirmation")} isRegister>
@@ -66,18 +77,18 @@ const PasswordRegisterPage = () => {
           icon={PasswordIcon}
           name="password"
           label={t("password")!}
-          value={form.password}
+          value={contextData.password}
           type="password"
-          onChange={(value) => handleFormChange("password", value)}
+          onChange={(value) => handlePasswordChange(value)}
         />
         <IconInput
           className="password-confirm-password-confirm-input"
           icon={PasswordIcon}
           name="confirm-password"
           label={t("confirm-password")!}
-          value={form.confirmPassword}
+          value={confirmPassword}
           type="password"
-          onChange={(value) => handleFormChange("confirmPassword", value)}
+          onChange={(value) => setConfirmPassword(value)}
         />
         <div className="password-confirm-checkers">
           <PasswordChecker criteria={criteriaOne}>
@@ -88,8 +99,9 @@ const PasswordRegisterPage = () => {
           </PasswordChecker>
         </div>
         <Button
+          useLoader
           className="password-confirm-submit-btn"
-          disabled={!criteriaOne || !criteriaTwo || form.password !== form.confirmPassword}
+          disabled={!criteriaOne || !criteriaTwo || contextData.password !== confirmPassword}
           onClick={handleSubmit}
           inverse
         >

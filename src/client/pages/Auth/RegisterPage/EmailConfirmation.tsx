@@ -4,10 +4,12 @@ import clsx from "clsx";
 import AuthLayout from "../AuthLayout";
 import { Button, IconInput, CodeInput } from "client/common";
 import { ReactComponent as MailIcon } from "client/shared/icons/mail.svg";
+import useToast from "scripts/hooks/useToast";
 
 import "./EmailConfirmation.scss";
 import { RegisterContext } from "scripts/contexts/RegisterContext";
 import { useTranslation } from "react-i18next";
+import { Api } from "api";
 
 const CODE_LENGTH = 6;
 const SECONDS_TO_WAIT = 10;
@@ -18,14 +20,23 @@ const EmailConfirmationRegisterPage = () => {
   const contextData = React.useContext(RegisterContext);
 
   const { t } = useTranslation("auth");
-
-  const [email, setEmail] = React.useState("");
   const [code, setCode] = React.useState<number[]>([]);
   const [isCodeActive, setCodeActive] = React.useState(false);
   const [timer, setTimer] = React.useState(0);
+  const { notify, ToastContainer } = useToast({
+    content: "Email already exists",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
 
   const handleEmailChange = (value: string) => {
-    setEmail(value);
+    contextData.setContext({
+      ...contextData,
+      email: value,
+    });
   };
 
   React.useEffect(() => {
@@ -59,10 +70,12 @@ const EmailConfirmationRegisterPage = () => {
     setCode([]);
   };
 
-  const handleSendMessage = () => {
-    setCodeActive(true);
-
-    setTimer(SECONDS_TO_WAIT);
+  const handleSendMessage = async () => {
+    const isExists = await checkEmailExistence();
+    if (!isExists) {
+      setCodeActive(true);
+      setTimer(SECONDS_TO_WAIT);
+    }
   };
 
   const handleCodeSuccess = () => {
@@ -70,6 +83,17 @@ const EmailConfirmationRegisterPage = () => {
       ...contextData,
       currentFragment: contextData.currentFragment + 1,
     });
+  };
+
+  const checkEmailExistence = async () => {
+    const data = await Api().checkEmailExistence({
+      email: contextData.email,
+    });
+    if (!data) return true;
+    if (data.status) {
+      notify();
+    }
+    return data.status;
   };
 
   return (
@@ -81,12 +105,13 @@ const EmailConfirmationRegisterPage = () => {
             icon={MailIcon}
             name="email"
             label={t("email")!}
-            value={email}
+            value={contextData.email}
             onChange={handleEmailChange}
           />
           <Button
             className="email-confirm-send-btn"
-            disabled={!email.match(re) || timer > 0}
+            disabled={!contextData.email.match(re) || timer > 0}
+            useLoader
             onClick={handleSendMessage}
             inverse
           >
@@ -106,6 +131,7 @@ const EmailConfirmationRegisterPage = () => {
           onSuccess={handleCodeSuccess}
         />
       </form>
+      <ToastContainer />
     </AuthLayout>
   );
 };

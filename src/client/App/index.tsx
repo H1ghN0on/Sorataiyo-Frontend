@@ -1,3 +1,4 @@
+import React from "react";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
 import {
@@ -59,7 +60,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <React.Suspense>
+      <RouterProvider router={router} />
+    </React.Suspense>
+  );
 }
 
 export default App;

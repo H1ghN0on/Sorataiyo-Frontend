@@ -14,14 +14,9 @@ const IntroductionRegisterPage = () => {
 
   const contextData = React.useContext(RegisterContext);
 
-  const [form, setForm] = React.useState({
-    firstName: "",
-    lastName: "",
-  });
-
   const handleFormChange = (key: LoginField, value: string) => {
-    setForm({
-      ...form,
+    contextData.setContext({
+      ...contextData,
       [key]: value,
     });
   };
@@ -41,20 +36,20 @@ const IntroductionRegisterPage = () => {
             className="introduction-firstname-input"
             name="firstname"
             label={t("firstname")!}
-            value={form.firstName}
+            value={contextData.firstName}
             onChange={(value) => handleFormChange("firstName", value)}
           />
           <Input
             className="introduction-lastname-input"
             name="lastname"
             label={t("lastname")!}
-            value={form.lastName}
+            value={contextData.lastName}
             onChange={(value) => handleFormChange("lastName", value)}
           />
         </div>
         <Button
           className="introduction-submit-btn"
-          disabled={!form.lastName || !form.firstName}
+          disabled={!contextData.lastName || !contextData.firstName}
           onClick={handleSubmit}
           inverse
         >
