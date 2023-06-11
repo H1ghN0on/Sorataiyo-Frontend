@@ -8,16 +8,14 @@ import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as AcceptedIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as RejectedIcon } from "client/shared/icons/cross.svg";
 
-export type StatusType = "pending" | "completed" | "accepted" | "rejected";
-
 interface IStatusProps {
-  status: StatusType;
+  status: "pending" | "completed" | "accepted" | "rejected";
   className?: string;
 }
 interface ICardProps {
   title: string;
   id: number;
-  status: StatusType;
+  status: "pending" | "completed" | "accepted" | "rejected";
   date: string;
   admin?: boolean;
 }

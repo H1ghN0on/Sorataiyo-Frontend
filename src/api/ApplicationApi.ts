@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import { User } from "store";
 
-export type ApplicationType = {
+export type ApplicationModelType = {
   x: number;
   y: number;
   radius: number;
@@ -11,12 +11,26 @@ export type ApplicationType = {
   name: string;
 };
 
+export type ApplicationViewType = {
+  id: number;
+  x: number;
+  y: number;
+  radius: number;
+  status: string;
+  user: string;
+  name: string;
+  Instrument: InstrumentType;
+  createdAt: string;
+};
+
+type InstrumentType = {
+  name: string;
+  id: number;
+};
+
 interface IGetInstrumentsResult {
   status: boolean;
-  instruments: {
-    name: string;
-    id: number;
-  }[];
+  instruments: InstrumentType[];
 }
 
 interface ICreateApplicationResult {
@@ -25,12 +39,16 @@ interface ICreateApplicationResult {
   message?: string;
 }
 
+interface IGetApplicationsResult {
+  status: boolean;
+  applications: ApplicationViewType[];
+}
+
 const ApplicationApi = (instance: AxiosInstance) => {
   return {
     getInstruments: async (): Promise<IGetInstrumentsResult | null> => {
       try {
         const data = await instance.get("/applications/get-instruments");
-        console.log(data);
         if (!data) return null;
         return data.data;
       } catch (error: any) {
@@ -43,11 +61,24 @@ const ApplicationApi = (instance: AxiosInstance) => {
       }
     },
     createApplication: async (
-      params: Omit<ApplicationType, "user">
+      params: Omit<ApplicationModelType, "user">
     ): Promise<ICreateApplicationResult | null> => {
       try {
         const data = await instance.post("/applications/create", { ...params });
-        console.log(data);
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
+    getApplications: async (): Promise<IGetApplicationsResult | null> => {
+      try {
+        const data = await instance.get("/applications/get");
         if (!data) return null;
         return data.data;
       } catch (error: any) {

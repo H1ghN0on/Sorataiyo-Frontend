@@ -7,7 +7,7 @@ import { Input, Select, ProfileLayout, IconButton } from "client/common";
 import { IOptionProps } from "client/common/Inputs/Select";
 import ExploringForm from "./ExploringForm";
 import { Api } from "api";
-import { ApplicationType } from "api/ApplicationApi";
+import { ApplicationModelType } from "api/ApplicationApi";
 
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as SendIcon } from "client/shared/icons/send.svg";
@@ -110,7 +110,7 @@ const FormPage = () => {
   };
 
   const addApplication = async () => {
-    const application: Omit<ApplicationType, "user"> = {
+    const application: Omit<ApplicationModelType, "user"> = {
       name: inputValues.name,
       x: +inputValues.x,
       y: +inputValues.y,

@@ -1,13 +1,12 @@
 import { ApplicationCard, ProfileLayout, CatalogsHeader, EmptyList } from "client/common";
 import { useTranslation } from "react-i18next";
-import { StatusType } from "client/common/Catalog/ApplicationCard";
 import { ICatalogsFilter } from "client/pages/Main/CatalogsPage/components/Filters";
 import React from "react";
 
 type ApplicationType = {
   id: number;
   date: string;
-  status: StatusType;
+  status: "pending" | "completed" | "accepted" | "rejected";
   name: string;
 };
 
@@ -132,7 +131,7 @@ const AdminCatalogsPage = () => {
                 admin
                 key={application.id}
                 date={application.date}
-                status={application.status as StatusType}
+                status={application.status as "pending" | "completed" | "accepted" | "rejected"}
                 title={application.name}
                 id={application.id}
               />

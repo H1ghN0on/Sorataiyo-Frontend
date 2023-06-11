@@ -6,16 +6,16 @@ import {
   CatalogsHeader,
   EmptyList,
 } from "client/common";
+import useToast from "scripts/hooks/useToast";
 import { useTranslation } from "react-i18next";
 import "./CatalogsPage.scss";
-import { StatusType } from "client/common/Catalog/ApplicationCard";
 import { ICatalogsFilter } from "./components/Filters";
 import { Api } from "api";
 
 type ApplicationType = {
   id: number;
   date: string;
-  status: StatusType;
+  status: "pending" | "completed" | "accepted" | "rejected";
   name: string;
 };
 
@@ -24,57 +24,6 @@ type ResultsType = {
   date: string;
   name: string;
 };
-
-const applications: ApplicationType[] = [
-  {
-    id: 0,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 1,
-    date: "21/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 2,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 3,
-    date: "20/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 4,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 5,
-    date: "22/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 6,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 7,
-    date: "22/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-];
 
 const results: ResultsType[] = [
   {
@@ -120,14 +69,20 @@ const results: ResultsType[] = [
 ];
 
 const ApplicationsPage = () => {
+  const { notify, ToastContainer } = useToast({
+    content: "DB error occured. Try refresh the page",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
   const { t } = useTranslation("catalogs");
-
+  const [applications, setApplications] = React.useState<ApplicationType[]>([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [isApplicationsActive, setApplicationsActive] = React.useState(true);
 
-  const [filteredCards, setFilteredCards] = React.useState(
-    isApplicationsActive ? applications : results
-  );
+  const [filteredCards, setFilteredCards] = React.useState<ApplicationType[] | ResultsType[]>([]);
 
   const [filters, setFilters] = React.useState<ICatalogsFilter>({
     accepted: false,
@@ -183,6 +138,33 @@ const ApplicationsPage = () => {
     filterCards(filteredCards, searchValue);
   }, [filters, isApplicationsActive]);
 
+  //Model
+
+  const getApplications = async () => {
+    const data = await Api().getApplications();
+    if (!data || !data.status) {
+      notify();
+      setFilteredCards([]);
+      return;
+    }
+
+    const applications: ApplicationType[] = data.applications.map((appl) => {
+      const date = new Date(appl.createdAt);
+      return {
+        id: appl.id,
+        date: date.toLocaleDateString("ru-RU"),
+        status: appl.status as "pending" | "completed" | "accepted" | "rejected",
+        name: appl.name,
+      };
+    });
+    setApplications(applications);
+    setFilteredCards(applications);
+  };
+
+  React.useEffect(() => {
+    getApplications();
+  }, []);
+
   return (
     <ProfileLayout>
       <div className="catalogs">
@@ -200,7 +182,7 @@ const ApplicationsPage = () => {
                 <ApplicationCard
                   key={application.id}
                   date={application.date}
-                  status={application.status as StatusType}
+                  status={application.status as "pending" | "completed" | "accepted" | "rejected"}
                   title={application.name}
                   id={application.id}
                 />
@@ -221,6 +203,7 @@ const ApplicationsPage = () => {
             </div>
           ))}
       </div>
+      <ToastContainer />
     </ProfileLayout>
   );
 };

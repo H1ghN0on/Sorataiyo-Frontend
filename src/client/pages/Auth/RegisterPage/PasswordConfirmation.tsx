@@ -6,7 +6,7 @@ import AuthLayout from "../AuthLayout";
 import { Button, IconInput } from "client/common";
 
 import { User } from "store";
-
+import useToast from "scripts/hooks/useToast";
 import { ReactComponent as PasswordIcon } from "client/shared/icons/lock.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as AbortIcon } from "client/shared/icons/cross.svg";
@@ -14,6 +14,7 @@ import { ReactComponent as AbortIcon } from "client/shared/icons/cross.svg";
 import "./PasswordConfirmation.scss";
 import { RegisterContext } from "scripts/contexts/RegisterContext";
 import { Api } from "api";
+import { Toast } from "react-toastify/dist/components";
 
 interface IPasswordChecker {
   children: React.ReactNode;
@@ -35,7 +36,14 @@ const PasswordChecker: React.FC<IPasswordChecker> = ({ children, criteria }) => 
 
 const PasswordRegisterPage = () => {
   const contextData = React.useContext(RegisterContext);
-
+  const { notify, ToastContainer } = useToast({
+    content: "DB error occured. Try again later",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
   const { t } = useTranslation("auth");
 
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -50,7 +58,7 @@ const PasswordRegisterPage = () => {
       password,
     });
 
-    if (!data || !data.status) return;
+    if (!data || !data.status) return notify();
     Cookies.set("jwt", data.token);
     User.auth(data.token);
 
@@ -111,6 +119,7 @@ const PasswordRegisterPage = () => {
           {t("register.next")}
         </Button>
       </form>
+      <ToastContainer />
     </AuthLayout>
   );
 };
