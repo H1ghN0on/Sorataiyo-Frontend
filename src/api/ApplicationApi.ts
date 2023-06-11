@@ -40,6 +40,10 @@ interface IUpdateApplicationStatusParams {
   status: "rejected" | "accepted" | "completed";
 }
 
+interface IDeleteApplicationParams {
+  id: number;
+}
+
 interface IGetInstrumentsResult {
   status: boolean;
   instruments: InstrumentType[];
@@ -62,6 +66,10 @@ interface IGetApplicationByIdResult {
 }
 
 interface IUpdateApplicationStatusResult {
+  status: boolean;
+}
+
+interface IDeleteApplicationResult {
   status: boolean;
 }
 
@@ -162,6 +170,22 @@ const ApplicationApi = (instance: AxiosInstance) => {
     ): Promise<ICreateApplicationResult | null> => {
       try {
         const data = await instance.post("/applications/update", { ...params });
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
+    deleteApplication: async (
+      params: IDeleteApplicationParams
+    ): Promise<IDeleteApplicationResult | null> => {
+      try {
+        const data = await instance.delete(`/applications/delete/${params.id}`);
         if (!data) return null;
         return data.data;
       } catch (error: any) {

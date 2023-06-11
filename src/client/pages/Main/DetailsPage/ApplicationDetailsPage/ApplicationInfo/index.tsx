@@ -17,8 +17,8 @@ const ApplicationInfo: React.FC<IApplicationInfoProps> = ({ details }) => {
       <div className="details-application-info-label">Type: Exploring location</div>
       <div className="details-application-info-content">
         {details &&
-          details.map((detail) => (
-            <div className="details-application-info-content-item">
+          details.map((detail, index) => (
+            <div key={index} className="details-application-info-content-item">
               <span className="details-application-info-content-item-bold">{detail.type}:</span>{" "}
               {detail.value}
             </div>

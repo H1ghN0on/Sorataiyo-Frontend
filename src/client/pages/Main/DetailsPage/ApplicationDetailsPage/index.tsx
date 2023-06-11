@@ -29,7 +29,14 @@ const ApplicationDetailsPage = () => {
   const [headerDetails, setHeaderDetails] = React.useState<Detail[]>([]);
   const [mainDetails, setMainDetails] = React.useState<Detail[]>([]);
   const [isEditable, setEditable] = React.useState(false);
+  const [isDeletable, setDeletable] = React.useState(false);
+  const [name, setName] = React.useState("");
   const params = useParams();
+
+  const handleDeleteApplication = async () => {
+    await deleteApplication();
+  };
+
   //Model
 
   const fillHeaderDetail = (property: string, value: string): Detail => {
@@ -40,9 +47,20 @@ const ApplicationDetailsPage = () => {
           value,
         };
       }
+      case "name": {
+        setName(value);
+        return {
+          type: "Unknown",
+          value,
+        };
+      }
       case "status": {
         if (value === "rejected") {
           setEditable(true);
+          setDeletable(true);
+        }
+        if (value === "pending") {
+          setDeletable(true);
         }
         return {
           type: "Status",
@@ -121,7 +139,6 @@ const ApplicationDetailsPage = () => {
 
   const getApplicationById = async () => {
     const data = await Api().getApplicationById({ id: +params.id! });
-    console.log(data);
     if (!data || !data.status) {
       notify();
       return navigate("/catalogs");
@@ -144,16 +161,26 @@ const ApplicationDetailsPage = () => {
     setMainDetails(localMainDetails);
   };
 
+  const deleteApplication = async () => {
+    const data = await Api().deleteApplication({ id: +params.id! });
+    if (!data || !data.status) {
+      notify();
+    }
+    return navigate("/catalogs");
+  };
+
   React.useEffect(() => {
     getApplicationById();
   }, []);
 
   return (
     <DetailsLayout
+      isDeletable={isDeletable}
       inspection={review}
       details={headerDetails}
-      name="Fly me to the moon"
+      name={name}
       isEditable={isEditable}
+      onDelete={handleDeleteApplication}
     >
       <ApplicationInfo details={mainDetails} />
       <ToastContainer />

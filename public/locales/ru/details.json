@@ -8,5 +8,6 @@
     "type": "Тип",
     "exploring-location": "Исследование местности",
     "application": "Заявка",
-    "filters": "Фильтры"
+    "filters": "Фильтры",
+    "delete": "Удалить"
 }

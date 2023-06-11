@@ -6,6 +6,7 @@ import { ProfileLayout, IconButton } from "client/common";
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as PenIcon } from "client/shared/icons/edit.svg";
 import { ReactComponent as PrintIcon } from "client/shared/icons/print.svg";
+import { ReactComponent as TrashIcon } from "client/shared/icons/trash.svg";
 
 import "./DetailsLayout.scss";
 import { useTranslation } from "react-i18next";
@@ -21,6 +22,8 @@ interface IDetailsLayoutProps {
   children: React.ReactNode;
   isEditable?: boolean;
   inspection?: string;
+  isDeletable?: boolean;
+  onDelete: () => void;
 }
 
 const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
@@ -29,6 +32,8 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
   details,
   inspection,
   children,
+  onDelete,
+  isDeletable,
 }) => {
   const params = useParams();
   const { t } = useTranslation("details");
@@ -37,6 +42,9 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
 
   const handleBackButtonClick = () => {
     navigate(-1);
+  };
+  const handleDeleteButtonClick = () => {
+    onDelete();
   };
 
   const navigate = useNavigate();
@@ -57,6 +65,17 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
               inverse
             >
               {t("edit")}
+            </IconButton>
+          )}
+          {isDeletable && (
+            <IconButton
+              useLoader
+              className="details-header-delete-btn"
+              icon={TrashIcon}
+              onClick={handleDeleteButtonClick}
+              inverse
+            >
+              {t("delete")}
             </IconButton>
           )}
           <IconButton

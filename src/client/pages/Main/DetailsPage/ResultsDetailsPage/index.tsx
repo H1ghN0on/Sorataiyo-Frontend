@@ -130,6 +130,7 @@ const resultsDetails = [
 const ResultsDetailsPage = () => {
   return (
     <DetailsLayout
+      onDelete={() => {}}
       inspection={"Wow, that's absolutely incredible"}
       details={details}
       name="Fly me to the moon"
