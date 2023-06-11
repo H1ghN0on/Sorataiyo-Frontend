@@ -1,22 +1,43 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Input, ProfileLayout, IconButton } from "client/common";
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as RejectIcon } from "client/shared/icons/cross.svg";
-
+import { Api } from "api";
+import useToast from "scripts/hooks/useToast";
 import "./FormPage.scss";
 
+type Detail = {
+  type: string;
+  value: string;
+};
+
 const AdminFormPage = () => {
+  const { notify, ToastContainer } = useToast({
+    content: "DB error occured. Try refresh the page",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
+
   const { t } = useTranslation("form");
   const [commentary, setCommentary] = React.useState("");
+  const params = useParams();
 
   const navigate = useNavigate();
+  const [details, setDetails] = React.useState<Detail[]>([]);
 
-  const handleAcceptClick = () => {};
+  const handleAcceptClick = async () => {
+    await updateApplicationStatus("accepted");
+  };
 
-  const handleRejectClick = () => {};
+  const handleRejectClick = async () => {
+    await updateApplicationStatus("rejected");
+  };
 
   const handleBackButtonClick = () => {
     navigate(-1);
@@ -24,6 +45,76 @@ const AdminFormPage = () => {
   const handleCommentaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCommentary(e.target.value);
   };
+
+  //Model
+
+  const fillDetail = (property: string, value: any): Detail => {
+    switch (property) {
+      case "x": {
+        return {
+          type: "X",
+          value,
+        };
+      }
+      case "y": {
+        return {
+          type: "Y",
+          value,
+        };
+      }
+      case "radius": {
+        return {
+          type: "Radius",
+          value,
+        };
+      }
+      case "Instrument": {
+        return {
+          type: "Instrument",
+          value: value.name,
+        };
+      }
+      default: {
+        return {
+          type: "Unknown",
+          value,
+        };
+      }
+    }
+  };
+
+  const getApplicationById = async () => {
+    const data = await Api().getApplicationById({ id: +params.id! });
+    console.log(data);
+    if (!data || !data.status) {
+      notify();
+      return navigate("/admin/catalogs");
+    }
+    const localDetails: Detail[] = [];
+    for (const property in data.application) {
+      const detail = fillDetail(property, (data.application as any)[property]);
+      if (detail.type !== "Unknown") {
+        localDetails.push(detail);
+      }
+    }
+    setDetails(localDetails);
+  };
+
+  const updateApplicationStatus = async (status: "rejected" | "completed" | "accepted") => {
+    const data = await Api().updateApplicationStatus({
+      id: +params.id!,
+      review: commentary,
+      status,
+    });
+    if (!data || !data.status) {
+      notify();
+    }
+    return navigate("/admin/catalogs");
+  };
+
+  React.useEffect(() => {
+    getApplicationById();
+  }, []);
 
   return (
     <ProfileLayout>
@@ -34,36 +125,18 @@ const AdminFormPage = () => {
 
       <div className="form-page-content">
         <form className="form-page-form">
-          <div className="input-container col-1">
-            <Input
-              className="form-page-input"
-              label={t("name")!}
-              name="name"
-              value="Something, I don't know"
-              onChange={(val: string) => {}}
-              disabled
-            />
-          </div>
-          <div className="input-container col-1">
-            <Input
-              className="form-page-input"
-              label={t("name")!}
-              name="name"
-              value="Something, I don't know"
-              onChange={(val: string) => {}}
-              disabled
-            />
-          </div>
-          <div className="input-container col-1">
-            <Input
-              className="form-page-input"
-              label={t("name")!}
-              name="name"
-              value="Something, I don't know"
-              onChange={(val: string) => {}}
-              disabled
-            />
-          </div>
+          {details.map((detail) => (
+            <div className="input-container col-1">
+              <Input
+                className="form-page-input"
+                label={t(detail.type)!}
+                name={detail.type}
+                value={detail.value}
+                onChange={(val: string) => {}}
+                disabled
+              />
+            </div>
+          ))}
           <div className="input-container form-page-review col-1">
             <div className="form-page-review-label">{t("commentary")}</div>
             <textarea
@@ -75,6 +148,7 @@ const AdminFormPage = () => {
           <div className="form-page-buttons">
             <IconButton
               icon={ConfirmIcon}
+              useLoader
               className="form-page-submit-btn"
               inverse
               onClick={handleAcceptClick}
@@ -84,6 +158,7 @@ const AdminFormPage = () => {
             </IconButton>
             <IconButton
               icon={RejectIcon}
+              useLoader
               className="form-page-submit-btn"
               inverse
               onClick={handleRejectClick}
@@ -94,6 +169,7 @@ const AdminFormPage = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </ProfileLayout>
   );
 };

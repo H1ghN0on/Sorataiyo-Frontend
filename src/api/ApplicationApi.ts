@@ -33,6 +33,12 @@ interface IGetApplicationByIdParams {
   id: number;
 }
 
+interface IUpdateApplicationStatusParams {
+  id: number;
+  review: string;
+  status: "rejected" | "accepted" | "completed";
+}
+
 interface IGetInstrumentsResult {
   status: boolean;
   instruments: InstrumentType[];
@@ -52,6 +58,10 @@ interface IGetApplicationsResult {
 interface IGetApplicationByIdResult {
   status: boolean;
   application: ApplicationViewType | null;
+}
+
+interface IUpdateApplicationStatusResult {
+  status: boolean;
 }
 
 const ApplicationApi = (instance: AxiosInstance) => {
@@ -100,11 +110,41 @@ const ApplicationApi = (instance: AxiosInstance) => {
         return null;
       }
     },
+    getPendingApplications: async (): Promise<IGetApplicationsResult | null> => {
+      try {
+        const data = await instance.get("/applications/pending/get");
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
     getApplicationById: async (
       params: IGetApplicationByIdParams
     ): Promise<IGetApplicationByIdResult | null> => {
       try {
         const data = await instance.get(`/applications/get/${params.id}`);
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
+    updateApplicationStatus: async (
+      params: IUpdateApplicationStatusParams
+    ): Promise<IUpdateApplicationStatusResult | null> => {
+      try {
+        const data = await instance.post(`/applications/status/update`, { ...params });
         if (!data) return null;
         return data.data;
       } catch (error: any) {

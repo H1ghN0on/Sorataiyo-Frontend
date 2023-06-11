@@ -16,7 +16,8 @@
         "created": "Created",
         "empty-list": {
             "bad-filters": "Bad filters",
-            "empty": "Time to create new application"
+            "empty": "Time to create new application",
+            "admin-empty": "Time to rest"
         }
     },
     "results-ns": {

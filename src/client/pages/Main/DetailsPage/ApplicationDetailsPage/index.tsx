@@ -25,6 +25,7 @@ const ApplicationDetailsPage = () => {
   });
 
   const navigate = useNavigate();
+  const [review, setReview] = React.useState("");
   const [headerDetails, setHeaderDetails] = React.useState<Detail[]>([]);
   const [mainDetails, setMainDetails] = React.useState<Detail[]>([]);
   const [isEditable, setEditable] = React.useState(false);
@@ -65,6 +66,13 @@ const ApplicationDetailsPage = () => {
         return {
           type: "Modified",
           value: date.toLocaleString(),
+        };
+      }
+      case "review": {
+        setReview(value);
+        return {
+          type: "Unknown",
+          value,
         };
       }
       default: {
@@ -142,7 +150,7 @@ const ApplicationDetailsPage = () => {
 
   return (
     <DetailsLayout
-      inspection={"Wow"}
+      inspection={review}
       details={headerDetails}
       name="Fly me to the moon"
       isEditable={isEditable}

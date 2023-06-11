@@ -2,6 +2,8 @@ import { ApplicationCard, ProfileLayout, CatalogsHeader, EmptyList } from "clien
 import { useTranslation } from "react-i18next";
 import { ICatalogsFilter } from "client/pages/Main/CatalogsPage/components/Filters";
 import React from "react";
+import { Api } from "api";
+import useToast from "scripts/hooks/useToast";
 
 type ApplicationType = {
   id: number;
@@ -10,64 +12,21 @@ type ApplicationType = {
   name: string;
 };
 
-const applications = [
-  {
-    id: 0,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 1,
-    date: "22/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 2,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 3,
-    date: "22/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 4,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 5,
-    date: "22/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 6,
-    date: "21/01/14",
-    status: "rejected",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 7,
-    date: "22/02/16",
-    status: "accepted",
-    name: "And let me play among the stars",
-  },
-];
-
 const AdminCatalogsPage = () => {
   const { t } = useTranslation("catalogs");
+  const { notify, ToastContainer } = useToast({
+    content: "DB error occured. Try refresh the page",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
 
   const [searchValue, setSearchValue] = React.useState("");
 
-  const [filteredCards, setFilteredCards] = React.useState(applications);
-
+  const [filteredCards, setFilteredCards] = React.useState<ApplicationType[]>([]);
+  const [applications, setApplications] = React.useState<ApplicationType[]>([]);
   const [filters, setFilters] = React.useState<ICatalogsFilter>({
     accepted: false,
     rejected: false,
@@ -113,6 +72,33 @@ const AdminCatalogsPage = () => {
     filterCards(filteredCards, searchValue);
   }, [filters, searchValue]);
 
+  //Model
+
+  const getApplications = async () => {
+    const data = await Api().getPendingApplications();
+    if (!data || !data.status) {
+      notify();
+      setFilteredCards([]);
+      return;
+    }
+
+    const applications: ApplicationType[] = data.applications.map((appl) => {
+      const date = new Date(appl.createdAt);
+      return {
+        id: appl.id,
+        date: date.toLocaleDateString("ru-RU"),
+        status: appl.status as "pending" | "completed" | "accepted" | "rejected",
+        name: appl.name,
+      };
+    });
+    setApplications(applications);
+    setFilteredCards(applications);
+  };
+
+  React.useEffect(() => {
+    getApplications();
+  }, []);
+
   return (
     <ProfileLayout>
       <div className="catalogs">
@@ -140,7 +126,7 @@ const AdminCatalogsPage = () => {
         {filteredCards.length === 0 &&
           (applications.length === 0 ? (
             <div className="catalogs-empty">
-              <EmptyList title={t("applications-ns.empty-list.empty")} />
+              <EmptyList title={t("applications-ns.empty-list.admin-empty")} />
             </div>
           ) : (
             <div className="catalogs-empty">
@@ -148,6 +134,7 @@ const AdminCatalogsPage = () => {
             </div>
           ))}
       </div>
+      <ToastContainer />
     </ProfileLayout>
   );
 };
