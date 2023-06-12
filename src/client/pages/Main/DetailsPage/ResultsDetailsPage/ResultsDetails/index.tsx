@@ -55,7 +55,7 @@ const ResultsDetails: React.FC<IResultDetailsProps> = ({ details }) => {
 
   React.useEffect(() => {
     filterDetails();
-  }, [filters, searchValues]);
+  }, [details, filters, searchValues]);
 
   return (
     <div className="results-details">

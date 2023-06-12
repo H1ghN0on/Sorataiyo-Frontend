@@ -1,24 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Api } from "api";
+import useToast from "scripts/hooks/useToast";
 
 import { DetailsLayout } from "client/common";
 import ResultsDetails from "./ResultsDetails";
 
 import "./ResultsDetailsPage.scss";
-const details = [
-  {
-    type: "Result Id",
-    value: "#1488228",
-  },
-  {
-    type: "Received",
-    value: "24/09/1969",
-  },
-  {
-    type: "Application source",
-    value: <Link to="/application/228">Link</Link>,
-  },
-];
+
+type Detail = {
+  type: string;
+  value: any;
+};
+
+type Results = {
+  id: number;
+  date: string;
+  data: Detail[];
+};
 
 const resultsDetails = [
   {
@@ -128,15 +127,168 @@ const resultsDetails = [
 ];
 
 const ResultsDetailsPage = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const { notify, ToastContainer } = useToast({
+    content: "DB error occured. Try refresh the page",
+    status: "danger",
+    autoClose: 3000,
+    pauseOnHover: true,
+    light: true,
+    position: "bottom-right",
+  });
+
+  const [headerDetails, setHeaderDetails] = React.useState<Detail[]>([]);
+  const [mainDetails, setMainDetails] = React.useState<Results[]>([]);
+  const [name, setName] = React.useState("");
+
+  //Model
+
+  const fillHeaderDetail = (property: string, value: string): Detail => {
+    switch (property) {
+      case "id": {
+        return {
+          type: "Results Id",
+          value,
+        };
+      }
+      case "startTimestamp": {
+        const date = new Date(value);
+        return {
+          type: "Started",
+          value: date.toLocaleString(),
+        };
+      }
+      case "endTimestamp": {
+        const date = new Date(value);
+        return {
+          type: "Finished",
+          value: date.toLocaleString(),
+        };
+      }
+      case "applicationId": {
+        return {
+          type: "Application source",
+          value: <Link to={`/application/${value}`}>Link</Link>,
+        };
+      }
+      default: {
+        return {
+          type: "Unknown",
+          value,
+        };
+      }
+    }
+  };
+
+  const fillMainDetail = (property: string, value: any): Detail => {
+    switch (property) {
+      case "x": {
+        return {
+          type: "X",
+          value,
+        };
+      }
+      case "y": {
+        return {
+          type: "Y",
+          value,
+        };
+      }
+      case "direction_cos_orientation1": {
+        return {
+          type: "Direction Cos Orientation 1",
+          value,
+        };
+      }
+      case "direction_cos_orientation2": {
+        return {
+          type: "Direction Cos Orientation 2",
+          value,
+        };
+      }
+      case "direction_cos_orientation3": {
+        return {
+          type: "Direction Cos Orientation 3",
+          value,
+        };
+      }
+
+      case "center_latitude": {
+        return {
+          type: "Center latitude",
+          value,
+        };
+      }
+      case "center_longitude": {
+        return {
+          type: "Center longitude",
+          value,
+        };
+      }
+      case "data": {
+        return {
+          type: "Data",
+          value,
+        };
+      }
+      case "control_info": {
+        return {
+          type: "Control info",
+          value,
+        };
+      }
+      default: {
+        return {
+          type: "Unknown",
+          value,
+        };
+      }
+    }
+  };
+
+  const getSession = async () => {
+    const data = await Api().getSessionResults({ id: +params.id! });
+    if (!data || !data.status) {
+      notify();
+      return navigate("/catalogs");
+    }
+    setName(data.name);
+    const localHeaderDetails: Detail[] = [];
+    for (const property in data.session) {
+      const detail = fillHeaderDetail(property, (data.session as any)[property]);
+      if (detail.type !== "Unknown") {
+        localHeaderDetails.push(detail);
+      }
+    }
+
+    const localMainDetails = data.session.RecordsResults.map((result: any, index: number) => {
+      let updatedResult: Results = {
+        id: index,
+        date: new Date(result.createdAt).toLocaleString(),
+        data: [],
+      };
+      for (const property in result) {
+        const detail = fillMainDetail(property, (result as any)[property]);
+        if (detail.type !== "Unknown") {
+          updatedResult.data.push(detail);
+        }
+      }
+      return updatedResult;
+    });
+
+    setHeaderDetails(localHeaderDetails);
+    setMainDetails(localMainDetails);
+  };
+
+  React.useEffect(() => {
+    getSession();
+  }, []);
   return (
-    <DetailsLayout
-      onDelete={() => {}}
-      inspection={"Wow, that's absolutely incredible"}
-      details={details}
-      name="Fly me to the moon"
-      isEditable
-    >
-      <ResultsDetails details={resultsDetails} />
+    <DetailsLayout onDelete={() => {}} details={headerDetails} name={name}>
+      <ResultsDetails details={mainDetails} />
+      <ToastContainer />
     </DetailsLayout>
   );
 };

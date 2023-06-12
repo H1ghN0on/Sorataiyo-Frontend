@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { UserApi, ApplicationApi } from "./apis";
+import { UserApi, ApplicationApi, ResultsApi } from "./apis";
 
 export const Api = () => {
   let token = Cookies.get("jwt");
@@ -15,5 +15,6 @@ export const Api = () => {
   return {
     ...UserApi(instance),
     ...ApplicationApi(instance),
+    ...ResultsApi(instance),
   };
 };

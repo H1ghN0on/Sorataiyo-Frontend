@@ -19,54 +19,11 @@ type ApplicationType = {
   name: string;
 };
 
-type ResultsType = {
+type SessionType = {
   id: number;
   date: string;
   name: string;
 };
-
-const results: ResultsType[] = [
-  {
-    id: 0,
-    date: "21/01/14",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 1,
-    date: "22/02/16",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 2,
-    date: "21/01/14",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 3,
-    date: "22/02/16",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 4,
-    date: "21/01/14",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 5,
-    date: "22/02/16",
-    name: "And let me play among the stars",
-  },
-  {
-    id: 6,
-    date: "21/01/14",
-    name: "Fly me to the moon",
-  },
-  {
-    id: 7,
-    date: "22/02/16",
-    name: "And let me play among the stars",
-  },
-];
 
 const ApplicationsPage = () => {
   const { notify, ToastContainer } = useToast({
@@ -79,10 +36,11 @@ const ApplicationsPage = () => {
   });
   const { t } = useTranslation("catalogs");
   const [applications, setApplications] = React.useState<ApplicationType[]>([]);
+  const [sessions, setSessions] = React.useState<SessionType[]>([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [isApplicationsActive, setApplicationsActive] = React.useState(true);
 
-  const [filteredCards, setFilteredCards] = React.useState<ApplicationType[] | ResultsType[]>([]);
+  const [filteredCards, setFilteredCards] = React.useState<ApplicationType[] | SessionType[]>([]);
 
   const [filters, setFilters] = React.useState<ICatalogsFilter>({
     accepted: false,
@@ -99,7 +57,7 @@ const ApplicationsPage = () => {
   };
 
   const filterCards = (cards: any[], value: string) => {
-    let filtered = isApplicationsActive ? applications : results;
+    let filtered = isApplicationsActive ? applications : sessions;
     filtered = filtered.filter((card) => {
       if (value && !card.id.toString().includes(value)) return false;
       if (isApplicationsActive) {
@@ -127,7 +85,7 @@ const ApplicationsPage = () => {
 
   const handleApplicationsClick = (val: boolean) => {
     setApplicationsActive(val);
-    filterCards(val ? applications : results, searchValue);
+    filterCards(val ? applications : sessions, searchValue);
   };
 
   const handleFiltersUpdate = (type: string, val: boolean | string) => {
@@ -161,8 +119,21 @@ const ApplicationsPage = () => {
     setFilteredCards(applications);
   };
 
+  const getSessions = async () => {
+    const data = await Api().getUserSessions();
+    if (!data || !data.status) return notify();
+
+    const sessions = data.applications.map((appl) => ({
+      id: appl.Sessions[0].id,
+      name: appl.name,
+      date: new Date(appl.Sessions[0].endTimestamp).toLocaleDateString(),
+    }));
+    setSessions(sessions);
+  };
+
   React.useEffect(() => {
     getApplications();
+    getSessions();
   }, []);
 
   return (
@@ -187,8 +158,8 @@ const ApplicationsPage = () => {
                   id={application.id}
                 />
               ))
-            : results.length !== 0 &&
-              (filteredCards as ResultsType[]).map((result) => (
+            : sessions.length !== 0 &&
+              (filteredCards as SessionType[]).map((result) => (
                 <ResultCard key={result.id} date={result.date} title={result.name} id={result.id} />
               ))}
         </div>
