@@ -6,3 +6,4 @@ export { default as ResultsDetailsPage } from "./Main/DetailsPage/ResultsDetails
 export { default as FormPage } from "./Main/FormPage";
 export { default as AdminCatalogsPage } from "./Admin/CatalogsPage";
 export { default as AdminFormPage } from "./Admin/FormPage";
+export { default as PDFPage } from "./Main/PDFPage";

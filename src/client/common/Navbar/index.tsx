@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
+import { User } from "store";
 import { Button } from "client/common";
 import { ReactComponent as Logo } from "client/shared/icons/sorataiyo-logo.svg";
 import NavbarSettings from "./NavbarSettings";
@@ -37,8 +37,8 @@ const NavbarAuthed = () => {
           </Button>
 
           <NavbarSettings
-            name="Arianne Yeong"
-            email="aryeo512@penrose.sg"
+            name={User.user.firstName + " " + User.user.lastName}
+            email={User.user.email}
             active={isSettingsActive}
           />
         </div>

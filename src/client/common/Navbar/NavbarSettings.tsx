@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { ReactComponent as BritishFlagIcon } from "client/shared/icons/uk.svg";
 import { ReactComponent as RussianFlagIcon } from "client/shared/icons/russia.svg";
@@ -9,6 +9,7 @@ import { ReactComponent as RussianFlagIcon } from "client/shared/icons/russia.sv
 import { Button } from "client/common";
 
 import "./NavbarSettings.scss";
+import { User } from "store";
 
 interface INavbarSettingsProps {
   name: string;
@@ -37,6 +38,7 @@ const locales = [Languages.English, Languages.Russian /*Languages.Japanese*/];
 
 const NavbarSettings: React.FC<INavbarSettingsProps> = ({ name, email, active }) => {
   const [language, setLanguage] = React.useState(0);
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation("navbar");
   const handleLanguageChangeButtonClick = () => {
     if (language === locales.length - 1) {
@@ -47,7 +49,10 @@ const NavbarSettings: React.FC<INavbarSettingsProps> = ({ name, email, active })
       i18n.changeLanguage(locales[language + 1]);
     }
   };
-  const handleLogoutButtonClick = () => {};
+  const handleLogoutButtonClick = () => {
+    User.logout();
+    navigate("/login");
+  };
 
   return (
     <div

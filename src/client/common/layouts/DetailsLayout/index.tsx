@@ -80,6 +80,7 @@ const DetailsLayout: React.FC<IDetailsLayoutProps> = ({
           )}
           <IconButton
             className="details-header-print-btn"
+            link={`/pdf/${params.id}`}
             icon={PrintIcon}
             onClick={handlePrintButtonClick}
             inverse
