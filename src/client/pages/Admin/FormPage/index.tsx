@@ -5,6 +5,7 @@ import { Input, ProfileLayout, IconButton } from "client/common";
 import { ReactComponent as BackIcon } from "client/shared/icons/arrow-left.svg";
 import { ReactComponent as ConfirmIcon } from "client/shared/icons/confirm.svg";
 import { ReactComponent as RejectIcon } from "client/shared/icons/cross.svg";
+import { ReactComponent as SendIcon } from "client/shared/icons/send.svg";
 import { Api } from "api";
 import useToast from "scripts/hooks/useToast";
 import "./FormPage.scss";
@@ -27,6 +28,8 @@ const AdminFormPage = () => {
   const { t } = useTranslation("form");
   const [commentary, setCommentary] = React.useState("");
   const params = useParams();
+  const [status, setStatus] = React.useState("");
+  const [modified, setModified] = React.useState<string>("");
 
   const navigate = useNavigate();
   const [details, setDetails] = React.useState<Detail[]>([]);
@@ -45,6 +48,9 @@ const AdminFormPage = () => {
   const handleCommentaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCommentary(e.target.value);
   };
+  const handleFinishClick = async () => {
+    await completeApplication();
+  };
 
   //Model
 
@@ -62,6 +68,13 @@ const AdminFormPage = () => {
           value,
         };
       }
+      case "status": {
+        setStatus(value);
+        return {
+          type: "Radius",
+          value,
+        };
+      }
       case "radius": {
         return {
           type: "Radius",
@@ -72,6 +85,14 @@ const AdminFormPage = () => {
         return {
           type: "Instrument",
           value: value.name,
+        };
+      }
+      case "updatedAt": {
+        const date = new Date(value);
+        setModified(date.toLocaleString());
+        return {
+          type: "Unknown",
+          value,
         };
       }
       default: {
@@ -112,6 +133,16 @@ const AdminFormPage = () => {
     return navigate("/admin/catalogs");
   };
 
+  const completeApplication = async () => {
+    const data = await Api().completeApplication({
+      id: +params.id!,
+    });
+    if (!data || !data.status) {
+      notify();
+    }
+    return navigate("/admin/catalogs");
+  };
+
   React.useEffect(() => {
     getApplicationById();
   }, []);
@@ -137,35 +168,65 @@ const AdminFormPage = () => {
               />
             </div>
           ))}
-          <div className="input-container form-page-review col-1">
-            <div className="form-page-review-label">{t("commentary")}</div>
-            <textarea
-              className="form-page-review-input"
-              onChange={handleCommentaryChange}
-              value={commentary}
-            />
-          </div>
+          {status !== "pending" && (
+            <div className="input-container form-page-review col-1">
+              <Input
+                className="form-page-input"
+                label={"Start date"}
+                name={"start-date"}
+                value={modified.toString()}
+                onChange={(val: string) => {}}
+                disabled
+              />
+            </div>
+          )}
+          {(status === "pending" || commentary) && (
+            <div className="input-container form-page-review col-1">
+              <div className="form-page-review-label">{t("commentary")}</div>
+
+              <textarea
+                className="form-page-review-input"
+                onChange={handleCommentaryChange}
+                value={commentary}
+                disabled={status !== "pending"}
+              />
+            </div>
+          )}
           <div className="form-page-buttons">
-            <IconButton
-              icon={ConfirmIcon}
-              useLoader
-              className="form-page-submit-btn"
-              inverse
-              onClick={handleAcceptClick}
-              disabled={!commentary}
-            >
-              {t("accept")}
-            </IconButton>
-            <IconButton
-              icon={RejectIcon}
-              useLoader
-              className="form-page-submit-btn"
-              inverse
-              onClick={handleRejectClick}
-              disabled={!commentary}
-            >
-              {t("reject")}
-            </IconButton>
+            {status === "pending" ? (
+              <>
+                <IconButton
+                  icon={ConfirmIcon}
+                  useLoader
+                  className="form-page-submit-btn"
+                  inverse
+                  onClick={handleAcceptClick}
+                  disabled={!commentary}
+                >
+                  {t("accept")}
+                </IconButton>
+                <IconButton
+                  icon={RejectIcon}
+                  useLoader
+                  className="form-page-submit-btn"
+                  inverse
+                  onClick={handleRejectClick}
+                  disabled={!commentary}
+                >
+                  {t("reject")}
+                </IconButton>
+              </>
+            ) : (
+              <IconButton
+                icon={SendIcon}
+                useLoader
+                className="form-page-submit-btn"
+                inverse
+                onClick={handleFinishClick}
+              >
+                Finish
+              </IconButton>
+            )}
           </div>
         </form>
       </div>

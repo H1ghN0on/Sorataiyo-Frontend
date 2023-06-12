@@ -158,7 +158,6 @@ const FormPage = () => {
     const instrumentId = instruments.findIndex(
       (instr) => +instr.value === data.application!.Instrument.id
     );
-    console.log(instruments);
     setActiveInstrumentType(instruments[instrumentId]);
   };
 

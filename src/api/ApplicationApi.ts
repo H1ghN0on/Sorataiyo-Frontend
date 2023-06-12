@@ -40,6 +40,10 @@ interface IUpdateApplicationStatusParams {
   status: "rejected" | "accepted" | "completed";
 }
 
+interface ICompleteApplicationParams {
+  id: number;
+}
+
 interface IDeleteApplicationParams {
   id: number;
 }
@@ -66,6 +70,10 @@ interface IGetApplicationByIdResult {
 }
 
 interface IUpdateApplicationStatusResult {
+  status: boolean;
+}
+
+interface ICompleteApplicationResult {
   status: boolean;
 }
 
@@ -119,9 +127,9 @@ const ApplicationApi = (instance: AxiosInstance) => {
         return null;
       }
     },
-    getPendingApplications: async (): Promise<IGetApplicationsResult | null> => {
+    getAdminApplications: async (): Promise<IGetApplicationsResult | null> => {
       try {
-        const data = await instance.get("/applications/pending/get");
+        const data = await instance.get("/applications/admin/get");
         if (!data) return null;
         return data.data;
       } catch (error: any) {
@@ -154,6 +162,22 @@ const ApplicationApi = (instance: AxiosInstance) => {
     ): Promise<IUpdateApplicationStatusResult | null> => {
       try {
         const data = await instance.post(`/applications/status/update`, { ...params });
+        if (!data) return null;
+        return data.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+          User.logout();
+          return null;
+        }
+        return null;
+      }
+    },
+    completeApplication: async (
+      params: ICompleteApplicationParams
+    ): Promise<ICompleteApplicationResult | null> => {
+      try {
+        const data = await instance.get(`/applications/complete/${params.id}`);
         if (!data) return null;
         return data.data;
       } catch (error: any) {

@@ -75,7 +75,7 @@ const AdminCatalogsPage = () => {
   //Model
 
   const getApplications = async () => {
-    const data = await Api().getPendingApplications();
+    const data = await Api().getAdminApplications();
     if (!data || !data.status) {
       notify();
       setFilteredCards([]);
